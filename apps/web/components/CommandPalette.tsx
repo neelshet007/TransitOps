@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useCallback, useRef, memo } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -34,7 +35,9 @@ const commands = [
 function CommandPalette() {
   const [isOpen,  setIsOpen]  = useState(false);
   const [query,   setQuery]   = useState('');
-  const [focused, setFocused] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);  const [focused, setFocused] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const router   = useRouter();
 
@@ -72,11 +75,14 @@ function CommandPalette() {
     if (e.key === 'Enter' && filtered[focused]) navigate(filtered[focused].path);
   };
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-[200] flex items-start justify-center pt-[12vh] px-4"
+          className="fixed inset-0 flex items-start justify-center pt-[12vh] px-4"
+          style={{ zIndex: 99999 }}
           role="dialog"
           aria-modal="true"
           aria-label="Command palette"
@@ -88,7 +94,8 @@ function CommandPalette() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/75"
+            style={{ backdropFilter: 'blur(4px)' }}
             onClick={close}
           />
 

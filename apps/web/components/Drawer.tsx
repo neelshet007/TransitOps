@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useCallback, memo } from 'react';
+import React, { useEffect, useCallback, memo, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 
@@ -23,29 +24,29 @@ function DrawerComponent({
   footer,
   width = 'max-w-md',
 }: DrawerProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
   const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    },
+    (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); },
     [onClose],
   );
 
   useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
+    if (!isOpen) return;
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, handleKeyDown]);
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex justify-end"
+          className="fixed inset-0 flex justify-end"
+          style={{ zIndex: 9999 }}
           role="dialog"
           aria-modal="true"
           aria-labelledby="drawer-title"
@@ -56,8 +57,9 @@ function DrawerComponent({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 bg-black/65 backdrop-blur-sm"
+            transition={{ duration: 0.22 }}
+            className="fixed inset-0 bg-black/70"
+            style={{ backdropFilter: 'blur(4px)', zIndex: 9998 }}
             onClick={onClose}
             aria-hidden="true"
           />
@@ -68,8 +70,9 @@ function DrawerComponent({
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ type: 'spring', stiffness: 300, damping: 32 }}
-            className={`relative ${width} w-full bg-brand-card border-l border-brand-border shadow-xl flex flex-col h-full`}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className={`relative ${width} w-full border-l border-brand-border shadow-xl flex flex-col h-full`}
+            style={{ backgroundColor: 'var(--bg-card)', zIndex: 9999 }}
           >
             {/* Header */}
             <div
@@ -77,20 +80,18 @@ function DrawerComponent({
               style={{ minHeight: 58 }}
             >
               <div className="min-w-0 pr-4">
-                <h2
-                  id="drawer-title"
-                  className="text-sm font-semibold text-text-primary leading-tight"
-                >
+                <h2 id="drawer-title" className="text-sm font-semibold leading-tight" style={{ color: 'var(--text-primary)' }}>
                   {title}
                 </h2>
                 {description && (
-                  <p className="text-xs text-text-secondary mt-0.5">{description}</p>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)' }}>{description}</p>
                 )}
               </div>
               <button
                 onClick={onClose}
                 className="btn-icon flex-shrink-0"
                 aria-label="Close panel"
+                type="button"
               >
                 <X size={16} />
               </button>
@@ -103,14 +104,18 @@ function DrawerComponent({
 
             {/* Optional footer */}
             {footer && (
-              <div className="flex-shrink-0 px-6 py-4 border-t border-brand-border bg-brand-panel flex items-center justify-end gap-3">
+              <div
+                className="flex-shrink-0 px-6 py-4 border-t border-brand-border flex items-center justify-end gap-3"
+                style={{ backgroundColor: 'var(--bg-panel)' }}
+              >
                 {footer}
               </div>
             )}
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body,
   );
 }
 
