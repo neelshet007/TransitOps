@@ -198,6 +198,14 @@ export interface Maintenance extends BaseEntity {
   status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   cost?: number | null;
   notes?: string | null;
+  category?: string | null;
+  next_service_date?: Date | string | null;
+  odometer?: number | null;
+  maintenance_interval?: number | null;
+  technician_name?: string | null;
+  vendor_name?: string | null;
+  labour_cost?: number | null;
+  parts_cost?: number | null;
 }
 
 export interface ExpenseCategory extends BaseEntity {
@@ -212,6 +220,13 @@ export interface Expense extends BaseEntity {
   amount: number;
   expense_date: Date;
   notes?: string | null;
+  driver_id?: string | null;
+  status?: string | null;
+  gst_number?: string | null;
+  gst_rate?: number | null;
+  gst_amount?: number | null;
+  vendor_name?: string | null;
+  invoice_number?: string | null;
 }
 
 export interface Notification extends BaseEntity {
