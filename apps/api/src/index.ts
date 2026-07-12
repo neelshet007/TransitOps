@@ -66,6 +66,16 @@ app.get('/health', (req, res) => {
   );
 });
 
+// Root Endpoint
+app.get('/', (req, res) => {
+  res.status(HTTP_STATUS.OK).json(
+    successResponse('TransitOps API is running. Database connection established.', {
+      status: 'UP',
+      timestamp: new Date(),
+    }),
+  );
+});
+
 // Register routes
 app.use('/api/v1/auth', authRoutes);
 

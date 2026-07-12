@@ -8,13 +8,14 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspaces --if-present",
+    "dev": "concurrently \"npm run dev -w @transitops/web\" \"npm run dev -w @transitops/api\"",
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "prepare": "husky"
   },
   "devDependencies": {
+    "concurrently": "^10.0.3",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.3",
     "husky": "^9.0.11",
