@@ -21,21 +21,11 @@ export class AuthService {
       throw new AuthenticationError('Invalid credentials.');
     }
 
-    // Extract roles and flat permissions list
-    const roles = user.user_roles.map((ur) => ur.role.code);
-    const permissions = Array.from(
-      new Set(
-        user.user_roles.flatMap((ur) =>
-          ur.role.role_permissions.map((rp) => rp.permission.code)
-        )
-      )
-    );
-
     const tokenPayload: JWTPayload = {
       userId: user.id,
       email: user.email,
-      roles,
-      permissions,
+      roles: user.roles,
+      permissions: user.permissions,
     };
 
     const accessToken = this.generateAccessToken(tokenPayload);
@@ -52,8 +42,8 @@ export class AuthService {
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
-        roles,
-        permissions,
+        roles: user.roles,
+        permissions: user.permissions,
       },
     };
   }
@@ -68,20 +58,11 @@ export class AuthService {
         throw new AuthenticationError('User not found or suspended.');
       }
 
-      const roles = user.user_roles.map((ur) => ur.role.code);
-      const permissions = Array.from(
-        new Set(
-          user.user_roles.flatMap((ur) =>
-            ur.role.role_permissions.map((rp) => rp.permission.code)
-          )
-        )
-      );
-
       const tokenPayload: JWTPayload = {
         userId: user.id,
         email: user.email,
-        roles,
-        permissions,
+        roles: user.roles,
+        permissions: user.permissions,
       };
 
       const newAccessToken = this.generateAccessToken(tokenPayload);
@@ -113,3 +94,4 @@ export class AuthService {
 }
 
 export const authService = new AuthService();
+export default authService;

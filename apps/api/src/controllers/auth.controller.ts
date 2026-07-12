@@ -80,15 +80,6 @@ export class AuthController {
         return next(new NotFoundError('User not found in records.'));
       }
 
-      const roles = user.user_roles.map((ur) => ur.role.code);
-      const permissions = Array.from(
-        new Set(
-          user.user_roles.flatMap((ur) =>
-            ur.role.role_permissions.map((rp) => rp.permission.code)
-          )
-        )
-      );
-
       res.status(HTTP_STATUS.OK).json(
         successResponse('Current user context loaded.', {
           id: user.id,
@@ -96,8 +87,8 @@ export class AuthController {
           first_name: user.first_name,
           last_name: user.last_name,
           is_active: user.is_active,
-          roles,
-          permissions,
+          roles: user.roles,
+          permissions: user.permissions,
         })
       );
     } catch (error) {
@@ -107,3 +98,4 @@ export class AuthController {
 }
 
 export const authController = new AuthController();
+export default authController;

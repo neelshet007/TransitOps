@@ -1,0 +1,2 @@
+-- Migration 001: Initial Schema Setup
+-- Replaced by global schema execution or imported here.

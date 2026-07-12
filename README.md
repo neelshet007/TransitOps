@@ -11,12 +11,13 @@ TransitOps is configured as an enterprise monorepo using npm workspaces:
 ```
 TransitOps/
 ├── apps/
-│   ├── api/            # Express.js + TypeScript + Prisma API Backend
+│   ├── api/            # Express.js + TypeScript + node-postgres (pg) API Backend
 │   └── web/            # Next.js (App Router) + TypeScript Frontend (Scaffold Only)
+├── database/           # Raw SQL schema, migrations, indexes, functions, views, seeds
 ├── packages/
 │   ├── types/          # Shared TypeScript models and API types
 │   ├── utils/          # Common utility helpers (date, formatting, responses)
-│   └── config/         # Shared linter and environment configs
+│   └── config/         # Shared linter, theme design tokens, and environment configs
 ├── docs/               # Architecture, database schema, and development guides
 └── scripts/            # Build and CI/CD setup scripts
 ```
@@ -38,7 +39,7 @@ For detailed specifications, see the documentation in `docs/`:
 ### 📋 Prerequisites
 - **Node.js** (v20+ recommended)
 - **npm** (v10+ recommended)
-- **PostgreSQL** instance running locally or remotely
+- **PostgreSQL** instance running locally or remotely (can be managed with pgAdmin 4)
 
 ### ⚙️ Quick Start
 
@@ -62,8 +63,8 @@ For detailed specifications, see the documentation in `docs/`:
 
 4. **Synchronize the database & seed:**
    ```bash
-   npm run prisma:migrate --workspace=@transitops/api
-   npm run prisma:seed --workspace=@transitops/api
+   npm run db:migrate --workspace=@transitops/api
+   npm run db:seed --workspace=@transitops/api
    ```
 
 5. **Run the services in development:**

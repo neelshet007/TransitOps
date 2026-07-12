@@ -21,12 +21,12 @@ Create `.env` inside `apps/api/` matching `apps/api/.env.example`:
 
 ## 🏃 Running in Development Mode
 
-1. **Prisma migration & seed setup:**
+1. **PostgreSQL raw SQL migration & seed setup:**
    Ensure database is running and `DATABASE_URL` is set, then run:
    ```bash
    # From root
-   npm run prisma:migrate --workspace=@transitops/api
-   npm run prisma:seed --workspace=@transitops/api
+   npm run db:migrate --workspace=@transitops/api
+   npm run db:seed --workspace=@transitops/api
    ```
 
 2. **Start Dev Server:**
