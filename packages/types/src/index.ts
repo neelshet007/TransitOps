@@ -167,6 +167,13 @@ export interface Trip extends BaseEntity {
   destination: string;
   start_odometer: number;
   end_odometer?: number | null;
+  distance?: number | null;
+  estimated_time?: string | null;
+  actual_start?: Date | string | null;
+  actual_end?: Date | string | null;
+  cargo?: string | null;
+  customer?: string | null;
+  notes?: string | null;
 }
 
 export interface FuelLog extends BaseEntity {

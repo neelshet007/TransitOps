@@ -18,6 +18,7 @@ import dashboardRoutes from './routes/dashboard.routes';
 import vehicleRoutes from './routes/vehicle.routes';
 import lookupRoutes from './routes/lookup.routes';
 import fleetRoutes from './routes/fleet.routes';
+import tripRoutes from './routes/trip.routes';
 import { HTTP_STATUS } from './constants';
 import { successResponse } from '@transitops/utils';
 
@@ -102,6 +103,7 @@ app.use('/api/v1/dashboard', dashboardRoutes);
 app.use('/api/v1/vehicles', vehicleRoutes);
 app.use('/api/v1/lookup', lookupRoutes);
 app.use('/api/v1/fleet', fleetRoutes);
+app.use('/api/v1/trips', tripRoutes);
 
 // ===============================
 // Error Handlers
