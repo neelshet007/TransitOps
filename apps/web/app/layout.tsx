@@ -1,4 +1,5 @@
 import React from 'react';
+import AppShell from '../components/AppShell';
 import './globals.css';
 
 export const metadata = {
@@ -9,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="bg-brand-bg text-white antialiased">
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }

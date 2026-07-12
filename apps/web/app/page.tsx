@@ -1,10 +1,5 @@
-import React from 'react';
+import { redirect } from 'next/navigation';
 
-export default function HomePage() {
-  return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>TransitOps</h1>
-      <p>Enterprise Fleet Operations ERP - Phase 0 Monorepo Foundation Setup.</p>
-    </main>
-  );
+export default function IndexPage() {
+  redirect('/dashboard');
 }
