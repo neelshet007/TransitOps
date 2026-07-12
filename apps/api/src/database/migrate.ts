@@ -5,9 +5,9 @@ import { logger } from '../utils/logger';
 
 async function migrate() {
   logger.info('🚀 Starting raw SQL migrations...');
-  
+
   const rootDir = path.join(__dirname, '../../../../');
-  
+
   const schemaPath = path.join(rootDir, 'database/schema.sql');
   const indexPath = path.join(rootDir, 'database/indexes/indexes.sql');
   const functionsPath = path.join(rootDir, 'database/functions/functions.sql');

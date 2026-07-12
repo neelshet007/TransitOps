@@ -51,7 +51,7 @@ export class AuthService {
   async refreshTokens(refreshToken: string) {
     try {
       const decoded = jwt.verify(refreshToken, config.JWT_REFRESH_SECRET) as JWTPayload;
-      
+
       // Fetch latest user details (roles/permissions could have changed)
       const user = await userRepository.findById(decoded.userId);
       if (!user || !user.is_active) {

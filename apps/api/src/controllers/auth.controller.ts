@@ -24,7 +24,7 @@ export class AuthController {
         successResponse(MESSAGES.AUTH.SUCCESS_LOGIN, {
           accessToken: result.accessToken,
           user: result.user,
-        })
+        }),
       );
     } catch (error) {
       next(error);
@@ -46,7 +46,7 @@ export class AuthController {
       res.status(HTTP_STATUS.OK).json(
         successResponse(MESSAGES.AUTH.SUCCESS_REFRESH, {
           accessToken: result.accessToken,
-        })
+        }),
       );
     } catch (error) {
       next(error);
@@ -61,9 +61,7 @@ export class AuthController {
         sameSite: 'strict',
       });
 
-      res.status(HTTP_STATUS.OK).json(
-        successResponse(MESSAGES.AUTH.SUCCESS_LOGOUT)
-      );
+      res.status(HTTP_STATUS.OK).json(successResponse(MESSAGES.AUTH.SUCCESS_LOGOUT));
     } catch (error) {
       next(error);
     }
@@ -74,7 +72,7 @@ export class AuthController {
       if (!req.user) {
         return next(new NotFoundError('Current user context not found.'));
       }
-      
+
       const user = await userRepository.findById(req.user.userId);
       if (!user) {
         return next(new NotFoundError('User not found in records.'));
@@ -89,7 +87,7 @@ export class AuthController {
           is_active: user.is_active,
           roles: user.roles,
           permissions: user.permissions,
-        })
+        }),
       );
     } catch (error) {
       next(error);

@@ -5,7 +5,7 @@ export const ROLES = {
   MAINTENANCE: 'maintenance',
 } as const;
 
-export type RoleCode = typeof ROLES[keyof typeof ROLES];
+export type RoleCode = (typeof ROLES)[keyof typeof ROLES];
 
 export const PERMISSIONS = {
   // Auth & Users
@@ -56,7 +56,7 @@ export const PERMISSIONS = {
   SETTINGS_MANAGE: 'settings:manage',
 } as const;
 
-export type PermissionCode = typeof PERMISSIONS[keyof typeof PERMISSIONS];
+export type PermissionCode = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
 
 export const HTTP_STATUS = {
   OK: 200,

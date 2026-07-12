@@ -23,7 +23,7 @@ app.use(
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-  })
+  }),
 );
 
 // Rate limiting
@@ -52,7 +52,7 @@ app.use(
     stream: {
       write: (message: string) => logger.info(message.trim()),
     },
-  })
+  }),
 );
 
 // Health Check Endpoint
@@ -62,7 +62,7 @@ app.get('/health', (req, res) => {
       status: 'UP',
       timestamp: new Date(),
       uptime: process.uptime(),
-    })
+    }),
   );
 });
 

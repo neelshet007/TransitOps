@@ -13,6 +13,7 @@ To coordinate work between the 3-member development team without code conflicts,
 ## 📌 Feature Branch Naming Format
 
 Developers must name their branches corresponding to the module or system they are working on:
+
 - `feature/auth` - Authentication updates
 - `feature/users` - User management operations
 - `feature/vehicles` - Vehicle management modules

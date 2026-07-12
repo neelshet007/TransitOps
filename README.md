@@ -23,6 +23,7 @@ TransitOps/
 ```
 
 For detailed specifications, see the documentation in `docs/`:
+
 - [Architecture.md](file:///c:/Web%20Devlopment/HackathonProject/transitops/docs/Architecture.md)
 - [Database.md](file:///c:/Web%20Devlopment/HackathonProject/transitops/docs/Database.md)
 - [API.md](file:///c:/Web%20Devlopment/HackathonProject/transitops/docs/API.md)
@@ -37,6 +38,7 @@ For detailed specifications, see the documentation in `docs/`:
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites
+
 - **Node.js** (v20+ recommended)
 - **npm** (v10+ recommended)
 - **PostgreSQL** instance running locally or remotely (can be managed with pgAdmin 4)
@@ -44,24 +46,29 @@ For detailed specifications, see the documentation in `docs/`:
 ### ⚙️ Quick Start
 
 1. **Clone the repository:**
+
    ```bash
    git clone <repo-url>
    cd transitops
    ```
 
 2. **Install all dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Configure environment variables:**
    Copy the example env in `apps/api/`:
+
    ```bash
    cp apps/api/.env.example apps/api/.env
    ```
+
    Open `apps/api/.env` and update the `DATABASE_URL` with your PostgreSQL credentials.
 
 4. **Synchronize the database & seed:**
+
    ```bash
    npm run db:migrate --workspace=@transitops/api
    npm run db:seed --workspace=@transitops/api
@@ -77,6 +84,7 @@ For detailed specifications, see the documentation in `docs/`:
 ## 🔒 Authentication & Seeding
 
 The database seeding initializes an administrative user:
+
 - **Email:** `admin@transitops.com`
 - **Password:** `Password123`
 - **Roles:** `admin` (full permissions)

@@ -5,7 +5,7 @@ import { logger } from '../utils/logger';
 
 async function seed() {
   logger.info('🌱 Starting database seeding...');
-  
+
   const rootDir = path.join(__dirname, '../../../../');
   const seedPath = path.join(rootDir, 'database/seeds/seed.sql');
 

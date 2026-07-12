@@ -3,6 +3,7 @@
 This document details the directories of the TransitOps repository.
 
 ## 📁 Monorepo Layout
+
 ```
 TransitOps/
 ├── .github/            # GitHub actions, workflows, and PR templates

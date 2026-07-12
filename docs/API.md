@@ -3,12 +3,14 @@
 Every REST endpoint in the TransitOps backend must follow these specifications.
 
 ## 📥 Request Structure
+
 - Content Type: `application/json`
 - Headers: `Authorization: Bearer <Access Token>` (for protected endpoints)
 
 ## 📤 Standard API Responses
 
 ### 1. Success Response (2xx HTTP Codes)
+
 ```json
 {
   "success": true,
@@ -27,6 +29,7 @@ Every REST endpoint in the TransitOps backend must follow these specifications.
 ```
 
 ### 2. Error Response (4xx/5xx HTTP Codes)
+
 ```json
 {
   "success": false,
@@ -43,6 +46,7 @@ Every REST endpoint in the TransitOps backend must follow these specifications.
 ## 🔒 Authentication API Endpoints
 
 ### 1. User Login
+
 - **Endpoint:** `POST /api/v1/auth/login`
 - **Payload:**
   ```json
@@ -54,15 +58,18 @@ Every REST endpoint in the TransitOps backend must follow these specifications.
 - **Response Data:** Returns `accessToken` in the JSON body, and sets a secure HttpOnly cookie containing the `refreshToken`.
 
 ### 2. Token Rotation
+
 - **Endpoint:** `POST /api/v1/auth/refresh`
 - **Payload:** Empty or `{ "refreshToken": "string" }`
 - **Behavior:** Verifies the refresh token cookie/payload, rotates both tokens, sets the new cookie, and returns the new `accessToken`.
 
 ### 3. User Logout
+
 - **Endpoint:** `POST /api/v1/auth/logout`
 - **Behavior:** Clears the HttpOnly `refreshToken` cookie.
 
 ### 4. Fetch Active Context (Me)
+
 - **Endpoint:** `GET /api/v1/auth/me`
 - **Headers:** `Authorization: Bearer <token>`
 - **Response Data:** Returns full user schema context including flattened active role and permission lists.

@@ -5,11 +5,7 @@ import { config } from '../config';
 import { AuthenticationError, ForbiddenError } from '../helpers/errors';
 import { MESSAGES } from '../constants';
 
-export const requireAuth = (
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-): void => {
+export const requireAuth = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -52,9 +48,7 @@ export const requirePermissions = (allowedPermissions: string[]) => {
       return next(new AuthenticationError(MESSAGES.AUTH.UNAUTHORIZED));
     }
 
-    const hasPermission = allowedPermissions.every((perm) =>
-      req.user!.permissions.includes(perm)
-    );
+    const hasPermission = allowedPermissions.every((perm) => req.user!.permissions.includes(perm));
 
     if (!hasPermission) {
       return next(new ForbiddenError(MESSAGES.AUTH.FORBIDDEN));

@@ -1,94 +1,78 @@
-// TransitOps Enterprise UI Design System Tokens
-// Configured for Charcoal Premium Dark Mode with Purple/Green Accents
+// TransitOps Enterprise Design System Tokens
+// Handcrafted Dark Theme for Transport Operations ERP
 
 export const designTokens = {
   theme: 'dark',
   colors: {
-    // Premium Charcoal Palette
+    // Backgrounds
     background: {
-      default: '#121214',  // Deep charcoal background
-      paper: '#1e1e24',    // Elevated cards / panels
-      subtle: '#2a2a32',   // Hover / active item background
+      primary: '#0F1115', // Main background
+      secondary: '#171A21', // Sub-panels and layouts
+      card: '#1C2028', // Information card modules
+      sidebar: '#14171D', // Left navigation bar
     },
+    // Typography
     text: {
-      primary: '#f3f4f6',  // Cool light gray text
-      secondary: '#9ca3af',// Soft neutral gray
-      disabled: '#6b7280', // Darker gray for disabled text
+      primary: '#FFFFFF', // Pure white title text
+      secondary: '#9CA3AF', // Soft gray body text
+      muted: '#6B7280', // Darker gray muted details
     },
-    // Restrained Accents
-    primary: {
-      main: '#8b5cf6',     // Violet Purple
-      light: '#a78bfa',
-      dark: '#7c3aed',
-      contrastText: '#ffffff',
-    },
-    success: {
-      main: '#10b981',     // Emerald Green
-      light: '#34d399',
-      dark: '#059669',
-      contrastText: '#ffffff',
-    },
-    error: {
-      main: '#ef4444',     // Crimson Red
-      light: '#f87171',
-      dark: '#dc2626',
-    },
-    warning: {
-      main: '#f59e0b',     // Amber
-      light: '#fbbf24',
-      dark: '#d97706',
-    },
+    // Borders
     border: {
-      default: '#2e2e38',  // Thin dark borders
-      subtle: '#24242d',
+      subtle: '#262A34', // Low contrast borders
+      divider: '#1E222B',
+    },
+    // Semantic Accent Status Colors
+    status: {
+      success: '#10B981', // Green
+      warning: '#F59E0B', // Amber
+      error: '#EF4444', // Red (destructive only)
+      info: '#3B82F6', // Blue
+      draft: '#6B7280', // Gray
+      accent: '#8B5CF6', // Purple
     },
   },
   typography: {
-    fontFamily: "'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+    fontFamily: "'Inter', 'Geist', 'IBM Plex Sans', -apple-system, sans-serif",
     fontSize: {
-      xs: '0.75rem',     // 12px
-      sm: '0.875rem',    // 14px - standard text
-      base: '1rem',      // 16px
-      lg: '1.125rem',    // 18px
-      xl: '1.25rem',     // 20px
-      h2: '1.5rem',      // 24px
-      h1: '1.875rem',    // 30px
+      xs: '0.75rem', // 12px
+      sm: '0.875rem', // 14px (Default text)
+      base: '1rem', // 16px
+      lg: '1.125rem', // 18px
+      xl: '1.25rem', // 20px
+      h2: '1.375rem', // 22px (Section header)
+      h1: '1.625rem', // 26px (Page header)
     },
     fontWeight: {
-      normal: '400',
       medium: '500',
       semibold: '600',
       bold: '700',
     },
   },
-  // 8px Spacing System
+  // 8px Spacing Grid
   spacing: {
-    xs: '4px',
-    sm: '8px',
-    md: '16px',
-    lg: '24px',
-    xl: '32px',
-    xxl: '48px',
+    grid_4: '4px',
+    grid_8: '8px',
+    grid_12: '12px',
+    grid_16: '16px',
+    grid_24: '24px',
+    grid_32: '32px',
+    grid_48: '48px',
+    grid_64: '64px',
   },
-  // 10-14px Border Radius
+  // Spacing Radius
   borderRadius: {
-    small: '6px',
-    medium: '10px',      // Standard card components
-    large: '14px',       // Large modal / panels
-    pill: '9999px',
+    input: '10px',
+    button: '10px',
+    card: '12px',
+    dialog: '16px',
+    badge: '9999px',
   },
-  // Subtle shadows (elevated look without being heavy)
+  // Subtly defined shadows (no glows, neon, or glassmorphism)
   shadows: {
-    subtle: '0 2px 8px rgba(0, 0, 0, 0.4)',
-    elevated: '0 8px 24px rgba(0, 0, 0, 0.6)',
-    glow: '0 0 12px rgba(139, 92, 246, 0.15)', // Purple glow
-  },
-  animations: {
-    transitionSpeed: {
-      fast: '150ms ease',
-      normal: '250ms ease-in-out',
-      slow: '350ms cubic-bezier(0.4, 0, 0.2, 1)',
-    },
+    subtle: '0 1px 3px rgba(0,0,0,0.2)',
+    card: '0 4px 6px rgba(0,0,0,0.3)',
+    dialog: '0 12px 24px rgba(0,0,0,0.5)',
   },
 };
 

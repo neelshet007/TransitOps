@@ -7,7 +7,10 @@ export const generateUUID = (): string => {
 };
 
 // Date Formatter
-export const formatDate = (date: Date | string | number, formatStr: string = 'YYYY-MM-DD'): string => {
+export const formatDate = (
+  date: Date | string | number,
+  formatStr: string = 'YYYY-MM-DD',
+): string => {
   const d = new Date(date);
   if (isNaN(d.getTime())) return '';
 
@@ -32,7 +35,7 @@ export const formatDate = (date: Date | string | number, formatStr: string = 'YY
 export const successResponse = <T>(
   message: string,
   data?: T,
-  meta?: Record<string, unknown>
+  meta?: Record<string, unknown>,
 ): APIResponse<T> => {
   return {
     success: true,
@@ -42,10 +45,7 @@ export const successResponse = <T>(
   };
 };
 
-export const errorResponse = (
-  message: string,
-  errors: string[] = []
-): APIResponse => {
+export const errorResponse = (message: string, errors: string[] = []): APIResponse => {
   return {
     success: false,
     message,
@@ -68,7 +68,7 @@ export const buildPagination = <T>(
   data: T[],
   totalRecords: number,
   page: number,
-  limit: number
+  limit: number,
 ): PaginatedResult<T> => {
   const totalPages = Math.ceil(totalRecords / limit);
   return {
@@ -85,7 +85,7 @@ export const buildPagination = <T>(
 // Search Helper: builds a search query for Prisma
 export const buildSearchQuery = (
   searchStr: string | undefined,
-  fields: string[]
+  fields: string[],
 ): Record<string, unknown> | undefined => {
   if (!searchStr) return undefined;
   return {
@@ -103,7 +103,7 @@ export const buildSortQuery = (
   sortBy: string | undefined,
   sortOrder: 'asc' | 'desc' | undefined,
   defaultField: string = 'created_at',
-  defaultOrder: 'asc' | 'desc' = 'desc'
+  defaultOrder: 'asc' | 'desc' = 'desc',
 ): Record<string, 'asc' | 'desc'> => {
   const field = sortBy || defaultField;
   const order = sortOrder || defaultOrder;
