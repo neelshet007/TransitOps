@@ -21,6 +21,10 @@ async function seed() {
     const driversSeedSql = fs.readFileSync(path.join(__dirname, '../../../../database/seeds/drivers.seed.sql'), 'utf8');
     await client.query(driversSeedSql);
 
+    logger.info('Applying demo seed data (vehicles, trips, fuel, maintenance, expenses)...');
+    const demoSeedSql = fs.readFileSync(path.join(__dirname, '../../../../database/seeds/demo.seed.sql'), 'utf8');
+    await client.query(demoSeedSql);
+
     await client.query('COMMIT');
     logger.info('✨ Seeding completed successfully!');
   } catch (error) {
