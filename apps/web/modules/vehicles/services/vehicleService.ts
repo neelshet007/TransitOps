@@ -1,35 +1,23 @@
 import apiClient from '../../../services/apiClient';
 import { APIResponse } from '@transitops/types';
-import { vehicles } from '../../../lib/mockDb';
 
 class VehicleService {
+  private normalizeVehicle(vehicle: any) {
+    if (!vehicle) return vehicle;
+    return {
+      ...vehicle,
+      current_mileage: vehicle.odometer ?? vehicle.current_mileage ?? 0,
+    };
+  }
+
   async getAll() {
-    try {
-      const response = await apiClient.get<APIResponse<any[]>>('/vehicles');
-      const apiData = response.data.data || [];
-      if (apiData.length === 0) return vehicles;
-      return apiData.map(v => ({
-        ...v,
-        current_mileage: v.odometer || v.current_mileage || 0
-      }));
-    } catch {
-      return vehicles;
-    }
+    const response = await apiClient.get<APIResponse<any[]>>('/vehicles');
+    return (response.data.data || []).map((vehicle) => this.normalizeVehicle(vehicle));
   }
 
   async getById(id: string) {
-    try {
-      const response = await apiClient.get<APIResponse<any>>(`/vehicles/${id}`);
-      const v = response.data.data;
-      if (v) {
-        v.current_mileage = v.odometer || v.current_mileage || 0;
-      }
-      return v;
-    } catch {
-      const found = vehicles.find((v) => v.id === id);
-      if (!found) throw new Error('Vehicle not found');
-      return found;
-    }
+    const response = await apiClient.get<APIResponse<any>>(`/vehicles/${id}`);
+    return this.normalizeVehicle(response.data.data);
   }
 
   async create(vehicle: any) {
@@ -43,25 +31,8 @@ class VehicleService {
       odometer: parseInt(vehicle.current_mileage || vehicle.odometer || '0', 10),
     };
 
-    const newMockVehicle = {
-      id: `veh-${1000 + vehicles.length}`,
-      ...payload,
-      current_mileage: payload.odometer,
-      last_service_date: new Date().toISOString().split('T')[0],
-    };
-    vehicles.unshift(newMockVehicle);
-
-    try {
-      const response = await apiClient.post<APIResponse<any>>('/vehicles', payload);
-      const res = response.data.data;
-      if (res) {
-        res.current_mileage = res.odometer || res.current_mileage || 0;
-      }
-      return res || newMockVehicle;
-    } catch (e) {
-      console.warn('Backend create vehicle failed, falling back to mock data', e);
-      return newMockVehicle;
-    }
+    const response = await apiClient.post<APIResponse<any>>('/vehicles', payload);
+    return this.normalizeVehicle(response.data.data);
   }
 
   async update(id: string, vehicle: any) {
@@ -77,40 +48,13 @@ class VehicleService {
         : undefined,
     };
 
-    const index = vehicles.findIndex((v) => v.id === id);
-    if (index !== -1) {
-      vehicles[index] = {
-        ...vehicles[index],
-        ...vehicle,
-        current_mileage: payload.odometer !== undefined ? payload.odometer : vehicles[index].current_mileage,
-      };
-    }
-
-    try {
-      const response = await apiClient.put<APIResponse<any>>(`/vehicles/${id}`, payload);
-      const res = response.data.data;
-      if (res) {
-        res.current_mileage = res.odometer || res.current_mileage || 0;
-      }
-      return res || vehicles[index];
-    } catch (e) {
-      console.warn('Backend update vehicle failed, falling back to mock data', e);
-      return vehicles[index] || vehicle;
-    }
+    const response = await apiClient.put<APIResponse<any>>(`/vehicles/${id}`, payload);
+    return this.normalizeVehicle(response.data.data);
   }
 
   async delete(id: string) {
-    const index = vehicles.findIndex((v) => v.id === id);
-    if (index !== -1) {
-      vehicles.splice(index, 1);
-    }
-    try {
-      const response = await apiClient.delete(`/vehicles/${id}`);
-      return response.data;
-    } catch (e) {
-      console.warn('Backend delete vehicle failed, falling back to mock data', e);
-      return { success: true };
-    }
+    const response = await apiClient.delete(`/vehicles/${id}`);
+    return response.data;
   }
 }
 

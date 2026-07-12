@@ -13,14 +13,17 @@ const TABS = [
   { id: 'api',           label: 'API',             icon: Globe },
 ];
 
-function Toggle({ defaultChecked = false }: { defaultChecked?: boolean }) {
+function Toggle({ defaultChecked = false, label = 'Setting' }: { defaultChecked?: boolean; label?: string }) {
   const [on, setOn] = useState(defaultChecked);
   return (
     <button
       type="button"
       role="switch"
       aria-checked={on}
-      onClick={() => setOn((v) => !v)}
+      onClick={() => {
+        console.log(`[Settings Toggle] Clicked: "${label}" -> new value:`, !on);
+        setOn((v) => !v);
+      }}
       className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors flex-shrink-0 ${on ? 'bg-accent-purple' : 'bg-brand-elevated border border-brand-border'}`}
     >
       <span className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${on ? 'translate-x-4' : 'translate-x-0.5'}`} />
@@ -34,8 +37,10 @@ export default function SettingsPage() {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[Settings General Form] Save clicked');
     setSaving(true);
     await new Promise((r) => setTimeout(r, 700));
+    console.log('[Settings General Form] Save completed');
     setSaving(false);
   };
 
@@ -52,7 +57,7 @@ export default function SettingsPage() {
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => { console.log('[Settings Tab] Clicked:', tab.id); setActiveTab(tab.id); }}
                 className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex-shrink-0 ${
                   active
                     ? 'bg-accent-purple/10 text-text-primary border border-accent-purple/20'
@@ -126,7 +131,7 @@ export default function SettingsPage() {
                     <p className="text-xs font-semibold text-text-primary">{item.label}</p>
                     <p className="text-xs text-text-muted mt-0.5">{item.desc}</p>
                   </div>
-                  <Toggle defaultChecked={item.on} />
+                  <Toggle defaultChecked={item.on} label={item.label} />
                 </div>
               ))}
               <div className="flex items-center justify-between p-4 card">

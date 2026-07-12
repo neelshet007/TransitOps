@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { Plus, Edit, Trash2, Shield, Lock, Users, Check } from 'lucide-react';
+import { Plus, Edit, Trash2, Shield, Lock, Users } from 'lucide-react';
 
 import DataTable    from '../../components/DataTable';
 import Modal        from '../../components/Modal';
@@ -9,6 +9,7 @@ import PageHeader   from '../../components/ui/PageHeader';
 import FilterBar    from '../../components/ui/FilterBar';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 import FormFooter   from '../../components/ui/FormFooter';
+import { useRoles } from '../../modules/roles/hooks/useRoles';
 
 const FILTERS = [
   { label: 'All',      value: 'all' },
@@ -16,24 +17,17 @@ const FILTERS = [
   { label: 'Inactive', value: 'inactive' },
 ];
 
-const initialRoles = [
-  { id: 'ROL-001', name: 'Super Admin',     description: 'Full access to all system modules and settings.',                  users: 3,  permissions: 45, status: 'active' },
-  { id: 'ROL-002', name: 'Fleet Manager',   description: 'Manage vehicles, drivers, and trips. No billing access.',          users: 12, permissions: 28, status: 'active' },
-  { id: 'ROL-003', name: 'Dispatcher',      description: 'Trip routing and dispatch logs only.',                              users: 24, permissions: 15, status: 'active' },
-  { id: 'ROL-004', name: 'Finance Admin',   description: 'Access to expenses, fuel costs, and invoicing.',                   users: 4,  permissions: 22, status: 'active' },
-  { id: 'ROL-005', name: 'Maintenance Lead','description': 'Vehicle health and service logs.',                               users: 8,  permissions: 18, status: 'active' },
-  { id: 'ROL-006', name: 'Guest Auditor',   description: 'Read-only access for compliance checks.',                          users: 1,  permissions: 5,  status: 'inactive' },
-];
-
 const defaultForm = { name: '', description: '', status: 'active' };
 
 export default function RolesPage() {
-  const [roles,        setRoles]        = useState(initialRoles);
+  const { roles, isLoading, createRole, updateRole, deleteRole } = useRoles();
+
   const [selected,     setSelected]     = useState<any | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isEditOpen,   setIsEditOpen]   = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [submitting,   setSubmitting]   = useState(false);
   const [formData,     setFormData]     = useState(defaultForm);
 
   const filtered = useMemo(() => {
@@ -58,24 +52,75 @@ export default function RolesPage() {
 
   const resetForm = () => { setFormData(defaultForm); setSelected(null); };
 
-  const handleCreate = (e: React.FormEvent) => {
+  const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setRoles([{ id: `ROL-00${roles.length + 1}`, ...formData, users: 0, permissions: 10 }, ...roles]);
-    setIsCreateOpen(false);
-    resetForm();
+    console.log('[Create Role] Submit button clicked');
+    console.log('[Create Role] Form Validation started');
+    if (!formData.name || !formData.description) {
+      console.warn('[Create Role] Validation failed');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Create Role] Validation passed');
+    setSubmitting(true);
+    try {
+      console.log('[Create Role] API function called with payload:', formData);
+      const res = await createRole(formData);
+      console.log('[Create Role] Response received:', res);
+      console.log('[Create Role] Success handler finished');
+      setIsCreateOpen(false);
+      resetForm();
+    } catch (err) {
+      console.error('[Create Role] Error handler triggered:', err);
+      alert('Failed to create role');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleEdit = (e: React.FormEvent) => {
+  const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setRoles(roles.map((r) => r.id === selected?.id ? { ...r, ...formData } : r));
-    setIsEditOpen(false);
-    resetForm();
+    console.log('[Edit Role] Submit button clicked');
+    if (!selected) return;
+    console.log('[Edit Role] Form Validation started');
+    if (!formData.name || !formData.description) {
+      console.warn('[Edit Role] Validation failed');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Edit Role] Validation passed');
+    setSubmitting(true);
+    try {
+      console.log('[Edit Role] API function called with payload:', formData);
+      const res = await updateRole(selected.id, formData);
+      console.log('[Edit Role] Response received:', res);
+      console.log('[Edit Role] Success handler finished');
+      setIsEditOpen(false);
+      resetForm();
+    } catch (err) {
+      console.error('[Edit Role] Error handler triggered:', err);
+      alert('Failed to update role');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleDelete = () => {
-    setRoles(roles.filter((r) => r.id !== selected?.id));
-    setIsDeleteOpen(false);
-    setSelected(null);
+  const handleDelete = async () => {
+    console.log('[Delete Role] Confirm button clicked');
+    if (!selected) return;
+    setSubmitting(true);
+    try {
+      console.log('[Delete Role] API function called for ID:', selected.id);
+      await deleteRole(selected.id);
+      console.log('[Delete Role] Success handler finished');
+      setIsDeleteOpen(false);
+      setSelected(null);
+    } catch (err) {
+      console.error('[Delete Role] Error handler triggered:', err);
+      alert('Failed to delete role');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const columns = [
@@ -128,7 +173,7 @@ export default function RolesPage() {
     },
   ];
 
-  const RoleForm = ({ onSubmit, onClose }: { onSubmit: (e: React.FormEvent) => void; onClose: () => void }) => (
+  const RoleForm = ({ onSubmit, onClose, loading }: { onSubmit: (e: React.FormEvent) => void; onClose: () => void; loading: boolean }) => (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="form-group">
         <label className="form-label">Role Name</label>
@@ -154,7 +199,7 @@ export default function RolesPage() {
           </p>
         </div>
       </div>
-      <FormFooter onCancel={onClose} />
+      <FormFooter onCancel={onClose} loading={loading} />
     </form>
   );
 
@@ -164,7 +209,7 @@ export default function RolesPage() {
         title="Access Control (RBAC)"
         description="Define permission blueprints and map module access rights to team roles"
         actions={
-          <button onClick={() => { resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
+          <button onClick={() => { console.log('[Create Role Button] Clicked to open modal'); resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
             <Plus size={14} /> Create Role
           </button>
         }
@@ -177,16 +222,24 @@ export default function RolesPage() {
         data={filtered}
         searchKey="name"
         searchPlaceholder="Search roles..."
+        isLoading={isLoading}
         actions={(row) => (
           <div className="flex items-center justify-end gap-1">
-            <button className="btn-icon" title="Edit role" onClick={() => { setSelected(row); setFormData({ name: row.name, description: row.description, status: row.status }); setIsEditOpen(true); }}>
+            <button className="btn-icon" title="Edit role" onClick={(e) => { e.stopPropagation(); console.log('[Edit Role Button] Clicked for ID:', row.id); setSelected(row); setFormData({ name: row.name, description: row.description, status: row.status }); setIsEditOpen(true); }}>
               <Edit size={14} />
             </button>
             <button
               className={`btn-icon ${row.users > 0 ? 'opacity-30 cursor-not-allowed' : 'hover:text-accent-red-soft'}`}
               title={row.users > 0 ? 'Cannot delete role with assigned users' : 'Delete role'}
               disabled={row.users > 0}
-              onClick={() => { if (row.users === 0) { setSelected(row); setIsDeleteOpen(true); } }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (row.users === 0) {
+                  console.log('[Delete Role Button] Clicked for ID:', row.id);
+                  setSelected(row);
+                  setIsDeleteOpen(true);
+                }
+              }}
             >
               <Trash2 size={14} />
             </button>
@@ -195,11 +248,11 @@ export default function RolesPage() {
       />
 
       <Modal isOpen={isCreateOpen} onClose={() => { setIsCreateOpen(false); resetForm(); }} title="Create Role" description="Define a new template for system permissions">
-        <RoleForm onSubmit={handleCreate} onClose={() => { setIsCreateOpen(false); resetForm(); }} />
+        <RoleForm onSubmit={handleCreate} onClose={() => { setIsCreateOpen(false); resetForm(); }} loading={submitting} />
       </Modal>
 
       <Modal isOpen={isEditOpen} onClose={() => { setIsEditOpen(false); resetForm(); }} title="Edit Role" description="Modify role naming and access scope">
-        <RoleForm onSubmit={handleEdit} onClose={() => { setIsEditOpen(false); resetForm(); }} />
+        <RoleForm onSubmit={handleEdit} onClose={() => { setIsEditOpen(false); resetForm(); }} loading={submitting} />
       </Modal>
 
       <ConfirmModal
@@ -208,6 +261,7 @@ export default function RolesPage() {
         onConfirm={handleDelete}
         title="Delete Role"
         confirmLabel="Delete Role"
+        loading={submitting}
         description={<>You are about to permanently delete <strong className="text-text-primary">{selected?.name}</strong>. This action cannot be undone.</>}
       />
     </div>

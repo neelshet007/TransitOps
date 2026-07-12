@@ -10,6 +10,7 @@ import PageHeader   from '../../components/ui/PageHeader';
 import FilterBar    from '../../components/ui/FilterBar';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 import FormFooter   from '../../components/ui/FormFooter';
+import { useUsers } from '../../modules/users/hooks/useUsers';
 
 const FILTERS = [
   { label: 'All',      value: 'all' },
@@ -18,23 +19,17 @@ const FILTERS = [
   { label: 'Locked',   value: 'locked' },
 ];
 
-const initialUsers = [
-  { id: 'USR-001', name: 'Rajesh Kumar',    email: 'rajesh.k@vrl.in',   role: 'Super Admin',      status: 'active',   lastLogin: '10m ago' },
-  { id: 'USR-002', name: 'Gurpreet Singh',  email: 'g.singh@vrl.in',    role: 'Fleet Manager',    status: 'active',   lastLogin: '1h ago' },
-  { id: 'USR-003', name: 'Amit Patel',      email: 'amit.p@vrl.in',     role: 'Dispatcher',       status: 'active',   lastLogin: '3h ago' },
-  { id: 'USR-004', name: 'Suresh Sharma',   email: 'suresh.s@vrl.in',   role: 'Finance Admin',    status: 'inactive', lastLogin: '2d ago' },
-  { id: 'USR-005', name: 'Vijay Yadav',     email: 'vijay.y@vrl.in',    role: 'Maintenance Lead', status: 'active',   lastLogin: '5m ago' },
-];
-
 const defaultForm = { name: '', email: '', role: 'Dispatcher', status: 'active' };
 
 export default function UsersPage() {
-  const [users,        setUsers]        = useState(initialUsers);
+  const { users, isLoading, createUser, updateUser, deleteUser } = useUsers();
+
   const [selected,     setSelected]     = useState<any | null>(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isEditOpen,   setIsEditOpen]   = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [submitting,   setSubmitting]   = useState(false);
   const [formData,     setFormData]     = useState(defaultForm);
 
   const filtered = useMemo(() => {
@@ -56,24 +51,75 @@ export default function UsersPage() {
 
   const resetForm = () => { setFormData(defaultForm); setSelected(null); };
 
-  const handleCreate = (e: React.FormEvent) => {
+  const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setUsers([{ id: `USR-00${users.length + 1}`, ...formData, lastLogin: 'Never' }, ...users]);
-    setIsCreateOpen(false);
-    resetForm();
+    console.log('[Provision User] Submit button clicked');
+    console.log('[Provision User] Form Validation started');
+    if (!formData.name || !formData.email || !formData.role) {
+      console.warn('[Provision User] Validation failed');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Provision User] Validation passed');
+    setSubmitting(true);
+    try {
+      console.log('[Provision User] API function called with payload:', formData);
+      const res = await createUser(formData);
+      console.log('[Provision User] Response received:', res);
+      console.log('[Provision User] Success handler finished');
+      setIsCreateOpen(false);
+      resetForm();
+    } catch (err) {
+      console.error('[Provision User] Error handler triggered:', err);
+      alert('Failed to register user');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleEdit = (e: React.FormEvent) => {
+  const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setUsers(users.map((u) => u.id === selected?.id ? { ...u, ...formData } : u));
-    setIsEditOpen(false);
-    resetForm();
+    console.log('[Edit User] Submit button clicked');
+    if (!selected) return;
+    console.log('[Edit User] Form Validation started');
+    if (!formData.name || !formData.email || !formData.role) {
+      console.warn('[Edit User] Validation failed');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Edit User] Validation passed');
+    setSubmitting(true);
+    try {
+      console.log('[Edit User] API function called with payload:', formData);
+      const res = await updateUser(selected.id, formData);
+      console.log('[Edit User] Response received:', res);
+      console.log('[Edit User] Success handler finished');
+      setIsEditOpen(false);
+      resetForm();
+    } catch (err) {
+      console.error('[Edit User] Error handler triggered:', err);
+      alert('Failed to update user');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
-  const handleDelete = () => {
-    setUsers(users.filter((u) => u.id !== selected?.id));
-    setIsDeleteOpen(false);
-    setSelected(null);
+  const handleDelete = async () => {
+    console.log('[Remove User] Confirm button clicked');
+    if (!selected) return;
+    setSubmitting(true);
+    try {
+      console.log('[Remove User] API function called for ID:', selected.id);
+      await deleteUser(selected.id);
+      console.log('[Remove User] Success handler finished');
+      setIsDeleteOpen(false);
+      setSelected(null);
+    } catch (err) {
+      console.error('[Remove User] Error handler triggered:', err);
+      alert('Failed to remove user');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const columns = [
@@ -123,7 +169,7 @@ export default function UsersPage() {
     },
   ];
 
-  const UserForm = ({ onSubmit, onClose }: { onSubmit: (e: React.FormEvent) => void; onClose: () => void }) => (
+  const UserForm = ({ onSubmit, onClose, loading }: { onSubmit: (e: React.FormEvent) => void; onClose: () => void; loading: boolean }) => (
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="form-group">
@@ -155,7 +201,7 @@ export default function UsersPage() {
           </select>
         </div>
       </div>
-      <FormFooter onCancel={onClose} />
+      <FormFooter onCancel={onClose} loading={loading} />
     </form>
   );
 
@@ -165,7 +211,7 @@ export default function UsersPage() {
         title="User Management"
         description="Provision staff accounts, manage access controls, and monitor sessions"
         actions={
-          <button onClick={() => { resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
+          <button onClick={() => { console.log('[Add User Button] Clicked to open modal'); resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
             <Plus size={14} /> Add User
           </button>
         }
@@ -186,12 +232,13 @@ export default function UsersPage() {
         data={filtered}
         searchKey="name"
         searchPlaceholder="Search by name or email..."
+        isLoading={isLoading}
         actions={(row) => (
           <div className="flex items-center justify-end gap-1">
-            <button className="btn-icon" title="Edit user" onClick={() => { setSelected(row); setFormData({ name: row.name, email: row.email, role: row.role, status: row.status }); setIsEditOpen(true); }}>
+            <button className="btn-icon" title="Edit user" onClick={(e) => { e.stopPropagation(); console.log('[Edit User Button] Clicked for ID:', row.id); setSelected(row); setFormData({ name: row.name, email: row.email, role: row.role, status: row.status }); setIsEditOpen(true); }}>
               <Edit size={14} />
             </button>
-            <button className="btn-icon hover:text-accent-red-soft" title="Remove user" onClick={() => { setSelected(row); setIsDeleteOpen(true); }}>
+            <button className="btn-icon hover:text-accent-red-soft" title="Remove user" onClick={(e) => { e.stopPropagation(); console.log('[Remove User Button] Clicked for ID:', row.id); setSelected(row); setIsDeleteOpen(true); }}>
               <Trash2 size={14} />
             </button>
           </div>
@@ -199,11 +246,11 @@ export default function UsersPage() {
       />
 
       <Modal isOpen={isCreateOpen} onClose={() => { setIsCreateOpen(false); resetForm(); }} title="Provision User" description="Create a new account and assign enterprise roles">
-        <UserForm onSubmit={handleCreate} onClose={() => { setIsCreateOpen(false); resetForm(); }} />
+        <UserForm onSubmit={handleCreate} onClose={() => { setIsCreateOpen(false); resetForm(); }} loading={submitting} />
       </Modal>
 
       <Modal isOpen={isEditOpen} onClose={() => { setIsEditOpen(false); resetForm(); }} title="Edit User" description="Modify access controls and account details">
-        <UserForm onSubmit={handleEdit} onClose={() => { setIsEditOpen(false); resetForm(); }} />
+        <UserForm onSubmit={handleEdit} onClose={() => { setIsEditOpen(false); resetForm(); }} loading={submitting} />
       </Modal>
 
       <ConfirmModal
@@ -212,6 +259,7 @@ export default function UsersPage() {
         onConfirm={handleDelete}
         title="Revoke User Access"
         confirmLabel="Revoke Access"
+        loading={submitting}
         description={<>This will permanently remove access for <strong className="text-text-primary">{selected?.name}</strong>. Their session will be terminated immediately.</>}
       />
     </div>
