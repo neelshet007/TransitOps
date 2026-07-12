@@ -1,50 +1,79 @@
-import { vehicles } from '../../../lib/mockDb';
+const API_URL = "http://localhost:5000/api/v1/vehicles";
 
-export class VehicleService {
+class VehicleService {
   async getAll() {
-    // Simulate API delay
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return [...vehicles];
+    const res = await fetch(API_URL, {
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch vehicles");
+    }
+
+    const data = await res.json();
+    return data.data;
   }
 
   async getById(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 150));
-    const veh = vehicles.find((v) => v.id === id);
-    if (!veh) throw new Error('Vehicle not found');
-    return { ...veh };
+    const res = await fetch(`${API_URL}/${id}`, {
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Vehicle not found");
+    }
+
+    const data = await res.json();
+    return data.data;
   }
 
-  async create(data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const newVeh = {
-      id: `veh-${1000 + vehicles.length}`,
-      ...data,
-      current_mileage: Number(data.current_mileage) || 0,
-      year: Number(data.year) || new Date().getFullYear(),
-      last_service_date: new Date().toISOString().split('T')[0],
-    };
-    vehicles.push(newVeh);
-    return newVeh;
+  async create(vehicle: any) {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(vehicle),
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to create vehicle");
+    }
+
+    const data = await res.json();
+    return data.data;
   }
 
-  async update(id: string, data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const index = vehicles.findIndex((v) => v.id === id);
-    if (index === -1) throw new Error('Vehicle not found');
+  async update(id: string, vehicle: any) {
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(vehicle),
+    });
 
-    vehicles[index] = {
-      ...vehicles[index],
-      ...data,
-    };
-    return vehicles[index];
+    if (!res.ok) {
+      throw new Error("Failed to update vehicle");
+    }
+
+    const data = await res.json();
+    return data.data;
   }
 
   async delete(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    const index = vehicles.findIndex((v) => v.id === id);
-    if (index === -1) throw new Error('Vehicle not found');
-    vehicles.splice(index, 1);
-    return { success: true };
+    const res = await fetch(`${API_URL}/${id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error("Failed to delete vehicle");
+    }
+
+    return await res.json();
   }
 }
 
