@@ -18,7 +18,6 @@ import {
   HelpCircle,
   ChevronLeft,
   ChevronRight,
-  ClipboardList,
   ChevronsUpDown,
   Building2,
 } from 'lucide-react';
@@ -31,9 +30,13 @@ interface SidebarProps {
 export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
   const pathname = usePathname();
   const [showWorkspaceDropdown, setShowWorkspaceDropdown] = useState(false);
-  const [workspace, setWorkspace] = useState('Apex Atlanta (Hub)');
+  const [workspace, setWorkspace] = useState('VRL Logistics (Mumbai)');
 
-  const workspacesList = ['Apex Atlanta (Hub)', 'Apex Dallas (Terminal)', 'Apex Chicago (Depot)'];
+  const workspacesList = [
+    'VRL Logistics (Mumbai)',
+    'SafeExpress (Delhi)',
+    'TCI Freight (Bengaluru)',
+  ];
 
   const navigation = [
     {
@@ -56,11 +59,8 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     {
       group: 'System',
       items: [
-        { name: 'Design System', href: '/design-system', icon: Building2 },
         { name: 'Analytics', href: '/analytics', icon: BarChart3 },
         { name: 'Reports', href: '/reports', icon: FileText },
-        { name: 'Users & Roles', href: '/users', icon: UserCheck },
-        { name: 'Logs', href: '/logs', icon: ClipboardList },
         { name: 'Settings', href: '/settings', icon: Settings },
       ],
     },
@@ -68,29 +68,43 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 
   return (
     <aside
-      className={`flex flex-col bg-brand-sidebar border-r border-brand-border h-full transition-all duration-300 relative ${
+      className={`flex flex-col bg-brand-sidebar border-r border-brand-border h-full transition-all duration-300 relative select-none z-30 ${
         collapsed ? 'w-[68px]' : 'w-[260px]'
       }`}
+      style={{
+        backgroundColor: 'var(--bg-sidebar)',
+        borderColor: 'var(--border-subtle)',
+      }}
     >
       {/* Brand logo & Workspace Switcher */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-brand-border h-[60px] overflow-hidden select-none">
+      <div className="flex items-center justify-between px-4 py-4 border-b border-brand-border h-[60px] overflow-hidden">
         {!collapsed ? (
           <div className="relative w-full mr-2">
             <button
               onClick={() => setShowWorkspaceDropdown(!showWorkspaceDropdown)}
-              className="flex items-center justify-between w-full p-1.5 bg-brand-panel hover:bg-brand-card rounded border border-brand-border text-left transition-colors"
+              className="flex items-center justify-between w-full p-2 bg-brand-panel hover:bg-brand-card rounded border border-brand-border text-left transition-all focus:outline-none"
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                borderColor: 'var(--border-subtle)',
+              }}
             >
               <div className="flex items-center gap-2 truncate">
-                <div className="w-6 h-6 rounded bg-accent-purple flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                  A
+                <div className="w-5 h-5 rounded bg-accent-purple flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+                  V
                 </div>
-                <span className="text-xs font-semibold text-white truncate">{workspace}</span>
+                <span className="text-[11px] font-semibold text-white truncate">{workspace}</span>
               </div>
               <ChevronsUpDown size={12} className="text-text-muted flex-shrink-0 ml-1" />
             </button>
 
             {showWorkspaceDropdown && (
-              <div className="absolute top-[38px] left-0 w-full bg-brand-card border border-brand-border rounded shadow-dialog py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
+              <div
+                className="absolute top-[38px] left-0 w-full bg-brand-card border border-brand-border rounded shadow-dialog py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
+                style={{
+                  backgroundColor: 'var(--bg-card)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
                 {workspacesList.map((ws) => (
                   <button
                     key={ws}
@@ -109,7 +123,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           </div>
         ) : (
           <div className="mx-auto w-8 h-8 rounded-lg bg-accent-purple flex items-center justify-center text-white font-bold">
-            A
+            V
           </div>
         )}
         <button
@@ -125,7 +139,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         {navigation.map((group) => (
           <div key={group.group} className="space-y-1">
             {!collapsed && (
-              <h3 className="px-3 text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">
+              <h3 className="px-3 text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">
                 {group.group}
               </h3>
             )}
@@ -138,14 +152,19 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-button text-sm font-medium transition-all ${
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-button text-[13px] font-medium transition-all ${
                         isActive
                           ? 'bg-brand-card text-white border-l-2 border-accent-purple'
                           : 'text-text-secondary hover:text-white hover:bg-brand-panel'
                       }`}
                       title={collapsed ? item.name : undefined}
+                      style={
+                        isActive
+                          ? { backgroundColor: 'var(--bg-card)', borderLeftColor: '#8B5CF6' }
+                          : {}
+                      }
                     >
-                      <IconComponent size={18} className={isActive ? 'text-accent-purple' : ''} />
+                      <IconComponent size={16} className={isActive ? 'text-accent-purple' : ''} />
                       {!collapsed && <span>{item.name}</span>}
                     </Link>
                   </li>
@@ -157,13 +176,16 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
       </nav>
 
       {/* Bottom Footer Help */}
-      <div className="p-4 border-t border-brand-border">
+      <div
+        className="p-4 border-t border-brand-border"
+        style={{ borderColor: 'var(--border-subtle)' }}
+      >
         <Link
           href="/help"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-button text-sm text-text-secondary hover:text-white transition-colors"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-button text-[13px] text-text-secondary hover:text-white transition-colors"
           title={collapsed ? 'Help Center' : undefined}
         >
-          <HelpCircle size={18} />
+          <HelpCircle size={16} />
           {!collapsed && <span>Help Center</span>}
         </Link>
       </div>

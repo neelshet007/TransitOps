@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Truck,
   Compass,
@@ -9,12 +9,22 @@ import {
   UserCheck,
   ChevronRight,
   MapPin,
+  Activity,
+  ShieldAlert,
+  CloudRain,
+  CheckCircle,
+  Plus,
+  Search,
+  FileText,
+  Settings,
+  Play,
+  CloudSun,
 } from 'lucide-react';
 import {
+  AreaChart,
+  Area,
   BarChart,
   Bar,
-  LineChart,
-  Line,
   PieChart,
   Pie,
   Cell,
@@ -28,72 +38,158 @@ import {
 import StatCard from '../../components/StatCard';
 import ChartCard from '../../components/ChartCard';
 
-// Dummy static chart values (realistic operational scales)
-const revenueData = [
-  { month: 'Jan', revenue: 450000, cost: 310000 },
-  { month: 'Feb', revenue: 520000, cost: 340000 },
-  { month: 'Mar', revenue: 610000, cost: 380000 },
-  { month: 'Apr', revenue: 580000, cost: 360000 },
-  { month: 'May', revenue: 670000, cost: 410000 },
-  { month: 'Jun', revenue: 750000, cost: 450000 },
+// Realistic Indian corporate dataset
+const financialData = [
+  { month: 'Jan', revenue: 4500000, expenses: 3100000 },
+  { month: 'Feb', revenue: 5200000, expenses: 3400000 },
+  { month: 'Mar', revenue: 6100000, expenses: 3800000 },
+  { month: 'Apr', revenue: 5800000, expenses: 3600000 },
+  { month: 'May', revenue: 6700000, expenses: 4100000 },
+  { month: 'Jun', revenue: 7500000, expenses: 4500000 },
 ];
 
 const fuelConsumptionData = [
-  { day: 'Mon', liters: 1520 },
-  { day: 'Tue', liters: 1680 },
-  { day: 'Wed', liters: 1810 },
-  { day: 'Thu', liters: 1660 },
-  { day: 'Fri', liters: 1920 },
-  { day: 'Sat', liters: 1210 },
-  { day: 'Sun', liters: 940 },
+  { day: 'Mon', liters: 4520 },
+  { day: 'Tue', liters: 4890 },
+  { day: 'Wed', liters: 5120 },
+  { day: 'Thu', liters: 4670 },
+  { day: 'Fri', liters: 5280 },
+  { day: 'Sat', liters: 3120 },
+  { day: 'Sun', liters: 2450 },
 ];
 
-const healthData = [
+const fleetHealthData = [
   { name: 'Active Fleet', value: 42, color: '#10B981' },
-  { name: 'In Repair', value: 3, color: '#EF4444' },
-  { name: 'Scheduled Maintenance', value: 5, color: '#F59E0B' },
+  { name: 'In Repair Station', value: 3, color: '#EF4444' },
+  { name: 'Scheduled Service', value: 5, color: '#F59E0B' },
 ];
 
-const activeTripsList = [
+const recentActivities = [
   {
-    route: 'Delhi, DL -> Mumbai, MH',
-    driver: 'Rajesh K.',
-    vehicle: 'MH-12-Q-1000',
-    status: 'On Time',
+    id: 1,
+    type: 'dispatch',
+    title: 'Route Dispatched',
+    desc: 'Tata Signa MH-12-Q-4521 cleared Mumbai LNL toll plaza.',
+    time: '12m ago',
+    state: 'success',
   },
   {
-    route: 'Mumbai, MH -> Bengaluru, KA',
-    driver: 'Amit P.',
-    vehicle: 'KA-03-Q-1034',
-    status: 'On Time',
+    id: 2,
+    type: 'alert',
+    title: 'Odometer Threshold Triggered',
+    desc: 'Mahindra Blazo KA-03-M-7714 flagged for routine service check.',
+    time: '1h ago',
+    state: 'warning',
   },
   {
-    route: 'Kolkata, WB -> Delhi, DL',
-    driver: 'Gurpreet S.',
-    vehicle: 'DL-01-Q-1017',
-    status: 'Delayed',
+    id: 3,
+    type: 'payment',
+    title: 'Fastag Auto-Recharge Approved',
+    desc: '₹25,000 wallet load processed for MH-12-Q-4521.',
+    time: '4h ago',
+    state: 'success',
+  },
+];
+
+const upcomingServices = [
+  {
+    id: 'maint-101',
+    vehicle: 'MH-12-Q-4521',
+    type: 'Brake Disc Inspection',
+    date: 'Jul 15, 2026',
+    cost: '₹12,500',
+  },
+  {
+    id: 'maint-102',
+    vehicle: 'DL-01-A-8962',
+    type: 'Differential Oil Flush',
+    date: 'Jul 18, 2026',
+    cost: '₹8,400',
   },
 ];
 
 export default function DashboardPage() {
+  const [activeFilter, setActiveFilter] = useState('all');
+
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* Upper Control Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
         <div>
           <h2 className="text-xl font-bold text-white tracking-tight">
-            Fleet Operations Dashboard
+            Enterprise Operations Control
           </h2>
           <p className="text-xs text-text-secondary mt-0.5">
-            VRL Logistics India — Executive Operations Control Console
+            VRL Logistics India — Regional Dispatch Dashboard
           </p>
         </div>
-        <div className="text-xs text-text-secondary text-right select-none">
-          Data status: <span className="font-semibold text-accent-green">Online (Kolkata)</span>
+
+        {/* Quick actions panel */}
+        <div className="flex items-center gap-2 self-start md:self-auto">
+          <button
+            onClick={() => alert('Dispatched new trip...')}
+            className="btn btn-primary text-xs flex items-center gap-1.5"
+          >
+            <Plus size={14} /> New Dispatch
+          </button>
+          <button
+            onClick={() => alert('Exporting monthly invoice logs...')}
+            className="btn btn-outline text-xs flex items-center gap-1.5"
+          >
+            <FileText size={14} /> Export Logs
+          </button>
         </div>
       </div>
 
-      {/* KPI Stats Grid */}
+      {/* Weather & System Status Widgets */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 select-none">
+        <div
+          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div className="p-2.5 bg-accent-blue/10 rounded-lg text-accent-blue">
+            <CloudRain size={20} className="animate-bounce" />
+          </div>
+          <div>
+            <span className="text-[10px] text-text-muted font-semibold block">
+              MUMBAI TERMINAL WEATHER
+            </span>
+            <span className="text-xs font-semibold text-white">31°C • Monsoon Rains</span>
+          </div>
+        </div>
+        <div
+          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div className="p-2.5 bg-accent-amber/10 rounded-lg text-accent-amber">
+            <CloudSun size={20} />
+          </div>
+          <div>
+            <span className="text-[10px] text-text-muted block font-semibold">
+              DELHI TRANSIT HUB
+            </span>
+            <span className="text-xs font-semibold text-white">38°C • Overcast haze</span>
+          </div>
+        </div>
+        <div
+          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5 md:col-span-2"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div className="p-2.5 bg-accent-green/10 rounded-lg text-accent-green">
+            <CheckCircle size={20} />
+          </div>
+          <div>
+            <span className="text-[10px] text-text-muted block font-semibold">
+              SYSTEM WORKLOAD METRICS
+            </span>
+            <span className="text-xs font-semibold text-white">
+              All gateways fully functional. 0 sync latencies.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main KPI Stats grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard
           title="Active Vehicles"
@@ -105,7 +201,7 @@ export default function DashboardPage() {
           sparklineData={[38, 39, 40, 38, 41, 42, 42]}
         />
         <StatCard
-          title="Trips Scheduled"
+          title="Trips Today"
           value="18"
           change="8 in transit"
           changeType="neutral"
@@ -123,16 +219,16 @@ export default function DashboardPage() {
           sparklineData={[80, 81, 83, 82, 83.5, 84, 84.2]}
         />
         <StatCard
-          title="Service Overdue"
+          title="Upcoming Service"
           value="3"
-          change="Urgent attention required"
+          change="Brakes & Oil inspect"
           changeType="negative"
           icon={AlertTriangle}
           iconColor="text-accent-red"
           sparklineData={[5, 4, 3, 4, 2, 3, 3]}
         />
         <StatCard
-          title="Drivers Active"
+          title="Driver availability"
           value="38 / 50"
           change="4 on rest cycle"
           changeType="neutral"
@@ -142,216 +238,264 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Maps & Operational Details */}
+      {/* SVG Dispatch Map Corridor Visualizer */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Mock Operations Map placeholder */}
-        <div className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[380px]">
-          <div className="flex items-center justify-between border-b border-brand-divider pb-4 mb-4">
+        {/* Animated Golden Quadrilateral India routes */}
+        <div
+          className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[380px]"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div
+            className="flex items-center justify-between border-b border-brand-divider pb-4 mb-4 select-none"
+            style={{ borderColor: 'var(--border-subtle)' }}
+          >
             <div>
-              <h4 className="text-sm font-semibold text-white">Interactive Dispatch Map</h4>
+              <h4 className="text-sm font-semibold text-white">Corridor Dispatch Status</h4>
               <p className="text-xs text-text-secondary mt-0.5">
-                Real-time status of scheduled routes
+                Real-time connecting routes between primary Indian hub terminals
               </p>
             </div>
-            <span className="flex items-center gap-1.5 text-xs text-accent-green bg-accent-green/10 px-2 py-0.5 rounded-badge font-medium">
+            <span className="flex items-center gap-1.5 text-xs text-accent-green bg-accent-green/10 px-2.5 py-0.5 rounded-badge font-medium">
               <span className="w-1.5 h-1.5 bg-accent-green rounded-full animate-ping"></span> Live
-              Tracking Active
+              Corridors Active
             </span>
           </div>
 
-          {/* Visual Map graphic representation */}
-          <div className="flex-grow bg-[#13161c] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[240px]">
-            {/* Grid dot pattern background representing a minimalist map */}
+          {/* Golden Quadrilateral Animation SVG */}
+          <div
+            className="flex-grow bg-[#090a0f] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[240px]"
+            style={{ borderColor: 'var(--border-subtle)' }}
+          >
+            {/* Grid Dots */}
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-            {/* Custom SVG Connecting paths representing India's Golden Quadrilateral corridors */}
+            {/* Connecting Paths */}
             <svg
               className="absolute inset-0 w-full h-full text-brand-border"
               viewBox="0 0 500 240"
               fill="none"
             >
-              {/* Delhi to Mumbai route line */}
+              {/* Delhi ➔ Mumbai */}
               <path
-                d="M250,40 L180,140"
+                d="M250,30 L180,130"
                 stroke="#3B82F6"
                 strokeWidth="2"
-                strokeDasharray="5,5"
-                className="animate-[dash_10s_linear_infinite]"
+                className="route-animate"
               />
-              {/* Mumbai to Bengaluru route line */}
+              {/* Mumbai ➔ Bengaluru */}
               <path
-                d="M180,140 L210,200"
+                d="M180,130 L210,190"
                 stroke="#10B981"
                 strokeWidth="2"
-                strokeDasharray="5,5"
-                className="animate-[dash_8s_linear_infinite]"
+                className="route-animate"
               />
-              {/* Bengaluru to Kolkata route line */}
+              {/* Bengaluru ➔ Kolkata */}
               <path
-                d="M210,200 L320,100"
+                d="M210,190 L320,90"
                 stroke="#8B5CF6"
                 strokeWidth="2"
-                strokeDasharray="5,5"
-                className="animate-[dash_12s_linear_infinite]"
+                className="route-animate"
               />
-              {/* Kolkata to Delhi route line */}
+              {/* Kolkata ➔ Delhi */}
               <path
-                d="M320,100 L250,40"
+                d="M320,90 L250,30"
                 stroke="#F59E0B"
                 strokeWidth="2"
-                strokeDasharray="5,5"
-                className="animate-[dash_15s_linear_infinite]"
+                className="route-animate"
               />
             </svg>
 
-            {/* Nodes */}
-            <div className="absolute top-[30px] left-[250px] flex flex-col items-center select-none">
-              <MapPin className="text-accent-amber" size={16} />
-              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
-                Delhi
-              </span>
-            </div>
-            <div className="absolute top-[130px] left-[170px] flex flex-col items-center select-none">
-              <MapPin className="text-accent-blue" size={16} />
-              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
-                Mumbai
-              </span>
-            </div>
-            <div className="absolute top-[190px] left-[200px] flex flex-col items-center select-none">
-              <MapPin className="text-accent-green" size={16} />
-              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
-                Bengaluru
-              </span>
-            </div>
-            <div className="absolute top-[90px] left-[320px] flex flex-col items-center select-none">
-              <MapPin className="text-accent-purple" size={16} />
-              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
-                Kolkata
-              </span>
-            </div>
-
-            <div className="absolute bottom-4 left-4 z-10 select-none">
-              <span className="text-[10px] text-text-muted font-mono block">
-                {' '}
-                Golden Quadrilateral Corridors Active
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Active Trips Dispatch list */}
-        <div className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col">
-          <h4 className="text-sm font-semibold text-white mb-4">Active Route Dispatch</h4>
-          <div className="space-y-4 flex-grow">
-            {activeTripsList.map((trip, idx) => (
-              <div
-                key={idx}
-                className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-center justify-between"
+            {/* Nodes overlay */}
+            <div className="absolute top-[20px] left-[250px] flex flex-col items-center">
+              <MapPin className="text-accent-amber animate-bounce" size={16} />
+              <span
+                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
               >
-                <div>
-                  <h5 className="text-xs font-semibold text-white">{trip.route}</h5>
-                  <p className="text-[10px] text-text-secondary mt-0.5">
-                    Driver: {trip.driver} | Truck: {trip.vehicle}
-                  </p>
-                </div>
-                <span
-                  className={`text-[10px] font-semibold px-2 py-0.5 rounded-badge ${
-                    trip.status === 'On Time'
-                      ? 'bg-accent-green/10 text-accent-green'
-                      : 'bg-accent-amber/10 text-accent-amber'
-                  }`}
-                >
-                  {trip.status}
-                </span>
-              </div>
-            ))}
+                Delhi Hub
+              </span>
+            </div>
+            <div className="absolute top-[120px] left-[170px] flex flex-col items-center">
+              <MapPin className="text-accent-blue animate-bounce" size={16} />
+              <span
+                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                Mumbai Depot
+              </span>
+            </div>
+            <div className="absolute top-[180px] left-[200px] flex flex-col items-center">
+              <MapPin className="text-accent-green animate-bounce" size={16} />
+              <span
+                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                Bengaluru Terminal
+              </span>
+            </div>
+            <div className="absolute top-[80px] left-[320px] flex flex-col items-center">
+              <MapPin className="text-accent-purple animate-bounce" size={16} />
+              <span
+                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                Kolkata Hub
+              </span>
+            </div>
           </div>
-          <button className="w-full text-center mt-6 text-xs text-accent-purple hover:underline flex items-center justify-center gap-1">
-            Open Dispatch Panel <ChevronRight size={14} />
-          </button>
         </div>
-      </div>
 
-      {/* Analytics Trend Graphs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Bar chart: Revenue vs Operating Costs */}
-        <ChartCard title="Revenue & Operating Costs" subtitle="Monthly financial breakdown (INR)">
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#262A34" />
-              <XAxis dataKey="month" stroke="#6B7280" fontSize={11} />
-              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `₹${tick / 1000}k`} />
-              <Tooltip contentStyle={{ backgroundColor: '#1C2028', borderColor: '#262A34' }} />
-              <Bar dataKey="revenue" fill="#8B5CF6" radius={[4, 4, 0, 0]} name="Gross Revenue" />
-              <Bar dataKey="cost" fill="#6B7280" radius={[4, 4, 0, 0]} name="Operating Cost" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        {/* Line Chart: Daily Fuel Consumption */}
-        <ChartCard
-          title="Fuel Consumption Trend"
-          subtitle="Daily liters used across fleet operations"
+        {/* Recent Activities feed widget */}
+        <div
+          className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
         >
-          <ResponsiveContainer width="100%" height={240}>
-            <LineChart
-              data={fuelConsumptionData}
-              margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#262A34" />
-              <XAxis dataKey="day" stroke="#6B7280" fontSize={11} />
-              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `${tick}L`} />
-              <Tooltip contentStyle={{ backgroundColor: '#1C2028', borderColor: '#262A34' }} />
-              <Line
-                type="monotone"
-                dataKey="liters"
-                stroke="#3B82F6"
-                strokeWidth={2}
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
-                name="Liters Consumed"
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        {/* Pie Chart: Fleet Status distribution */}
-        <ChartCard title="Fleet Status Breakdown" subtitle="Current vehicle distribution">
-          <div className="flex flex-col items-center justify-center h-[240px]">
-            <ResponsiveContainer width="100%" height={160}>
-              <PieChart>
-                <Pie
-                  data={healthData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={70}
-                  paddingAngle={4}
-                  dataKey="value"
+          <div className="select-none">
+            <h4 className="text-sm font-semibold text-white mb-4">Operations Timeline</h4>
+            <div className="space-y-4">
+              {recentActivities.map((act) => (
+                <div
+                  key={act.id}
+                  className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-start gap-3"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
                 >
-                  {healthData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={{ backgroundColor: '#1C2028', borderColor: '#262A34' }} />
-              </PieChart>
-            </ResponsiveContainer>
-            {/* Legend */}
-            <div className="flex gap-4 text-[10px] text-text-secondary mt-4 select-none">
-              {healthData.map((entry, index) => (
-                <div key={index} className="flex items-center gap-1.5">
-                  <span
-                    className="w-2.5 h-2.5 rounded-full"
-                    style={{ backgroundColor: entry.color }}
-                  ></span>
-                  <span>
-                    {entry.name}: {entry.value}
-                  </span>
+                  <div
+                    className={`p-1.5 rounded-full mt-0.5 ${
+                      act.state === 'success'
+                        ? 'bg-accent-green/10 text-accent-green'
+                        : 'bg-accent-amber/10 text-accent-amber'
+                    }`}
+                  >
+                    <Activity size={12} />
+                  </div>
+                  <div>
+                    <h5 className="text-[11px] font-semibold text-white">{act.title}</h5>
+                    <p className="text-[10px] text-text-secondary mt-0.5">{act.desc}</p>
+                    <span className="text-[9px] text-text-muted mt-1 block">{act.time}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
+          <button className="w-full text-center mt-6 text-xs text-accent-purple hover:underline flex items-center justify-center gap-1">
+            Open Activity ledger <ChevronRight size={14} />
+          </button>
+        </div>
+      </div>
+
+      {/* Analytics & Expenses detailed graphs */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Recharts Area Chart: Operations Revenue */}
+        <ChartCard
+          title="Revenue Operations"
+          subtitle="Gross shipping transactions vs expenses (INR)"
+        >
+          <ResponsiveContainer width="100%" height={240}>
+            <AreaChart data={financialData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+              <defs>
+                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#6B7280" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#6B7280" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" />
+              <XAxis dataKey="month" stroke="#6B7280" fontSize={11} />
+              <YAxis
+                stroke="#6B7280"
+                fontSize={11}
+                tickFormatter={(tick) => `₹${tick / 100000}L`}
+              />
+              <Tooltip contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B' }} />
+              <Area
+                type="monotone"
+                dataKey="revenue"
+                stroke="#8B5CF6"
+                fillOpacity={1}
+                fill="url(#colorRevenue)"
+                name="Gross revenue"
+              />
+              <Area
+                type="monotone"
+                dataKey="expenses"
+                stroke="#6B7280"
+                fillOpacity={1}
+                fill="url(#colorExpenses)"
+                name="Operating costs"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </ChartCard>
+
+        {/* Recharts Line Chart: Liters Consumed */}
+        <ChartCard
+          title="Fuel Consumption Density"
+          subtitle="Volumetric liters fuel summary (7-Day)"
+        >
+          <ResponsiveContainer width="100%" height={240}>
+            <BarChart
+              data={fuelConsumptionData}
+              margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" />
+              <XAxis dataKey="day" stroke="#6B7280" fontSize={11} />
+              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `${tick}L`} />
+              <Tooltip contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B' }} />
+              <Bar dataKey="liters" fill="#3B82F6" radius={[4, 4, 0, 0]} name="Liters Refueled" />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
+
+        {/* Upcoming Maintenance checklist */}
+        <div
+          className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          <div className="select-none">
+            <h4 className="text-sm font-semibold text-white mb-4">Upcoming Service calendar</h4>
+            <div className="space-y-4">
+              {upcomingServices.map((ser) => (
+                <div
+                  key={ser.id}
+                  className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-center justify-between"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  <div>
+                    <h5 className="text-[11px] font-semibold text-white">{ser.type}</h5>
+                    <p className="text-[10px] text-text-secondary mt-0.5">
+                      Vehicle: {ser.vehicle} | Date: {ser.date}
+                    </p>
+                  </div>
+                  <span className="text-[11px] font-semibold text-accent-green">{ser.cost}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button className="w-full text-center mt-6 text-xs text-accent-purple hover:underline flex items-center justify-center gap-1 select-none">
+            Schedule Maintenance Service <ChevronRight size={14} />
+          </button>
+        </div>
       </div>
     </div>
   );

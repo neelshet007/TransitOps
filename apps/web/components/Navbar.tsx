@@ -11,15 +11,16 @@ import {
   Shield,
   ChevronRight,
   Settings,
-  Sun,
   Moon,
+  Sun,
 } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Generate breadcrumbs from pathname
   const pathSegments = pathname.split('/').filter(Boolean);
@@ -27,29 +28,32 @@ export default function Navbar() {
   const notifications = [
     {
       id: '1',
-      title: 'Maintenance Overdue',
-      desc: 'Truck #TX-8921 is 3 days overdue for service.',
+      title: 'Route Congestion Alert',
+      desc: 'NH-48 corridor near Pune experiencing 45m delays.',
       time: '10m ago',
-      type: 'error',
     },
     {
       id: '2',
-      title: 'High Fuel Cost Alert',
-      desc: 'Driver Ronald Jenkins logged a transaction exceeding standard rate.',
+      title: 'Scheduled PM Overdue',
+      desc: 'Truck MH-12-Q-1045 is 2 days overdue for engine oil replacement.',
       time: '2h ago',
-      type: 'warning',
     },
     {
       id: '3',
-      title: 'Trip Scheduled',
-      desc: 'Trip #TRP-5512 successfully dispatched.',
-      time: '4h ago',
-      type: 'info',
+      title: 'Fastag Balance Low',
+      desc: 'Fastag account wallet balance below ₹5,000 threshold.',
+      time: '5h ago',
     },
   ];
 
   return (
-    <header className="top-navbar bg-brand-panel border-b border-brand-border h-[60px] flex items-center justify-between px-6 sticky top-0 z-50 select-none">
+    <header
+      className="top-navbar border-b h-[60px] flex items-center justify-between px-6 sticky top-0 z-40 select-none"
+      style={{
+        backgroundColor: 'var(--bg-secondary)',
+        borderColor: 'var(--border-subtle)',
+      }}
+    >
       {/* Breadcrumbs */}
       <div className="flex items-center gap-1.5 text-xs text-text-secondary">
         <Link href="/dashboard" className="hover:text-white transition-colors">
@@ -83,36 +87,37 @@ export default function Navbar() {
 
       {/* Search & Actions */}
       <div className="flex items-center gap-4">
-        {/* Search / Command palette helper */}
+        {/* Command Search button */}
         <button
           onClick={() => {
-            // Trigger Command Palette trigger
             const e = new KeyboardEvent('keydown', { ctrlKey: true, key: 'k' });
             window.dispatchEvent(e);
           }}
-          className="relative hidden md:flex items-center justify-between w-[240px] bg-brand-bg hover:bg-brand-card text-left text-text-muted hover:text-text-secondary border border-brand-border rounded-input px-3 py-1.5 text-xs outline-none transition-all"
+          className="relative hidden md:flex items-center justify-between w-[240px] text-left text-text-muted hover:text-text-secondary border rounded-input px-3 py-1.5 text-xs outline-none transition-all"
+          style={{
+            backgroundColor: 'var(--bg-primary)',
+            borderColor: 'var(--border-subtle)',
+          }}
         >
           <span className="flex items-center gap-2">
             <Search size={14} />
             <span>Search dispatch...</span>
           </span>
-          <span className="text-[9px] font-semibold bg-brand-panel border border-brand-border px-1.5 py-0.5 rounded text-text-muted">
+          <span
+            className="text-[9px] font-semibold px-1.5 py-0.5 rounded text-text-muted border"
+            style={{ borderColor: 'var(--border-subtle)' }}
+          >
             Ctrl K
           </span>
         </button>
 
         {/* Theme Toggle Button */}
         <button
-          onClick={() => {
-            setIsDarkMode(!isDarkMode);
-            alert(
-              'Theme preference saved. Charcoal dark mode is recommended for optimum contrast.',
-            );
-          }}
+          onClick={toggleTheme}
           className="p-2 text-text-secondary hover:text-white hover:bg-brand-bg rounded-full transition-colors"
-          title="Toggle Visual Theme Mode"
+          title="Toggle Theme"
         >
-          {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+          {theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
         </button>
 
         {/* Notifications Alert Dropdown */}
@@ -125,20 +130,39 @@ export default function Navbar() {
             className="p-2 text-text-secondary hover:text-white hover:bg-brand-bg rounded-full transition-colors relative"
           >
             <Bell size={18} />
-            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-accent-red border-2 border-brand-panel rounded-full"></span>
+            <span
+              className="absolute top-1 right-1 w-2.5 h-2.5 bg-accent-red border-2 border-brand-panel rounded-full"
+              style={{ borderColor: 'var(--bg-secondary)' }}
+            ></span>
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-80 bg-brand-card border border-brand-border rounded-card shadow-dialog overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-150">
-              <div className="px-4 py-3 border-b border-brand-border flex items-center justify-between">
+            <div
+              className="absolute right-0 mt-2 w-80 border rounded-card shadow-dialog overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-150"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
+              <div
+                className="px-4 py-3 border-b flex items-center justify-between"
+                style={{ borderColor: 'var(--border-subtle)' }}
+              >
                 <span className="font-semibold text-white text-xs">Alert Notifications</span>
                 <button className="text-[10px] text-accent-purple hover:underline">
                   Mark all read
                 </button>
               </div>
-              <div className="divide-y divide-brand-divider max-h-[300px] overflow-y-auto">
+              <div
+                className="divide-y divide-brand-divider max-h-[300px] overflow-y-auto"
+                style={{ dividerColor: 'var(--border-subtle)' }}
+              >
                 {notifications.map((notif) => (
-                  <div key={notif.id} className="p-4 hover:bg-brand-panel transition-colors">
+                  <div
+                    key={notif.id}
+                    className="p-4 hover:bg-brand-panel transition-colors"
+                    style={{ hoverBackgroundColor: 'var(--bg-secondary)' }}
+                  >
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="text-xs font-semibold text-white">{notif.title}</h4>
                       <span className="text-[10px] text-text-muted whitespace-nowrap">
@@ -149,14 +173,16 @@ export default function Navbar() {
                   </div>
                 ))}
               </div>
-              <div className="px-4 py-2 bg-brand-panel text-center border-t border-brand-border">
-                <Link
-                  href="/notifications"
-                  className="text-xs text-accent-purple hover:underline"
-                  onClick={() => setShowNotifications(false)}
-                >
-                  View all notifications
-                </Link>
+              <div
+                className="px-4 py-2 text-center border-t"
+                style={{
+                  borderColor: 'var(--border-subtle)',
+                  backgroundColor: 'var(--bg-secondary)',
+                }}
+              >
+                <span className="text-xs text-accent-purple cursor-pointer hover:underline">
+                  Clear all alerts
+                </span>
               </div>
             </div>
           )}
@@ -171,14 +197,26 @@ export default function Navbar() {
             }}
             className="flex items-center gap-2 hover:opacity-90 focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-full bg-brand-bg border border-brand-border flex items-center justify-center text-accent-purple font-semibold text-sm">
+            <div
+              className="w-8 h-8 rounded-full border flex items-center justify-center text-accent-purple font-semibold text-sm"
+              style={{
+                backgroundColor: 'var(--bg-primary)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
               SA
             </div>
           </button>
 
           {showProfile && (
-            <div className="absolute right-0 mt-2 w-56 bg-brand-card border border-brand-border rounded-card shadow-dialog overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-150">
-              <div className="px-4 py-3 border-b border-brand-border">
+            <div
+              className="absolute right-0 mt-2 w-56 border rounded-card shadow-dialog overflow-hidden z-[100] animate-in fade-in slide-in-from-top-2 duration-150"
+              style={{
+                backgroundColor: 'var(--bg-card)',
+                borderColor: 'var(--border-subtle)',
+              }}
+            >
+              <div className="px-4 py-3 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
                 <p className="text-xs font-semibold text-white">System Admin</p>
                 <p className="text-[10px] text-text-muted">admin@transitops.com</p>
               </div>
@@ -205,7 +243,7 @@ export default function Navbar() {
                   <Shield size={14} /> Security Logs
                 </Link>
               </div>
-              <div className="border-t border-brand-border py-1">
+              <div className="border-t py-1" style={{ borderColor: 'var(--border-subtle)' }}>
                 <button
                   onClick={() => alert('Mock Logout Triggered')}
                   className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-accent-red hover:bg-brand-panel transition-colors"

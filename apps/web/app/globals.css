@@ -6,52 +6,68 @@
 
 :root {
   --font-sans: 'Inter', -apple-system, sans-serif;
-  --bg-primary: #F3F4F6;       /* Light bg */
-  --bg-secondary: #FFFFFF;     /* Light panel */
-  --bg-card: #FFFFFF;
-  --bg-sidebar: #F9FAFB;
-  --border-subtle: #E5E7EB;
-  --text-primary: #111827;
-  --text-secondary: #4B5563;
-  --text-muted: #9CA3AF;
-  --brand-panel-raw: #FFFFFF;
-  --brand-card-raw: #FFFFFF;
-}
-
-.dark {
-  --bg-primary: #0F1115;       /* Premium Charcoal */
-  --bg-secondary: #171A21;     /* Charcoal panel */
-  --bg-card: #1C2028;          /* Card panel */
-  --bg-sidebar: #14171D;       /* Sidebar */
-  --border-subtle: #262A34;    /* Subtle border */
+  --bg-primary: #090A0F;
+  --bg-secondary: #0F1117;
+  --bg-card: #151720;
+  --bg-sidebar: #0D0F14;
+  --border-subtle: #1E212A;
   --text-primary: #FFFFFF;
   --text-secondary: #9CA3AF;
   --text-muted: #6B7280;
-  --brand-panel-raw: #171A21;
-  --brand-card-raw: #1C2028;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow: hidden;
 }
 
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-subtle);
+  background: #1e212a;
   border-radius: 4px;
 }
+::-webkit-scrollbar-thumb:hover {
+  background: #2a2e3b;
+}
 
-/* Layout structural components */
+/* Keyframes for SVG Dash Animations representing active cargo paths */
+@keyframes routeDash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.route-animate {
+  stroke-dasharray: 6, 4;
+  animation: routeDash 1.2s linear infinite;
+}
+
+/* Shimmer Skeletal Loader */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.shimmer-bg {
+  background: linear-gradient(90deg, #151720 25%, #222533 50%, #151720 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Standard visual utilities */
 .app-shell {
   display: flex;
   height: 100vh;
@@ -66,20 +82,4 @@ body {
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-/* Skeleton Loading Animation */
-@keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-.shimmer-bg {
-  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-subtle) 50%, var(--bg-card) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
 }
