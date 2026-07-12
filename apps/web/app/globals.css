@@ -6,17 +6,36 @@
 
 :root {
   --font-sans: 'Inter', -apple-system, sans-serif;
-  --bg-primary: #0F1115;
-  --bg-secondary: #171A21;
-  --bg-card: #1C2028;
-  --bg-sidebar: #14171D;
-  --border-subtle: #262A34;
+  --bg-primary: #F3F4F6;       /* Light bg */
+  --bg-secondary: #FFFFFF;     /* Light panel */
+  --bg-card: #FFFFFF;
+  --bg-sidebar: #F9FAFB;
+  --border-subtle: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+  --brand-panel-raw: #FFFFFF;
+  --brand-card-raw: #FFFFFF;
+}
+
+.dark {
+  --bg-primary: #0F1115;       /* Premium Charcoal */
+  --bg-secondary: #171A21;     /* Charcoal panel */
+  --bg-card: #1C2028;          /* Card panel */
+  --bg-sidebar: #14171D;       /* Sidebar */
+  --border-subtle: #262A34;    /* Subtle border */
+  --text-primary: #FFFFFF;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  --brand-panel-raw: #171A21;
+  --brand-card-raw: #1C2028;
 }
 
 body {
   background-color: var(--bg-primary);
-  color: #FFFFFF;
-  font-family: 'Inter', sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Custom Scrollbars */
@@ -28,11 +47,8 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #262a34;
+  background: var(--border-subtle);
   border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #3b3f4c;
 }
 
 /* Layout structural components */
@@ -41,7 +57,7 @@ body {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #0F1115;
+  background-color: var(--bg-primary);
 }
 
 .main-content {
@@ -63,7 +79,7 @@ body {
 }
 
 .shimmer-bg {
-  background: linear-gradient(90deg, #1c2028 25%, #2a2e37 50%, #1c2028 75%);
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border-subtle) 50%, var(--bg-card) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }

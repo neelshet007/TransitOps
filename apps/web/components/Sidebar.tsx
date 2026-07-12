@@ -56,6 +56,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
     {
       group: 'System',
       items: [
+        { name: 'Design System', href: '/design-system', icon: Building2 },
         { name: 'Analytics', href: '/analytics', icon: BarChart3 },
         { name: 'Reports', href: '/reports', icon: FileText },
         { name: 'Users & Roles', href: '/users', icon: UserCheck },
