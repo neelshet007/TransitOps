@@ -75,9 +75,26 @@ For detailed specifications, see the documentation in `docs/`:
    ```
 
 5. **Run the services in development:**
-   ```bash
-   npm run dev
-   ```
+
+   - **Option A: Run Both Concurrently (Recommended)**
+     Launch both Next.js and the Express API at the same time:
+
+     ```bash
+     npm run dev
+     ```
+     - **Web Frontend URL:** [http://localhost:3000](http://localhost:3000)
+     - **API Backend URL:** [http://localhost:5000](http://localhost:5000)
+
+   - **Option B: Run ONLY the Frontend**
+
+     ```bash
+     npm run dev --workspace=@transitops/web
+     ```
+
+   - **Option C: Run ONLY the Backend**
+     ```bash
+     npm run dev --workspace=@transitops/api
+     ```
 
 ---
 
