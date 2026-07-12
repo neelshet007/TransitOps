@@ -1,68 +1,98 @@
 // TransitOps Centralized Mock Database
-// Programmatically generates 100+ realistic transport operations records
+// Programmatically generates 100+ realistic Indian transport operations records
 
 // Helper to generate UUIDs
 const uuid = () =>
   Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
-// Realistic Fleet configurations
+// Realistic Indian Fleet configurations
 const truckModels = [
-  { make: 'Freightliner', model: 'Cascadia', capacity: 44000, fuelCap: 120, mpg: 6.8 },
-  { make: 'Peterbilt', model: '579', capacity: 40000, fuelCap: 150, mpg: 6.5 },
-  { make: 'Volvo', model: 'VNL 860', capacity: 42000, fuelCap: 130, mpg: 7.2 },
-  { make: 'Kenworth', model: 'T680', capacity: 45000, fuelCap: 140, mpg: 6.9 },
-  { make: 'Mack', model: 'Anthem', capacity: 41000, fuelCap: 120, mpg: 6.7 },
+  { make: 'Tata', model: 'Signa 4825.T', capacity: 48000, fuelCap: 300, mpg: 4.2 },
+  { make: 'Ashok Leyland', model: 'Ecomet 1615', capacity: 16000, fuelCap: 185, mpg: 5.5 },
+  { make: 'Mahindra', model: 'Blazo X 49', capacity: 49000, fuelCap: 415, mpg: 3.8 },
+  { make: 'BharatBenz', model: '3523R', capacity: 35000, fuelCap: 380, mpg: 4.5 },
+  { make: 'Eicher', model: 'Pro 6048', capacity: 48000, fuelCap: 350, mpg: 4.0 },
 ];
 
 const driverNames = [
-  { first: 'Marcus', last: 'Vance', phone: '(404) 555-0143', email: 'marcus.vance@transitops.com' },
-  { first: 'Ronald', last: 'Jenkins', phone: '(312) 555-0192', email: 'r.jenkins@transitops.com' },
-  { first: 'Elena', last: 'Rostova', phone: '(718) 555-0211', email: 'e.rostova@transitops.com' },
-  { first: 'David', last: 'Kim', phone: '(213) 555-0245', email: 'david.kim@transitops.com' },
-  { first: 'Sarah', last: 'Alvarez', phone: '(305) 555-0288', email: 's.alvarez@transitops.com' },
   {
-    first: 'Douglas',
-    last: 'Miller',
-    phone: '(617) 555-0322',
-    email: 'doug.miller@transitops.com',
+    first: 'Rajesh',
+    last: 'Kumar',
+    phone: '+91 98765 01234',
+    email: 'rajesh.kumar@vrl-logistics.com',
   },
-  { first: 'Amir', last: 'Hassan', phone: '(713) 555-0367', email: 'amir.hassan@transitops.com' },
-  { first: 'Tanya', last: 'Grover', phone: '(206) 555-0419', email: 't.grover@transitops.com' },
+  {
+    first: 'Gurpreet',
+    last: 'Singh',
+    phone: '+91 98765 05678',
+    email: 'gurpreet.s@vrl-logistics.com',
+  },
+  { first: 'Amit', last: 'Patel', phone: '+91 98765 09012', email: 'amit.patel@vrl-logistics.com' },
+  {
+    first: 'Suresh',
+    last: 'Sharma',
+    phone: '+91 98765 03456',
+    email: 'suresh.s@vrl-logistics.com',
+  },
+  {
+    first: 'Vijay',
+    last: 'Yadav',
+    phone: '+91 98765 07890',
+    email: 'vijay.yadav@vrl-logistics.com',
+  },
+  {
+    first: 'Harpreet',
+    last: 'Brar',
+    phone: '+91 98765 02345',
+    email: 'harpreet.b@vrl-logistics.com',
+  },
+  { first: 'Sanjay', last: 'Dutt', phone: '+91 98765 06789', email: 'sanjay.d@vrl-logistics.com' },
+  {
+    first: 'Praveen',
+    last: 'Hegde',
+    phone: '+91 98765 01122',
+    email: 'praveen.h@vrl-logistics.com',
+  },
 ];
 
 const cities = [
-  'Atlanta, GA',
-  'Chicago, IL',
-  'Dallas, TX',
-  'Los Angeles, CA',
-  'Miami, FL',
-  'Seattle, WA',
-  'Houston, TX',
-  'Boston, MA',
-  'Denver, CO',
-  'Phoenix, AZ',
-  'Charlotte, NC',
-  'Nashville, TN',
+  'Mumbai, MH',
+  'Delhi, DL',
+  'Bengaluru, KA',
+  'Kolkata, WB',
+  'Chennai, TN',
+  'Pune, MH',
+  'Hyderabad, TS',
+  'Ahmedabad, GJ',
+  'Jaipur, RJ',
+  'Lucknow, UP',
+  'Chandigarh, CH',
+  'Indore, MP',
 ];
 
 // Generate Vehicles (50 records)
 export const vehicles = Array.from({ length: 50 }).map((_, index) => {
   const modelConfig = truckModels[index % truckModels.length];
-  const year = 2018 + (index % 6);
+  const year = 2019 + (index % 6);
   const status = index === 5 ? 'maintenance' : index % 12 === 0 ? 'inactive' : 'active';
   const id = `veh-${1000 + index}`;
+
+  // Indian State Plate codes
+  const stateCodes = ['MH-12', 'DL-01', 'KA-03', 'GJ-01', 'HR-55'];
+  const stateCode = stateCodes[index % stateCodes.length];
+
   return {
     id,
-    plate_number: `TX-${10000 + index * 17}`,
+    plate_number: `${stateCode}-Q-${1000 + index * 17}`,
     make: modelConfig.make,
     model: modelConfig.model,
     year,
-    vin: `1FVACWDB${index * 3}EH${100000 + index}`,
+    vin: `MBL12TATA${index * 3}EH${100000 + index}`,
     status,
     payload_capacity_lbs: modelConfig.capacity,
     fuel_capacity_gal: modelConfig.fuelCap,
     average_mpg: modelConfig.mpg,
-    current_mileage: 120000 + index * 4521,
+    current_mileage: 65000 + index * 3210,
     last_service_date: new Date(Date.now() - (index % 30) * 24 * 60 * 60 * 1000)
       .toISOString()
       .split('T')[0],
@@ -82,7 +112,7 @@ export const drivers = Array.from({ length: 50 }).map((_, index) => {
     last_name: driverConfig.last,
     email: driverConfig.email.replace('@', `${index}@`),
     phone: driverConfig.phone,
-    license_number: `CDL-${88000 + index * 13}`,
+    license_number: `IND-DL-${88000 + index * 13}`,
     license_expiry: new Date(Date.now() + (30 + index * 45) * 24 * 60 * 60 * 1000)
       .toISOString()
       .split('T')[0],
@@ -100,12 +130,12 @@ export const trips = Array.from({ length: 100 }).map((_, index) => {
   const driver = drivers[index % drivers.length];
   const origin = cities[index % cities.length];
   const destination = cities[(index + 3) % cities.length];
-  const revenue = 1200 + (index % 15) * 220;
+  const revenue = 35000 + (index % 15) * 4500; // in INR
   const status =
     index < 3 ? 'in_progress' : index < 6 ? 'scheduled' : index === 8 ? 'cancelled' : 'completed';
   const startTime = new Date(Date.now() - (index % 20) * 24 * 60 * 60 * 1000);
   const endTime =
-    status === 'completed' ? new Date(startTime.getTime() + 8 * 60 * 60 * 1000) : null;
+    status === 'completed' ? new Date(startTime.getTime() + 12 * 60 * 60 * 1000) : null;
 
   return {
     id: `trp-${5000 + index}`,
@@ -120,8 +150,8 @@ export const trips = Array.from({ length: 100 }).map((_, index) => {
     origin,
     destination,
     start_odometer: vehicle.current_mileage - 1200 + index * 10,
-    end_odometer: status === 'completed' ? vehicle.current_mileage - 1200 + index * 10 + 350 : null,
-    distance_miles: status === 'completed' ? 350 + (index % 5) * 50 : 0,
+    end_odometer: status === 'completed' ? vehicle.current_mileage - 1200 + index * 10 + 450 : null,
+    distance_miles: status === 'completed' ? 450 + (index % 5) * 80 : 0, // in KM actually
     revenue,
   };
 });
@@ -130,8 +160,8 @@ export const trips = Array.from({ length: 100 }).map((_, index) => {
 export const fuelLogs = Array.from({ length: 100 }).map((_, index) => {
   const vehicle = vehicles[index % vehicles.length];
   const driver = drivers[index % drivers.length];
-  const gallons = 80 + (index % 10) * 5;
-  const cost = Number((gallons * (3.15 + (index % 5) * 0.12)).toFixed(2));
+  const gallons = 120 + (index % 10) * 15; // in Liters
+  const cost = Number((gallons * (92.4 + (index % 5) * 1.5)).toFixed(2)); // in INR
 
   return {
     id: `fuel-${6000 + index}`,
@@ -140,10 +170,10 @@ export const fuelLogs = Array.from({ length: 100 }).map((_, index) => {
     driver_id: driver.id,
     driver_name: `${driver.first_name} ${driver.last_name}`,
     refuel_date: new Date(Date.now() - (index % 30) * 24 * 60 * 60 * 1000).toISOString(),
-    gallons,
-    cost,
+    gallons, // Liters
+    cost, // INR
     odometer: vehicle.current_mileage - 3000 + index * 25,
-    station_name: index % 2 === 0 ? 'Loves Travel Stop' : 'Pilot Flying J',
+    station_name: index % 2 === 0 ? 'Indian Oil Retail Outlet' : 'Bharat Petroleum Pump',
     receipt_number: `REC-${80000 + index * 9}`,
   };
 });
@@ -151,7 +181,7 @@ export const fuelLogs = Array.from({ length: 100 }).map((_, index) => {
 // Generate Maintenance Records (50 records)
 export const maintenance = Array.from({ length: 50 }).map((_, index) => {
   const vehicle = vehicles[index % vehicles.length];
-  const cost = 250 + (index % 10) * 180;
+  const cost = 4500 + (index % 10) * 2500; // in INR
   const type =
     index % 3 === 0
       ? 'Preventative Maintenance'
@@ -175,7 +205,7 @@ export const maintenance = Array.from({ length: 50 }).map((_, index) => {
     status,
     cost,
     notes: `Routine inspection and parts swap matching ${type.toLowerCase()} check list criteria.`,
-    service_center: 'Speedy Fleet Maintenance Services',
+    service_center: 'Tata Authorized Service Station',
   };
 });
 
@@ -183,14 +213,14 @@ export const maintenance = Array.from({ length: 50 }).map((_, index) => {
 const expenseCategories = [
   'Tolls',
   'Driver Lodging',
-  'Permits',
+  'State Permits',
   'Scales',
   'Emergency Repairs',
   'Misc',
 ];
 export const expenses = Array.from({ length: 100 }).map((_, index) => {
   const trip = trips[index % trips.length];
-  const amount = index % 4 === 0 ? 120 + (index % 5) * 35 : 15 + (index % 6) * 5;
+  const amount = index % 4 === 0 ? 3500 + (index % 5) * 600 : 450 + (index % 6) * 150; // in INR
   const category = expenseCategories[index % expenseCategories.length];
   const status = index % 10 === 0 ? 'rejected' : index % 8 === 0 ? 'pending' : 'approved';
 
@@ -204,18 +234,18 @@ export const expenses = Array.from({ length: 100 }).map((_, index) => {
     amount,
     expense_date: new Date(trip.start_time).toISOString().split('T')[0],
     notes: `${category} logged for route ${trip.origin} -> ${trip.destination}`,
-    payment_method: index % 2 === 0 ? 'Fleet Card' : 'Reimbursement',
+    payment_method: index % 2 === 0 ? 'Fastag RFID' : 'Corporate Wallet',
     status,
   };
 });
 
 // Settings configuration mockup
 export const settings = [
-  { key: 'company_name', value: 'Apex Logistics Operations Inc.', group: 'General' },
-  { key: 'timezone', value: 'America/New_York', group: 'General' },
-  { key: 'currency', value: 'USD', group: 'General' },
+  { key: 'company_name', value: 'VRL Logistics Operations India Inc.', group: 'General' },
+  { key: 'timezone', value: 'Asia/Kolkata', group: 'General' },
+  { key: 'currency', value: 'INR', group: 'General' },
   { key: 'idle_alert_threshold', value: '15', group: 'Alerts' },
-  { key: 'speed_alert_threshold', value: '75', group: 'Alerts' },
+  { key: 'speed_alert_threshold', value: '80', group: 'Alerts' },
   { key: 'jwt_expiration', value: '900', group: 'Security' },
 ];
 

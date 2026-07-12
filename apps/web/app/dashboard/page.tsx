@@ -30,22 +30,22 @@ import ChartCard from '../../components/ChartCard';
 
 // Dummy static chart values (realistic operational scales)
 const revenueData = [
-  { month: 'Jan', revenue: 45000, cost: 31000 },
-  { month: 'Feb', revenue: 52000, cost: 34000 },
-  { month: 'Mar', revenue: 61000, cost: 38000 },
-  { month: 'Apr', revenue: 58000, cost: 36000 },
-  { month: 'May', revenue: 67000, cost: 41000 },
-  { month: 'Jun', revenue: 75000, cost: 45000 },
+  { month: 'Jan', revenue: 450000, cost: 310000 },
+  { month: 'Feb', revenue: 520000, cost: 340000 },
+  { month: 'Mar', revenue: 610000, cost: 380000 },
+  { month: 'Apr', revenue: 580000, cost: 360000 },
+  { month: 'May', revenue: 670000, cost: 410000 },
+  { month: 'Jun', revenue: 750000, cost: 450000 },
 ];
 
 const fuelConsumptionData = [
-  { day: 'Mon', gallons: 420 },
-  { day: 'Tue', gallons: 480 },
-  { day: 'Wed', gallons: 510 },
-  { day: 'Thu', gallons: 460 },
-  { day: 'Fri', gallons: 520 },
-  { day: 'Sat', gallons: 310 },
-  { day: 'Sun', gallons: 240 },
+  { day: 'Mon', liters: 1520 },
+  { day: 'Tue', liters: 1680 },
+  { day: 'Wed', liters: 1810 },
+  { day: 'Thu', liters: 1660 },
+  { day: 'Fri', liters: 1920 },
+  { day: 'Sat', liters: 1210 },
+  { day: 'Sun', liters: 940 },
 ];
 
 const healthData = [
@@ -56,13 +56,23 @@ const healthData = [
 
 const activeTripsList = [
   {
-    route: 'Chicago, IL -> Atlanta, GA',
-    driver: 'Marcus V.',
-    vehicle: 'TX-1000',
+    route: 'Delhi, DL -> Mumbai, MH',
+    driver: 'Rajesh K.',
+    vehicle: 'MH-12-Q-1000',
     status: 'On Time',
   },
-  { route: 'Dallas, TX -> Phoenix, AZ', driver: 'David K.', vehicle: 'TX-1051', status: 'Delayed' },
-  { route: 'Miami, FL -> Houston, TX', driver: 'Elena R.', vehicle: 'TX-1034', status: 'On Time' },
+  {
+    route: 'Mumbai, MH -> Bengaluru, KA',
+    driver: 'Amit P.',
+    vehicle: 'KA-03-Q-1034',
+    status: 'On Time',
+  },
+  {
+    route: 'Kolkata, WB -> Delhi, DL',
+    driver: 'Gurpreet S.',
+    vehicle: 'DL-01-Q-1017',
+    status: 'Delayed',
+  },
 ];
 
 export default function DashboardPage() {
@@ -75,11 +85,11 @@ export default function DashboardPage() {
             Fleet Operations Dashboard
           </h2>
           <p className="text-xs text-text-secondary mt-0.5">
-            Apex Logistics Operations Inc. — Executive Control Console
+            VRL Logistics India — Executive Operations Control Console
           </p>
         </div>
         <div className="text-xs text-text-secondary text-right select-none">
-          Data status: <span className="font-semibold text-accent-green">Online</span>
+          Data status: <span className="font-semibold text-accent-green">Online (Kolkata)</span>
         </div>
       </div>
 
@@ -135,7 +145,7 @@ export default function DashboardPage() {
       {/* Maps & Operational Details */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Mock Operations Map placeholder */}
-        <div className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[360px]">
+        <div className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[380px]">
           <div className="flex items-center justify-between border-b border-brand-divider pb-4 mb-4">
             <div>
               <h4 className="text-sm font-semibold text-white">Interactive Dispatch Map</h4>
@@ -150,39 +160,80 @@ export default function DashboardPage() {
           </div>
 
           {/* Visual Map graphic representation */}
-          <div className="flex-grow bg-[#13161c] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[220px]">
+          <div className="flex-grow bg-[#13161c] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[240px]">
             {/* Grid dot pattern background representing a minimalist map */}
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-            {/* Mock cities connection routes */}
-            <div className="absolute w-[60%] h-[1px] bg-brand-border border-dashed border-t border-text-muted top-[45%] left-[20%]"></div>
+            {/* Custom SVG Connecting paths representing India's Golden Quadrilateral corridors */}
+            <svg
+              className="absolute inset-0 w-full h-full text-brand-border"
+              viewBox="0 0 500 240"
+              fill="none"
+            >
+              {/* Delhi to Mumbai route line */}
+              <path
+                d="M250,40 L180,140"
+                stroke="#3B82F6"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                className="animate-[dash_10s_linear_infinite]"
+              />
+              {/* Mumbai to Bengaluru route line */}
+              <path
+                d="M180,140 L210,200"
+                stroke="#10B981"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                className="animate-[dash_8s_linear_infinite]"
+              />
+              {/* Bengaluru to Kolkata route line */}
+              <path
+                d="M210,200 L320,100"
+                stroke="#8B5CF6"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                className="animate-[dash_12s_linear_infinite]"
+              />
+              {/* Kolkata to Delhi route line */}
+              <path
+                d="M320,100 L250,40"
+                stroke="#F59E0B"
+                strokeWidth="2"
+                strokeDasharray="5,5"
+                className="animate-[dash_15s_linear_infinite]"
+              />
+            </svg>
 
             {/* Nodes */}
-            <div className="absolute top-[40%] left-[20%] flex flex-col items-center animate-pulse">
-              <MapPin className="text-accent-purple" size={18} />
-              <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
-                Denver
+            <div className="absolute top-[30px] left-[250px] flex flex-col items-center select-none">
+              <MapPin className="text-accent-amber" size={16} />
+              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
+                Delhi
               </span>
             </div>
-            <div className="absolute top-[50%] left-[50%] flex flex-col items-center animate-pulse">
-              <MapPin className="text-accent-blue" size={18} />
-              <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
-                Chicago
+            <div className="absolute top-[130px] left-[170px] flex flex-col items-center select-none">
+              <MapPin className="text-accent-blue" size={16} />
+              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
+                Mumbai
               </span>
             </div>
-            <div className="absolute top-[35%] left-[75%] flex flex-col items-center animate-pulse">
-              <MapPin className="text-accent-green" size={18} />
-              <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
-                Boston
+            <div className="absolute top-[190px] left-[200px] flex flex-col items-center select-none">
+              <MapPin className="text-accent-green" size={16} />
+              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
+                Bengaluru
+              </span>
+            </div>
+            <div className="absolute top-[90px] left-[320px] flex flex-col items-center select-none">
+              <MapPin className="text-accent-purple" size={16} />
+              <span className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border">
+                Kolkata
               </span>
             </div>
 
-            <div className="text-center z-10 select-none">
-              <span className="text-xs text-text-secondary block font-semibold">
-                Active Dispatch Grid
-              </span>
-              <span className="text-[10px] text-text-muted mt-1 block">
-                Connecting Atlanta ➔ Chicago ➔ Boston Terminal Hubs
+            <div className="absolute bottom-4 left-4 z-10 select-none">
+              <span className="text-[10px] text-text-muted font-mono block">
+                {' '}
+                Golden Quadrilateral Corridors Active
               </span>
             </div>
           </div>
@@ -224,12 +275,12 @@ export default function DashboardPage() {
       {/* Analytics Trend Graphs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Bar chart: Revenue vs Operating Costs */}
-        <ChartCard title="Revenue & Operating Costs" subtitle="Monthly financial breakdown (USD)">
+        <ChartCard title="Revenue & Operating Costs" subtitle="Monthly financial breakdown (INR)">
           <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <BarChart data={revenueData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#262A34" />
               <XAxis dataKey="month" stroke="#6B7280" fontSize={11} />
-              <YAxis stroke="#6B7280" fontSize={11} />
+              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `₹${tick / 1000}k`} />
               <Tooltip contentStyle={{ backgroundColor: '#1C2028', borderColor: '#262A34' }} />
               <Bar dataKey="revenue" fill="#8B5CF6" radius={[4, 4, 0, 0]} name="Gross Revenue" />
               <Bar dataKey="cost" fill="#6B7280" radius={[4, 4, 0, 0]} name="Operating Cost" />
@@ -240,25 +291,25 @@ export default function DashboardPage() {
         {/* Line Chart: Daily Fuel Consumption */}
         <ChartCard
           title="Fuel Consumption Trend"
-          subtitle="Daily gallons used across fleet operations"
+          subtitle="Daily liters used across fleet operations"
         >
           <ResponsiveContainer width="100%" height={240}>
             <LineChart
               data={fuelConsumptionData}
-              margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+              margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#262A34" />
               <XAxis dataKey="day" stroke="#6B7280" fontSize={11} />
-              <YAxis stroke="#6B7280" fontSize={11} />
+              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `${tick}L`} />
               <Tooltip contentStyle={{ backgroundColor: '#1C2028', borderColor: '#262A34' }} />
               <Line
                 type="monotone"
-                dataKey="gallons"
+                dataKey="liters"
                 stroke="#3B82F6"
                 strokeWidth={2}
                 dot={{ r: 4 }}
                 activeDot={{ r: 6 }}
-                name="Gallons Consumed"
+                name="Liters Consumed"
               />
             </LineChart>
           </ResponsiveContainer>
