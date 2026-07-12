@@ -15,6 +15,8 @@ INSERT INTO permissions (id, name, code, description) VALUES
 ('22c8dfc2-890b-4ecc-b691-8feddf9b72ff', 'Create Users', 'users:create', 'Create user accounts'),
 ('33d9dfd3-901c-4fdd-c782-9feddfa283ff', 'Edit Users', 'users:edit', 'Edit user accounts'),
 ('44e0dfe4-012d-4fee-d893-afeddfb394ff', 'Delete Users', 'users:delete', 'Delete user accounts'),
+('55b7dfb1-789a-4dbb-a590-7fdcde8a61ff', 'View Roles', 'roles:view', 'View role configurations'),
+('66c8dfc2-890b-4ecc-b691-8feddf9b72ff', 'Manage Roles', 'roles:manage', 'Manage role configurations'),
 -- Vehicles
 ('55f1dff5-123e-4fff-e9a4-bfeddfc405ff', 'View Vehicles', 'vehicles:view', 'View fleet vehicles'),
 ('66a2dfa6-234f-40aa-a9b5-cfeddfd516ff', 'Create Vehicles', 'vehicles:create', 'Add new vehicles'),
@@ -24,9 +26,11 @@ INSERT INTO permissions (id, name, code, description) VALUES
 ('99d5dfd9-5672-43cd-dab8-ffedd00849ff', 'View Drivers', 'drivers:view', 'View system drivers'),
 ('aad6dfe6-6783-44de-eab9-1fedd0195aff', 'Create Drivers', 'drivers:create', 'Add system drivers'),
 ('bbd7dfd7-7894-45df-fab9-2fedd02a6bff', 'Edit Drivers', 'drivers:edit', 'Edit driver profiles'),
+('77d5dfd9-5672-43cd-dab8-ffedd00849ff', 'Delete Drivers', 'drivers:delete', 'Delete driver profiles'),
 ('ccd8dfd8-8905-46df-0ab9-3fedd03b7cff', 'View Trips', 'trips:view', 'View trip dispatch logs'),
 ('ddd9dfd9-9016-47df-1ab9-4fedd04c8dff', 'Create Trips', 'trips:create', 'Schedule new trips'),
 ('eed0dfe0-0127-48df-2ab9-5fedd05d9eff', 'Edit Trips', 'trips:edit', 'Modify active trips'),
+('88d9dfd9-9016-47df-1ab9-4fedd04c8dff', 'Close Trips', 'trips:close', 'Close completed trips'),
 -- Fuel & Maintenance
 ('ffd1dff1-1238-49df-3ab9-6fedd06e0fff', 'View Fuel Logs', 'fuel:view', 'View fuel logs'),
 ('00a2dfa2-2349-4adf-4ab9-7fedd07f1fff', 'Create Fuel Logs', 'fuel:create', 'Add new fuel logs'),
