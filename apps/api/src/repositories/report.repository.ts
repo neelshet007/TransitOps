@@ -137,13 +137,14 @@ export class ReportRepository {
   async getFuelReport(filters: ReportFilter): Promise<any[]> {
     let sql = `
       SELECT 
-        fl.id, fl.refuel_date, fl.gallons, fl.cost, fl.odometer,
+        fl.id, fl.fuel_date, fl.fuel_type, fl.quantity, fl.price_per_liter,
+        fl.total_cost, fl.odometer, fl.mileage, fl.payment_method, fl.notes,
         v.plate_number, v.make, v.model,
         u.first_name as driver_first_name, u.last_name as driver_last_name
       FROM fuel_logs fl
       JOIN vehicles v ON fl.vehicle_id = v.id
-      JOIN drivers d ON fl.driver_id = d.id
-      JOIN users u ON d.user_id = u.id
+      LEFT JOIN drivers d ON fl.driver_id = d.id
+      LEFT JOIN users u ON d.user_id = u.id
       WHERE fl.deleted_at IS NULL
     `;
     const params: any[] = [];
@@ -158,15 +159,15 @@ export class ReportRepository {
       params.push(filters.driverId);
     }
     if (filters.startDate) {
-      sql += ` AND fl.refuel_date >= $${paramIndex++}`;
+      sql += ` AND fl.fuel_date >= $${paramIndex++}`;
       params.push(filters.startDate);
     }
     if (filters.endDate) {
-      sql += ` AND fl.refuel_date <= $${paramIndex++}`;
+      sql += ` AND fl.fuel_date <= $${paramIndex++}`;
       params.push(filters.endDate);
     }
 
-    sql += ` ORDER BY fl.refuel_date DESC`;
+    sql += ` ORDER BY fl.fuel_date DESC`;
 
     const result = await query(sql, params);
     return result.rows;
@@ -265,9 +266,9 @@ export class ReportRepository {
 
         -- Financial operations aggregates
         (SELECT COALESCE(SUM(cost), 0) FROM maintenance WHERE deleted_at IS NULL) as total_maintenance_cost,
-        (SELECT COALESCE(SUM(cost), 0) FROM fuel_logs WHERE deleted_at IS NULL) as total_fuel_cost,
+        (SELECT COALESCE(SUM(total_cost), 0) FROM fuel_logs WHERE deleted_at IS NULL) as total_fuel_cost,
         (SELECT COALESCE(SUM(amount), 0) FROM expenses WHERE deleted_at IS NULL) as total_other_expenses,
-        (SELECT COALESCE(SUM(gallons), 0) FROM fuel_logs WHERE deleted_at IS NULL) as total_fuel_gallons
+        (SELECT COALESCE(SUM(quantity), 0) FROM fuel_logs WHERE deleted_at IS NULL) as total_fuel_liters
       FROM (SELECT 1) as dummy;
     `;
 
@@ -282,7 +283,7 @@ export class ReportRepository {
     const fuelCost = parseFloat(s.total_fuel_cost) || 0;
     const otherExpenses = parseFloat(s.total_other_expenses) || 0;
     const totalExpenses = maintenanceCost + fuelCost + otherExpenses;
-    const totalFuelGallons = parseFloat(s.total_fuel_gallons) || 0;
+    const totalFuelLiters = parseFloat(s.total_fuel_liters) || 0;
 
     // Top drivers query
     const topDriversRes = await query(`
@@ -322,7 +323,7 @@ export class ReportRepository {
       operational_expenses: totalExpenses,
       cost_per_km: totalDistance > 0 ? totalExpenses / totalDistance : 0,
       avg_trip_distance: parseFloat(s.avg_trip_distance) || 0,
-      avg_fuel_consumption: totalDistance > 0 ? totalFuelGallons / totalDistance : 0,
+      avg_fuel_consumption: totalDistance > 0 ? totalFuelLiters / totalDistance : 0,
       top_drivers: topDriversRes.rows,
       top_vehicles: topVehiclesRes.rows,
       vehicle_downtime_days: totalVehicles * 2, // Dummy indicator as placeholder for downtime calculations
@@ -351,9 +352,9 @@ export class ReportRepository {
           AND deleted_at IS NULL
         ) as maintenance_cost,
         (
-          SELECT COALESCE(SUM(cost), 0) 
+          SELECT COALESCE(SUM(total_cost), 0) 
           FROM fuel_logs 
-          WHERE DATE_TRUNC('${truncateUnit}', refuel_date) = DATE_TRUNC('${truncateUnit}', t.start_time)
+          WHERE DATE_TRUNC('${truncateUnit}', fuel_date) = DATE_TRUNC('${truncateUnit}', t.start_time)
           AND deleted_at IS NULL
         ) as fuel_cost
       FROM trips t

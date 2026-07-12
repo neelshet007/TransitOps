@@ -21,7 +21,7 @@ export class DashboardRepository {
         (SELECT COUNT(*) FROM trips WHERE DATE(created_at) = CURRENT_DATE AND deleted_at IS NULL) as trips_today,
         (SELECT COUNT(*) FROM trips WHERE status = 'completed' AND deleted_at IS NULL) as completed_trips,
         (SELECT COUNT(*) FROM trips WHERE status = 'delayed' AND deleted_at IS NULL) as delayed_trips,
-        (SELECT COUNT(*) FROM vehicles WHERE availability = 'maintenance' AND deleted_at IS NULL) as vehicles_under_maintenance,
+        (SELECT COUNT(*) FROM vehicles WHERE status = 'maintenance' AND deleted_at IS NULL) as vehicles_under_maintenance,
         (SELECT COALESCE(SUM(amount), 0) FROM expenses WHERE expense_date >= DATE_TRUNC('month', CURRENT_DATE) AND deleted_at IS NULL) as monthly_expenses,
         (SELECT COALESCE(SUM(total_cost), 0) FROM fuel_logs WHERE fuel_date >= DATE_TRUNC('month', CURRENT_DATE) AND deleted_at IS NULL) as monthly_fuel_cost,
         (SELECT COUNT(*) FROM notifications WHERE is_read = false AND deleted_at IS NULL) as pending_notifications,

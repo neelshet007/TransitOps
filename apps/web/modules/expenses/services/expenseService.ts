@@ -1,40 +1,39 @@
-import { expenses } from '../../../lib/mockDb';
+import apiClient from '../../../services/apiClient';
 
 export class ExpenseService {
-  async getAll() {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return [...expenses];
+  async getAll(params?: { page?: number; limit?: number; status?: string; vehicle_id?: string }) {
+    const response = await apiClient.get('/expenses', { params });
+    return response.data?.data ?? [];
+  }
+
+  async getDashboard() {
+    const response = await apiClient.get('/expenses/dashboard');
+    return response.data?.data;
+  }
+
+  async getById(id: string) {
+    const response = await apiClient.get(`/expenses/${id}`);
+    return response.data?.data;
   }
 
   async create(data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const newExp = {
-      id: `exp-${8000 + expenses.length}`,
-      ...data,
-      amount: Number(data.amount) || 0,
-      status: 'pending',
-    };
-    expenses.unshift(newExp);
-    return newExp;
+    const response = await apiClient.post('/expenses', data);
+    return response.data?.data;
   }
 
   async update(id: string, data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const index = expenses.findIndex((e) => e.id === id);
-    if (index === -1) throw new Error('Expense log not found');
-    expenses[index] = {
-      ...expenses[index],
-      ...data,
-    };
-    return expenses[index];
+    const response = await apiClient.put(`/expenses/${id}`, data);
+    return response.data?.data;
+  }
+
+  async updateStatus(id: string, status: string) {
+    const response = await apiClient.patch(`/expenses/${id}/status`, { status });
+    return response.data?.data;
   }
 
   async delete(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    const index = expenses.findIndex((e) => e.id === id);
-    if (index === -1) throw new Error('Expense log not found');
-    expenses.splice(index, 1);
-    return { success: true };
+    const response = await apiClient.delete(`/expenses/${id}`);
+    return response.data;
   }
 }
 

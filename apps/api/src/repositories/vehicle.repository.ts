@@ -97,29 +97,31 @@ export class VehicleRepository {
   }
 
   async update(id: string, data: UpdateVehicleDTO): Promise<DBVehicleResult | null> {
+    const updateSets: string[] = [];
+    const values: any[] = [id];
+
+    // Dynamically build SET clause to only update provided fields
+    if (data.plate_number !== undefined) { values.push(data.plate_number); updateSets.push(`plate_number = $${values.length}`); }
+    if (data.make !== undefined) { values.push(data.make); updateSets.push(`make = $${values.length}`); }
+    if (data.model !== undefined) { values.push(data.model); updateSets.push(`model = $${values.length}`); }
+    if (data.year !== undefined) { values.push(data.year); updateSets.push(`year = $${values.length}`); }
+    if (data.vin !== undefined) { values.push(data.vin); updateSets.push(`vin = $${values.length}`); }
+    if (data.status !== undefined) { values.push(data.status); updateSets.push(`status = $${values.length}`); }
+    if ((data as any).availability !== undefined) { values.push((data as any).availability); updateSets.push(`availability = $${values.length}`); }
+    if ((data as any).mileage !== undefined) { values.push((data as any).mileage); updateSets.push(`mileage = $${values.length}`); }
+
+    if (updateSets.length === 0) {
+      return this.findById(id);
+    }
+
     const sql = `
       UPDATE vehicles
-      SET
-        plate_number = $1,
-        make = $2,
-        model = $3,
-        year = $4,
-        vin = $5,
-        status = $6,
-        updated_at = CURRENT_TIMESTAMP
-      WHERE id = $7
+      SET ${updateSets.join(', ')}, updated_at = CURRENT_TIMESTAMP
+      WHERE id = $1 AND deleted_at IS NULL
       RETURNING *
     `;
 
-    const result = await query(sql, [
-      data.plate_number,
-      data.make,
-      data.model,
-      data.year,
-      data.vin,
-      data.status,
-      id,
-    ]);
+    const result = await query(sql, values);
 
     return result.rows.length ? result.rows[0] : null;
   }

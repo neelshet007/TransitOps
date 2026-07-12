@@ -1,40 +1,44 @@
-import { maintenance } from '../../../lib/mockDb';
+import apiClient from '../../../services/apiClient';
 
 export class MaintenanceService {
-  async getAll() {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    return [...maintenance];
+  async getAll(params?: { page?: number; limit?: number; status?: string; vehicle_id?: string }) {
+    const response = await apiClient.get('/maintenance', { params });
+    return response.data?.data ?? [];
+  }
+
+  async getDashboard() {
+    const response = await apiClient.get('/maintenance/dashboard');
+    return response.data?.data;
+  }
+
+  async getCalendar() {
+    const response = await apiClient.get('/maintenance/calendar');
+    return response.data?.data ?? [];
+  }
+
+  async getById(id: string) {
+    const response = await apiClient.get(`/maintenance/${id}`);
+    return response.data?.data;
   }
 
   async create(data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const newMaint = {
-      id: `maint-${7000 + maintenance.length}`,
-      ...data,
-      cost: Number(data.cost) || 0,
-      status: 'scheduled',
-    };
-    maintenance.unshift(newMaint);
-    return newMaint;
+    const response = await apiClient.post('/maintenance', data);
+    return response.data?.data;
   }
 
   async update(id: string, data: any) {
-    await new Promise((resolve) => setTimeout(resolve, 400));
-    const index = maintenance.findIndex((m) => m.id === id);
-    if (index === -1) throw new Error('Maintenance log not found');
-    maintenance[index] = {
-      ...maintenance[index],
-      ...data,
-    };
-    return maintenance[index];
+    const response = await apiClient.put(`/maintenance/${id}`, data);
+    return response.data?.data;
+  }
+
+  async updateStatus(id: string, status: string, notes?: string) {
+    const response = await apiClient.patch(`/maintenance/${id}/status`, { status, notes });
+    return response.data?.data;
   }
 
   async delete(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    const index = maintenance.findIndex((m) => m.id === id);
-    if (index === -1) throw new Error('Maintenance log not found');
-    maintenance.splice(index, 1);
-    return { success: true };
+    const response = await apiClient.delete(`/maintenance/${id}`);
+    return response.data;
   }
 }
 
