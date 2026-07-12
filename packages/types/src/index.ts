@@ -178,11 +178,18 @@ export interface Trip extends BaseEntity {
 
 export interface FuelLog extends BaseEntity {
   vehicle_id: string;
-  driver_id: string;
-  refuel_date: Date;
-  gallons: number;
-  cost: number;
-  odometer: number;
+  driver_id?: string | null;
+  trip_id?: string | null;
+  fuel_station_id?: string | null;
+  fuel_type: string;
+  quantity: number;
+  price_per_liter: number;
+  total_cost: number;
+  odometer?: number | null;
+  mileage?: number | null;
+  payment_method?: string | null;
+  notes?: string | null;
+  fuel_date: Date | string;
 }
 
 export interface MaintenanceType extends BaseEntity {
@@ -229,12 +236,38 @@ export interface Expense extends BaseEntity {
   invoice_number?: string | null;
 }
 
+export interface FuelStation extends BaseEntity {
+  name: string;
+  location?: string | null;
+  contact_number?: string | null;
+  is_active?: boolean;
+}
+
+export interface DashboardMetrics {
+  total_vehicles: number;
+  available_vehicles: number;
+  vehicles_on_trip: number;
+  vehicles_under_maintenance: number;
+  total_drivers: number;
+  available_drivers: number;
+  drivers_on_trip: number;
+  trips_today: number;
+  completed_trips: number;
+  delayed_trips: number;
+  monthly_fuel_cost: number;
+  monthly_expenses: number;
+  pending_notifications: number;
+}
+
 export interface Notification extends BaseEntity {
   user_id: string;
   title: string;
   message: string;
-  is_read: boolean;
   type: string;
+  is_read: boolean;
+  action_url?: string | null;
+  reference_id?: string | null;
+  reference_type?: string | null;
 }
 
 export interface Setting extends BaseEntity {

@@ -22,6 +22,8 @@ import tripRoutes from './routes/trip.routes';
 import reportRoutes from './routes/report.routes';
 import maintenanceRoutes from './routes/maintenance.routes';
 import expenseRoutes from './routes/expense.routes';
+import fuelRoutes from './routes/fuel.routes';
+import notificationRoutes from './routes/notification.routes';
 import { HTTP_STATUS } from './constants';
 import { successResponse } from '@transitops/utils';
 
@@ -109,6 +111,8 @@ app.use('/api/v1/fleet', fleetRoutes);
 app.use('/api/v1/trips', tripRoutes);
 app.use('/api/v1/maintenance', maintenanceRoutes);
 app.use('/api/v1/expenses', expenseRoutes);
+app.use('/api/v1/fuel', fuelRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
 app.use('/api/v1', reportRoutes);
 
 // ===============================
