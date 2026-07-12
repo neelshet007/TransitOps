@@ -10,14 +10,10 @@ import {
   ChevronRight,
   MapPin,
   Activity,
-  ShieldAlert,
-  CloudRain,
   CheckCircle,
   Plus,
-  Search,
   FileText,
-  Settings,
-  Play,
+  CloudRain,
   CloudSun,
 } from 'lucide-react';
 import {
@@ -25,9 +21,6 @@ import {
   Area,
   BarChart,
   Bar,
-  PieChart,
-  Pie,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -37,6 +30,11 @@ import {
 
 import StatCard from '../../components/StatCard';
 import ChartCard from '../../components/ChartCard';
+import Modal from '../../components/Modal';
+import { useDashboard } from '../../modules/dashboard/hooks/useDashboard';
+import { driverService } from '../../modules/drivers/services/driverService';
+import { Driver } from '@transitops/types';
+import { useEffect } from 'react';
 
 // Realistic Indian corporate dataset
 const financialData = [
@@ -58,39 +56,6 @@ const fuelConsumptionData = [
   { day: 'Sun', liters: 2450 },
 ];
 
-const fleetHealthData = [
-  { name: 'Active Fleet', value: 42, color: '#10B981' },
-  { name: 'In Repair Station', value: 3, color: '#EF4444' },
-  { name: 'Scheduled Service', value: 5, color: '#F59E0B' },
-];
-
-const recentActivities = [
-  {
-    id: 1,
-    type: 'dispatch',
-    title: 'Route Dispatched',
-    desc: 'Tata Signa MH-12-Q-4521 cleared Mumbai LNL toll plaza.',
-    time: '12m ago',
-    state: 'success',
-  },
-  {
-    id: 2,
-    type: 'alert',
-    title: 'Odometer Threshold Triggered',
-    desc: 'Mahindra Blazo KA-03-M-7714 flagged for routine service check.',
-    time: '1h ago',
-    state: 'warning',
-  },
-  {
-    id: 3,
-    type: 'payment',
-    title: 'Fastag Auto-Recharge Approved',
-    desc: '₹25,000 wallet load processed for MH-12-Q-4521.',
-    time: '4h ago',
-    state: 'success',
-  },
-];
-
 const upcomingServices = [
   {
     id: 'maint-101',
@@ -109,7 +74,70 @@ const upcomingServices = [
 ];
 
 export default function DashboardPage() {
+  const { stats, isLoading, logActivity } = useDashboard();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [isDispatchOpen, setIsDispatchOpen] = useState(false);
+  const [availableDrivers, setAvailableDrivers] = useState<Driver[]>([]);
+  const [dispatchForm, setDispatchForm] = useState({
+    origin: 'Mumbai Depot',
+    destination: 'Delhi Hub',
+    driver_id: '',
+    vehicle_plate: 'MH-12-Q-4521',
+    start_odometer: '125400',
+  });
+
+  const loadAvailableDrivers = async () => {
+    try {
+      const res = await driverService.getAll({ availability: 'available', limit: 100 });
+      setAvailableDrivers(res.data);
+      if (res.data.length > 0) {
+        setDispatchForm(prev => ({ ...prev, driver_id: res.data[0].id }));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (isDispatchOpen) {
+      loadAvailableDrivers();
+    }
+  }, [isDispatchOpen]);
+
+  const handleDispatchInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setDispatchForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleDispatchSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const selectedDriver = availableDrivers.find(d => d.id === dispatchForm.driver_id);
+    const driverName = selectedDriver ? `${selectedDriver.first_name} ${selectedDriver.last_name}` : 'Unknown Driver';
+    const details = `Route dispatched: ${dispatchForm.origin} ➔ ${dispatchForm.destination} with Vehicle ${dispatchForm.vehicle_plate} driven by ${driverName}. Odometer: ${dispatchForm.start_odometer} km.`;
+    
+    try {
+      await logActivity('TRIP_DISPATCHED', details);
+      setIsDispatchOpen(false);
+      alert('Trip dispatched successfully!');
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Format activity details nicely
+  const getActivityMessage = (act: any) => {
+    return act.details || `${act.action.replace('_', ' ')} action performed`;
+  };
+
+  const getTimeAgo = (dateStr: string) => {
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const mins = Math.floor(diff / 60000);
+    if (mins < 1) return 'Just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hours = Math.floor(mins / 60);
+    if (hours < 24) return `${hours}h ago`;
+    return `${Math.floor(hours / 24)}d ago`;
+  };
 
   return (
     <div className="space-y-6">
@@ -127,7 +155,7 @@ export default function DashboardPage() {
         {/* Quick actions panel */}
         <div className="flex items-center gap-2 self-start md:self-auto">
           <button
-            onClick={() => alert('Dispatched new trip...')}
+            onClick={() => setIsDispatchOpen(true)}
             className="btn btn-primary text-xs flex items-center gap-1.5"
           >
             <Plus size={14} /> New Dispatch
@@ -193,26 +221,26 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard
           title="Active Vehicles"
-          value="42 / 50"
-          change="+3 this week"
+          value={isLoading ? '...' : `${stats?.active_vehicles || 0} / ${stats?.total_vehicles || 0}`}
+          change={`${stats?.total_vehicles || 0} registered fleet`}
           changeType="positive"
           icon={Truck}
           iconColor="text-accent-blue"
           sparklineData={[38, 39, 40, 38, 41, 42, 42]}
         />
         <StatCard
-          title="Trips Today"
-          value="18"
-          change="8 in transit"
+          title="Trips Tracked"
+          value={isLoading ? '...' : String(stats?.total_trips || 0)}
+          change={`${stats?.active_trips || 0} actively driving`}
           changeType="neutral"
           icon={Compass}
           iconColor="text-accent-purple"
           sparklineData={[15, 18, 16, 20, 19, 17, 18]}
         />
         <StatCard
-          title="Fleet Utilization"
-          value="84.2%"
-          change="+2.4% vs last mo"
+          title="Total Users"
+          value={isLoading ? '...' : String(stats?.total_users || 0)}
+          change={`${stats?.total_roles || 0} configured roles`}
           changeType="positive"
           icon={TrendingUp}
           iconColor="text-accent-green"
@@ -220,7 +248,7 @@ export default function DashboardPage() {
         />
         <StatCard
           title="Upcoming Service"
-          value="3"
+          value={isLoading ? '...' : String(stats?.upcoming_maintenance || 0)}
           change="Brakes & Oil inspect"
           changeType="negative"
           icon={AlertTriangle}
@@ -229,8 +257,8 @@ export default function DashboardPage() {
         />
         <StatCard
           title="Driver availability"
-          value="38 / 50"
-          change="4 on rest cycle"
+          value={isLoading ? '...' : `${stats?.available_drivers || 0} / ${stats?.total_drivers || 0}`}
+          change={`${stats?.drivers_on_leave || 0} on rest cycle`}
           changeType="neutral"
           icon={UserCheck}
           iconColor="text-accent-amber"
@@ -240,7 +268,7 @@ export default function DashboardPage() {
 
       {/* SVG Dispatch Map Corridor Visualizer */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Animated Golden Quadrilateral India routes */}
+        {/* Animated India routes */}
         <div
           className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[380px]"
           style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
@@ -261,7 +289,7 @@ export default function DashboardPage() {
             </span>
           </div>
 
-          {/* Golden Quadrilateral Animation SVG */}
+          {/* SVG Map */}
           <div
             className="flex-grow bg-[#090a0f] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[240px]"
             style={{ borderColor: 'var(--border-subtle)' }}
@@ -275,28 +303,24 @@ export default function DashboardPage() {
               viewBox="0 0 500 240"
               fill="none"
             >
-              {/* Delhi ➔ Mumbai */}
               <path
                 d="M250,30 L180,130"
                 stroke="#3B82F6"
                 strokeWidth="2"
                 className="route-animate"
               />
-              {/* Mumbai ➔ Bengaluru */}
               <path
                 d="M180,130 L210,190"
                 stroke="#10B981"
                 strokeWidth="2"
                 className="route-animate"
               />
-              {/* Bengaluru ➔ Kolkata */}
               <path
                 d="M210,190 L320,90"
                 stroke="#8B5CF6"
                 strokeWidth="2"
                 className="route-animate"
               />
-              {/* Kolkata ➔ Delhi */}
               <path
                 d="M320,90 L250,30"
                 stroke="#F59E0B"
@@ -362,39 +386,42 @@ export default function DashboardPage() {
           className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between"
           style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
         >
-          <div className="select-none">
+          <div className="select-none overflow-hidden">
             <h4 className="text-sm font-semibold text-white mb-4">Operations Timeline</h4>
-            <div className="space-y-4">
-              {recentActivities.map((act) => (
-                <div
-                  key={act.id}
-                  className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-start gap-3"
-                  style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    borderColor: 'var(--border-subtle)',
-                  }}
-                >
+            <div className="space-y-4 max-h-[320px] overflow-y-auto pr-1">
+              {isLoading ? (
+                <div className="text-xs text-text-muted py-8 text-center">Loading timeline...</div>
+              ) : !stats?.recent_activities || stats.recent_activities.length === 0 ? (
+                <div className="text-xs text-text-muted py-8 text-center">No recent activities recorded.</div>
+              ) : (
+                stats.recent_activities.map((act: any) => (
                   <div
-                    className={`p-1.5 rounded-full mt-0.5 ${
-                      act.state === 'success'
-                        ? 'bg-accent-green/10 text-accent-green'
-                        : 'bg-accent-amber/10 text-accent-amber'
-                    }`}
+                    key={act.id}
+                    className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-start gap-3"
+                    style={{
+                      backgroundColor: 'var(--bg-secondary)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
                   >
-                    <Activity size={12} />
+                    <div className="p-1.5 rounded-full mt-0.5 bg-accent-purple/10 text-accent-purple">
+                      <Activity size={12} />
+                    </div>
+                    <div>
+                      <h5 className="text-[11px] font-semibold text-white capitalize">
+                        {act.action.replace('_', ' ').toLowerCase()}
+                      </h5>
+                      <p className="text-[10px] text-text-secondary mt-0.5">
+                        {getActivityMessage(act)}
+                      </p>
+                      <span className="text-[9px] text-text-muted mt-1 block">
+                        {getTimeAgo(act.created_at)}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <h5 className="text-[11px] font-semibold text-white">{act.title}</h5>
-                    <p className="text-[10px] text-text-secondary mt-0.5">{act.desc}</p>
-                    <span className="text-[9px] text-text-muted mt-1 block">{act.time}</span>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
-          <button className="w-full text-center mt-6 text-xs text-accent-purple hover:underline flex items-center justify-center gap-1">
-            Open Activity ledger <ChevronRight size={14} />
-          </button>
         </div>
       </div>
 
@@ -497,6 +524,99 @@ export default function DashboardPage() {
           </button>
         </div>
       </div>
+      {/* NEW DISPATCH MODAL */}
+      <Modal
+        isOpen={isDispatchOpen}
+        onClose={() => setIsDispatchOpen(false)}
+        title="New Fleet Dispatch"
+        description="Assign a driver and vehicle to start a new transport corridor route"
+      >
+        <form onSubmit={handleDispatchSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-group">
+              <label className="form-label text-xs">Origin Station</label>
+              <input
+                type="text"
+                name="origin"
+                value={dispatchForm.origin}
+                onChange={handleDispatchInputChange}
+                required
+                className="input-field text-xs"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label text-xs">Destination Hub</label>
+              <input
+                type="text"
+                name="destination"
+                value={dispatchForm.destination}
+                onChange={handleDispatchInputChange}
+                required
+                className="input-field text-xs"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-group">
+              <label className="form-label text-xs">Available Driver</label>
+              <select
+                name="driver_id"
+                value={dispatchForm.driver_id}
+                onChange={handleDispatchInputChange}
+                required
+                className="input-field text-xs bg-brand-panel text-white"
+              >
+                {availableDrivers.length === 0 ? (
+                  <option value="" disabled>No drivers available</option>
+                ) : (
+                  availableDrivers.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.first_name} {d.last_name} ({d.employee_id})
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="form-label text-xs">Vehicle Plate Number</label>
+              <input
+                type="text"
+                name="vehicle_plate"
+                value={dispatchForm.vehicle_plate}
+                onChange={handleDispatchInputChange}
+                required
+                className="input-field text-xs"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label text-xs">Starting Odometer (km)</label>
+            <input
+              type="number"
+              name="start_odometer"
+              value={dispatchForm.start_odometer}
+              onChange={handleDispatchInputChange}
+              required
+              className="input-field text-xs"
+            />
+          </div>
+
+          <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-brand-divider">
+            <button
+              type="button"
+              onClick={() => setIsDispatchOpen(false)}
+              className="btn btn-outline text-xs"
+            >
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-primary text-xs">
+              Confirm Dispatch
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

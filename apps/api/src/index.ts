@@ -13,6 +13,8 @@ import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 import roleRoutes from './routes/role.routes';
 import permissionRoutes from './routes/permission.routes';
+import driverRoutes from './routes/driver.routes';
+import dashboardRoutes from './routes/dashboard.routes';
 import { HTTP_STATUS } from './constants';
 import { successResponse } from '@transitops/utils';
 
@@ -84,6 +86,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/roles', roleRoutes);
 app.use('/api/v1/permissions', permissionRoutes);
+app.use('/api/v1/drivers', driverRoutes);
+app.use('/api/v1/dashboard', dashboardRoutes);
 
 // Fallback handlers
 app.use(notFoundHandler);

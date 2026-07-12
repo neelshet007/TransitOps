@@ -1,12 +1,12 @@
 # Graph Report - C:\Web Devlopment\HackathonProject\transitops  (2026-07-12)
 
 ## Corpus Check
-- 67 files · ~39,354 words
+- 89 files · ~45,502 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 172 nodes · 145 edges · 55 communities detected
-- Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.8)
+- 262 nodes · 265 edges · 71 communities detected
+- Extraction: 80% EXTRACTED · 20% INFERRED · 0% AMBIGUOUS · INFERRED: 53 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -65,18 +65,34 @@
 - [[_COMMUNITY_Community 52|Community 52]]
 - [[_COMMUNITY_Community 53|Community 53]]
 - [[_COMMUNITY_Community 54|Community 54]]
+- [[_COMMUNITY_Community 55|Community 55]]
+- [[_COMMUNITY_Community 56|Community 56]]
+- [[_COMMUNITY_Community 57|Community 57]]
+- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 59|Community 59]]
+- [[_COMMUNITY_Community 60|Community 60]]
+- [[_COMMUNITY_Community 61|Community 61]]
+- [[_COMMUNITY_Community 62|Community 62]]
+- [[_COMMUNITY_Community 63|Community 63]]
+- [[_COMMUNITY_Community 64|Community 64]]
+- [[_COMMUNITY_Community 65|Community 65]]
+- [[_COMMUNITY_Community 66|Community 66]]
+- [[_COMMUNITY_Community 67|Community 67]]
+- [[_COMMUNITY_Community 68|Community 68]]
+- [[_COMMUNITY_Community 69|Community 69]]
+- [[_COMMUNITY_Community 70|Community 70]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `handleInputChange()` - 9 edges
-2. `handleCreateSubmit()` - 9 edges
-3. `resetForm()` - 6 edges
-4. `DriverService` - 6 edges
-5. `TripService` - 6 edges
-6. `VehicleService` - 6 edges
-7. `query()` - 5 edges
-8. `AuthService` - 5 edges
-9. `handleEditSubmit()` - 5 edges
-10. `ExpenseService` - 5 edges
+1. `query()` - 24 edges
+2. `UserRepository` - 11 edges
+3. `RoleRepository` - 10 edges
+4. `RoleService` - 9 edges
+5. `UserService` - 9 edges
+6. `handleInputChange()` - 9 edges
+7. `handleCreateSubmit()` - 9 edges
+8. `resetForm()` - 6 edges
+9. `DriverService` - 6 edges
+10. `TripService` - 6 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `query()` --calls--> `migrate()`  [INFERRED]
@@ -91,84 +107,84 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.18
-Nodes (5): AuthService, query(), migrate(), seed(), UserRepository
+Cohesion: 0.1
+Nodes (3): RoleService, UserRepository, UserService
 
 ### Community 1 - "Community 1"
 Cohesion: 0.15
-Nodes (3): errorHandler(), notFoundHandler(), errorResponse()
+Nodes (5): query(), migrate(), PermissionRepository, RoleRepository, seed()
 
 ### Community 2 - "Community 2"
-Cohesion: 0.15
-Nodes (6): AppError, AuthenticationError, ConflictError, ForbiddenError, NotFoundError, ValidationError
+Cohesion: 0.09
+Nodes (3): deleteRoleApi(), deleteUserApi(), VehicleService
 
 ### Community 3 - "Community 3"
-Cohesion: 0.38
+Cohesion: 0.28
 Nodes (5): handleCreateSubmit(), handleDeleteSubmit(), handleEditSubmit(), handleInputChange(), resetForm()
 
 ### Community 4 - "Community 4"
+Cohesion: 0.15
+Nodes (3): errorHandler(), notFoundHandler(), errorResponse()
+
+### Community 5 - "Community 5"
+Cohesion: 0.15
+Nodes (6): AppError, AuthenticationError, ConflictError, ForbiddenError, NotFoundError, ValidationError
+
+### Community 6 - "Community 6"
+Cohesion: 0.39
+Nodes (2): AuthService, handleSubmit()
+
+### Community 7 - "Community 7"
 Cohesion: 0.29
 Nodes (1): DriverService
 
-### Community 5 - "Community 5"
+### Community 8 - "Community 8"
 Cohesion: 0.29
 Nodes (1): TripService
 
-### Community 6 - "Community 6"
-Cohesion: 0.29
-Nodes (1): VehicleService
-
-### Community 7 - "Community 7"
+### Community 9 - "Community 9"
 Cohesion: 0.33
 Nodes (1): ExpenseService
 
-### Community 8 - "Community 8"
+### Community 10 - "Community 10"
 Cohesion: 0.33
 Nodes (1): FuelService
 
-### Community 9 - "Community 9"
+### Community 11 - "Community 11"
 Cohesion: 0.33
 Nodes (1): MaintenanceService
 
-### Community 10 - "Community 10"
+### Community 12 - "Community 12"
 Cohesion: 0.4
 Nodes (0): 
 
-### Community 11 - "Community 11"
-Cohesion: 0.5
-Nodes (0): 
-
-### Community 12 - "Community 12"
-Cohesion: 0.67
-Nodes (0): 
-
 ### Community 13 - "Community 13"
-Cohesion: 0.67
+Cohesion: 0.4
 Nodes (0): 
 
 ### Community 14 - "Community 14"
-Cohesion: 1.0
-Nodes (1): AuthController
+Cohesion: 0.5
+Nodes (0): 
 
 ### Community 15 - "Community 15"
-Cohesion: 1.0
+Cohesion: 0.5
 Nodes (0): 
 
 ### Community 16 - "Community 16"
-Cohesion: 1.0
+Cohesion: 0.67
 Nodes (0): 
 
 ### Community 17 - "Community 17"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): AuthController
 
 ### Community 18 - "Community 18"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): RoleController
 
 ### Community 19 - "Community 19"
 Cohesion: 1.0
-Nodes (0): 
+Nodes (1): UserController
 
 ### Community 20 - "Community 20"
 Cohesion: 1.0
@@ -310,96 +326,194 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
+### Community 55 - "Community 55"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 56 - "Community 56"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 57 - "Community 57"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 58 - "Community 58"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 59 - "Community 59"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 60 - "Community 60"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 61 - "Community 61"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 62 - "Community 62"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 63 - "Community 63"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 64 - "Community 64"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 65 - "Community 65"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 66 - "Community 66"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 67 - "Community 67"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 68 - "Community 68"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 69 - "Community 69"
+Cohesion: 1.0
+Nodes (0): 
+
+### Community 70 - "Community 70"
+Cohesion: 1.0
+Nodes (0): 
+
 ## Knowledge Gaps
-- **1 isolated node(s):** `AuthController`
+- **3 isolated node(s):** `AuthController`, `RoleController`, `UserController`
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 14`** (2 nodes): `AuthController`, `auth.controller.ts`
+- **Thin community `Community 17`** (2 nodes): `AuthController`, `auth.controller.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 15`** (2 nodes): `validation.middleware.ts`, `validateRequest()`
+- **Thin community `Community 18`** (2 nodes): `role.controller.ts`, `RoleController`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 16`** (2 nodes): `layout.tsx`, `RootLayout()`
+- **Thin community `Community 19`** (2 nodes): `user.controller.ts`, `UserController`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 17`** (2 nodes): `page.tsx`, `IndexPage()`
+- **Thin community `Community 20`** (2 nodes): `validation.middleware.ts`, `validateRequest()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (2 nodes): `page.tsx`, `ProfilePage()`
+- **Thin community `Community 21`** (2 nodes): `layout.tsx`, `RootLayout()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 19`** (2 nodes): `page.tsx`, `handleSave()`
+- **Thin community `Community 22`** (2 nodes): `page.tsx`, `IndexPage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 20`** (2 nodes): `AppShell()`, `AppShell.tsx`
+- **Thin community `Community 23`** (2 nodes): `page.tsx`, `ProfilePage()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 21`** (2 nodes): `ChartCard.tsx`, `ChartCard()`
+- **Thin community `Community 24`** (2 nodes): `page.tsx`, `handleSave()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 22`** (2 nodes): `DataTable.tsx`, `handleSort()`
+- **Thin community `Community 25`** (2 nodes): `AppShell()`, `AppShell.tsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 23`** (2 nodes): `Modal.tsx`, `Modal()`
+- **Thin community `Community 26`** (2 nodes): `ChartCard.tsx`, `ChartCard()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 24`** (2 nodes): `Sidebar.tsx`, `Sidebar()`
+- **Thin community `Community 27`** (2 nodes): `DataTable.tsx`, `handleSort()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 25`** (2 nodes): `ThemeProvider.tsx`, `ThemeProvider()`
+- **Thin community `Community 28`** (2 nodes): `Modal.tsx`, `Modal()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (2 nodes): `mockDb.ts`, `uuid()`
+- **Thin community `Community 29`** (2 nodes): `Navbar.tsx`, `handleLogout()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 27`** (2 nodes): `useDrivers.ts`, `useDrivers()`
+- **Thin community `Community 30`** (2 nodes): `RouteGuard.tsx`, `RouteGuard()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 28`** (2 nodes): `useExpenses.ts`, `useExpenses()`
+- **Thin community `Community 31`** (2 nodes): `Sidebar.tsx`, `Sidebar()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 29`** (2 nodes): `useFuel.ts`, `useFuel()`
+- **Thin community `Community 32`** (2 nodes): `ThemeProvider.tsx`, `ThemeProvider()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 30`** (2 nodes): `useMaintenance.ts`, `useMaintenance()`
+- **Thin community `Community 33`** (2 nodes): `useAuth.ts`, `useAuth()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 31`** (2 nodes): `useReports.ts`, `useReports()`
+- **Thin community `Community 34`** (2 nodes): `mockDb.ts`, `uuid()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 32`** (2 nodes): `useTrips.ts`, `useTrips()`
+- **Thin community `Community 35`** (2 nodes): `useDrivers.ts`, `useDrivers()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 33`** (2 nodes): `useVehicles.ts`, `useVehicles()`
+- **Thin community `Community 36`** (2 nodes): `useExpenses.ts`, `useExpenses()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 34`** (1 nodes): `index.ts`
+- **Thin community `Community 37`** (2 nodes): `useFuel.ts`, `useFuel()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 35`** (1 nodes): `index.ts`
+- **Thin community `Community 38`** (2 nodes): `useMaintenance.ts`, `useMaintenance()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 36`** (1 nodes): `index.ts`
+- **Thin community `Community 39`** (2 nodes): `useReports.ts`, `useReports()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 37`** (1 nodes): `auth.routes.ts`
+- **Thin community `Community 40`** (2 nodes): `useTrips.ts`, `useTrips()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 38`** (1 nodes): `logger.ts`
+- **Thin community `Community 41`** (2 nodes): `useVehicles.ts`, `useVehicles()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 39`** (1 nodes): `auth.validator.ts`
+- **Thin community `Community 42`** (2 nodes): `processQueue()`, `apiClient.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 40`** (1 nodes): `next-env.d.ts`
+- **Thin community `Community 43`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 41`** (1 nodes): `next.config.js`
+- **Thin community `Community 44`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 42`** (1 nodes): `postcss.config.js`
+- **Thin community `Community 45`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 43`** (1 nodes): `tailwind.config.js`
+- **Thin community `Community 46`** (1 nodes): `auth.routes.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 44`** (1 nodes): `page.tsx`
+- **Thin community `Community 47`** (1 nodes): `permission.routes.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 45`** (1 nodes): `page.tsx`
+- **Thin community `Community 48`** (1 nodes): `role.routes.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 46`** (1 nodes): `page.tsx`
+- **Thin community `Community 49`** (1 nodes): `user.routes.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 47`** (1 nodes): `page.tsx`
+- **Thin community `Community 50`** (1 nodes): `logger.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 48`** (1 nodes): `page.tsx`
+- **Thin community `Community 51`** (1 nodes): `auth.validator.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 49`** (1 nodes): `Drawer.tsx`
+- **Thin community `Community 52`** (1 nodes): `role.validator.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 50`** (1 nodes): `Navbar.tsx`
+- **Thin community `Community 53`** (1 nodes): `user.validator.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 51`** (1 nodes): `StatCard.tsx`
+- **Thin community `Community 54`** (1 nodes): `next-env.d.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 52`** (1 nodes): `index.ts`
+- **Thin community `Community 55`** (1 nodes): `next.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 53`** (1 nodes): `theme.ts`
+- **Thin community `Community 56`** (1 nodes): `postcss.config.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 54`** (1 nodes): `index.ts`
+- **Thin community `Community 57`** (1 nodes): `tailwind.config.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 58`** (1 nodes): `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 59`** (1 nodes): `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 60`** (1 nodes): `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 61`** (1 nodes): `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 62`** (1 nodes): `page.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 63`** (1 nodes): `Drawer.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 64`** (1 nodes): `RootClientLayout.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 65`** (1 nodes): `StatCard.tsx`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 66`** (1 nodes): `authStore.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 67`** (1 nodes): `fix.js`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 68`** (1 nodes): `index.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 69`** (1 nodes): `theme.ts`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 70`** (1 nodes): `index.ts`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `handleInputChange()` connect `Community 3` to `Community 12`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **What connects `AuthController` to the rest of the system?**
-  _1 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `query()` connect `Community 1` to `Community 0`?**
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
+- **Why does `VehicleService` connect `Community 2` to `Community 0`?**
+  _High betweenness centrality (0.041) - this node is a cross-community bridge._
+- **Are the 23 inferred relationships involving `query()` (e.g. with `migrate()` and `seed()`) actually correct?**
+  _`query()` has 23 INFERRED edges - model-reasoned connections that need verification._
+- **What connects `AuthController`, `RoleController`, `UserController` to the rest of the system?**
+  _3 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.1 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.09 - nodes in this community are weakly interconnected._

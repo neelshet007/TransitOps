@@ -18,17 +18,21 @@ export default function RouteGuard({ children }: RouteGuardProps) {
   const fetchMe = useAuthStore((s) => s.fetchMe);
   const isLoading = useAuthStore((s) => s.isLoading);
 
+  const [mounted, setMounted] = React.useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // On mount, if we have a token but no confirmed auth state, validate with the server
+    const token = accessToken || (typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null);
+    if (token && !isAuthenticated) {
+      fetchMe();
+    }
+  }, [accessToken, isAuthenticated, fetchMe]);
+
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
   useEffect(() => {
-    // On mount, if we have a token but no confirmed auth state, validate with the server
-    if (accessToken && !isAuthenticated) {
-      fetchMe();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isLoading) return; // Wait for fetch to complete
+    if (!mounted || isLoading) return; // Wait for mount and fetch to complete
 
     if (!isAuthenticated && !isPublicRoute) {
       router.replace('/login');
@@ -37,10 +41,10 @@ export default function RouteGuard({ children }: RouteGuardProps) {
     if (isAuthenticated && isPublicRoute) {
       router.replace('/dashboard');
     }
-  }, [isAuthenticated, isPublicRoute, isLoading, router]);
+  }, [isAuthenticated, isPublicRoute, isLoading, router, mounted]);
 
-  // Show a minimal loading indicator while validating token
-  if (isLoading) {
+  // Show a minimal loading indicator while validating token or mounting
+  if (!mounted || isLoading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-[#090A0F]">
         <div className="flex flex-col items-center gap-4">

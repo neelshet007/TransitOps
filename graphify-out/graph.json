@@ -9,7 +9,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_index_ts",
-      "community": 34,
+      "community": 43,
       "norm_label": "index.ts"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\config\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_config_index_ts",
-      "community": 35,
+      "community": 44,
       "norm_label": "index.ts"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\constants\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_constants_index_ts",
-      "community": 36,
+      "community": 45,
       "norm_label": "index.ts"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\auth.controller.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_auth_controller_ts",
-      "community": 14,
+      "community": 17,
       "norm_label": "auth.controller.ts"
     },
     {
@@ -45,8 +45,44 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\auth.controller.ts",
       "source_location": "L9",
       "id": "auth_controller_authcontroller",
-      "community": 14,
+      "community": 17,
       "norm_label": "authcontroller"
+    },
+    {
+      "label": "role.controller.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\role.controller.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_role_controller_ts",
+      "community": 18,
+      "norm_label": "role.controller.ts"
+    },
+    {
+      "label": "RoleController",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\role.controller.ts",
+      "source_location": "L7",
+      "id": "role_controller_rolecontroller",
+      "community": 18,
+      "norm_label": "rolecontroller"
+    },
+    {
+      "label": "user.controller.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\user.controller.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_user_controller_ts",
+      "community": 19,
+      "norm_label": "user.controller.ts"
+    },
+    {
+      "label": "UserController",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\user.controller.ts",
+      "source_location": "L6",
+      "id": "user_controller_usercontroller",
+      "community": 19,
+      "norm_label": "usercontroller"
     },
     {
       "label": "index.ts",
@@ -54,7 +90,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_database_index_ts",
-      "community": 0,
+      "community": 1,
       "norm_label": "index.ts"
     },
     {
@@ -63,7 +99,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\index.ts",
       "source_location": "L23",
       "id": "index_query",
-      "community": 0,
+      "community": 1,
       "norm_label": "query()"
     },
     {
@@ -72,7 +108,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\migrate.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_database_migrate_ts",
-      "community": 0,
+      "community": 1,
       "norm_label": "migrate.ts"
     },
     {
@@ -81,7 +117,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\migrate.ts",
       "source_location": "L6",
       "id": "migrate_migrate",
-      "community": 0,
+      "community": 1,
       "norm_label": "migrate()"
     },
     {
@@ -90,7 +126,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\seed.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_database_seed_ts",
-      "community": 0,
+      "community": 1,
       "norm_label": "seed.ts"
     },
     {
@@ -99,7 +135,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\database\\seed.ts",
       "source_location": "L6",
       "id": "seed_seed",
-      "community": 0,
+      "community": 1,
       "norm_label": "seed()"
     },
     {
@@ -108,7 +144,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
-      "community": 2,
+      "community": 5,
       "norm_label": "errors.ts"
     },
     {
@@ -117,7 +153,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L3",
       "id": "errors_apperror",
-      "community": 2,
+      "community": 5,
       "norm_label": "apperror"
     },
     {
@@ -126,7 +162,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L8",
       "id": "errors_apperror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -135,7 +171,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L18",
       "id": "errors_validationerror",
-      "community": 2,
+      "community": 5,
       "norm_label": "validationerror"
     },
     {
@@ -144,7 +180,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L19",
       "id": "errors_validationerror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -153,7 +189,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L24",
       "id": "errors_authenticationerror",
-      "community": 2,
+      "community": 5,
       "norm_label": "authenticationerror"
     },
     {
@@ -162,7 +198,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L25",
       "id": "errors_authenticationerror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -171,7 +207,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L30",
       "id": "errors_forbiddenerror",
-      "community": 2,
+      "community": 5,
       "norm_label": "forbiddenerror"
     },
     {
@@ -180,7 +216,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L31",
       "id": "errors_forbiddenerror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -189,7 +225,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L36",
       "id": "errors_notfounderror",
-      "community": 2,
+      "community": 5,
       "norm_label": "notfounderror"
     },
     {
@@ -198,7 +234,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L37",
       "id": "errors_notfounderror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -207,7 +243,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L42",
       "id": "errors_conflicterror",
-      "community": 2,
+      "community": 5,
       "norm_label": "conflicterror"
     },
     {
@@ -216,7 +252,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
       "source_location": "L43",
       "id": "errors_conflicterror_constructor",
-      "community": 2,
+      "community": 5,
       "norm_label": ".constructor()"
     },
     {
@@ -225,7 +261,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
-      "community": 11,
+      "community": 14,
       "norm_label": "auth.middleware.ts"
     },
     {
@@ -234,7 +270,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
       "source_location": "L8",
       "id": "auth_middleware_requireauth",
-      "community": 11,
+      "community": 14,
       "norm_label": "requireauth()"
     },
     {
@@ -243,7 +279,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
       "source_location": "L29",
       "id": "auth_middleware_requireroles",
-      "community": 11,
+      "community": 14,
       "norm_label": "requireroles()"
     },
     {
@@ -252,7 +288,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
       "source_location": "L45",
       "id": "auth_middleware_requirepermissions",
-      "community": 11,
+      "community": 14,
       "norm_label": "requirepermissions()"
     },
     {
@@ -261,7 +297,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
-      "community": 1,
+      "community": 4,
       "norm_label": "error.middleware.ts"
     },
     {
@@ -270,7 +306,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
       "source_location": "L7",
       "id": "error_middleware_errorhandler",
-      "community": 1,
+      "community": 4,
       "norm_label": "errorhandler()"
     },
     {
@@ -279,7 +315,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
       "source_location": "L38",
       "id": "error_middleware_notfoundhandler",
-      "community": 1,
+      "community": 4,
       "norm_label": "notfoundhandler()"
     },
     {
@@ -288,7 +324,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\validation.middleware.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_validation_middleware_ts",
-      "community": 15,
+      "community": 20,
       "norm_label": "validation.middleware.ts"
     },
     {
@@ -297,8 +333,152 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\validation.middleware.ts",
       "source_location": "L5",
       "id": "validation_middleware_validaterequest",
-      "community": 15,
+      "community": 20,
       "norm_label": "validaterequest()"
+    },
+    {
+      "label": "permission.repository.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_permission_repository_ts",
+      "community": 1,
+      "norm_label": "permission.repository.ts"
+    },
+    {
+      "label": "PermissionRepository",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L10",
+      "id": "permission_repository_permissionrepository",
+      "community": 1,
+      "norm_label": "permissionrepository"
+    },
+    {
+      "label": ".findAll()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L11",
+      "id": "permission_repository_permissionrepository_findall",
+      "community": 1,
+      "norm_label": ".findall()"
+    },
+    {
+      "label": ".findById()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L18",
+      "id": "permission_repository_permissionrepository_findbyid",
+      "community": 1,
+      "norm_label": ".findbyid()"
+    },
+    {
+      "label": ".findByCodes()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L26",
+      "id": "permission_repository_permissionrepository_findbycodes",
+      "community": 1,
+      "norm_label": ".findbycodes()"
+    },
+    {
+      "label": "role.repository.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_role_repository_ts",
+      "community": 1,
+      "norm_label": "role.repository.ts"
+    },
+    {
+      "label": "RoleRepository",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L24",
+      "id": "role_repository_rolerepository",
+      "community": 1,
+      "norm_label": "rolerepository"
+    },
+    {
+      "label": ".findAll()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L25",
+      "id": "role_repository_rolerepository_findall",
+      "community": 1,
+      "norm_label": ".findall()"
+    },
+    {
+      "label": ".findById()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L41",
+      "id": "role_repository_rolerepository_findbyid",
+      "community": 1,
+      "norm_label": ".findbyid()"
+    },
+    {
+      "label": ".findByCode()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L57",
+      "id": "role_repository_rolerepository_findbycode",
+      "community": 1,
+      "norm_label": ".findbycode()"
+    },
+    {
+      "label": ".create()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L63",
+      "id": "role_repository_rolerepository_create",
+      "community": 1,
+      "norm_label": ".create()"
+    },
+    {
+      "label": ".update()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L74",
+      "id": "role_repository_rolerepository_update",
+      "community": 1,
+      "norm_label": ".update()"
+    },
+    {
+      "label": ".softDelete()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L95",
+      "id": "role_repository_rolerepository_softdelete",
+      "community": 1,
+      "norm_label": ".softdelete()"
+    },
+    {
+      "label": ".assignPermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L103",
+      "id": "role_repository_rolerepository_assignpermission",
+      "community": 1,
+      "norm_label": ".assignpermission()"
+    },
+    {
+      "label": ".removePermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L110",
+      "id": "role_repository_rolerepository_removepermission",
+      "community": 1,
+      "norm_label": ".removepermission()"
+    },
+    {
+      "label": ".setPermissions()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L114",
+      "id": "role_repository_rolerepository_setpermissions",
+      "community": 1,
+      "norm_label": ".setpermissions()"
     },
     {
       "label": "user.repository.ts",
@@ -313,7 +493,7 @@
       "label": "UserRepository",
       "file_type": "code",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L14",
+      "source_location": "L50",
       "id": "user_repository_userrepository",
       "community": 0,
       "norm_label": "userrepository"
@@ -322,7 +502,7 @@
       "label": ".findByEmail()",
       "file_type": "code",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L15",
+      "source_location": "L51",
       "id": "user_repository_userrepository_findbyemail",
       "community": 0,
       "norm_label": ".findbyemail()"
@@ -331,16 +511,79 @@
       "label": ".findById()",
       "file_type": "code",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L32",
+      "source_location": "L68",
       "id": "user_repository_userrepository_findbyid",
       "community": 0,
       "norm_label": ".findbyid()"
     },
     {
+      "label": ".findAll()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L85",
+      "id": "user_repository_userrepository_findall",
+      "community": 0,
+      "norm_label": ".findall()"
+    },
+    {
+      "label": ".create()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L138",
+      "id": "user_repository_userrepository_create",
+      "community": 0,
+      "norm_label": ".create()"
+    },
+    {
+      "label": ".update()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L158",
+      "id": "user_repository_userrepository_update",
+      "community": 0,
+      "norm_label": ".update()"
+    },
+    {
+      "label": ".softDelete()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L188",
+      "id": "user_repository_userrepository_softdelete",
+      "community": 0,
+      "norm_label": ".softdelete()"
+    },
+    {
+      "label": ".resetPassword()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L194",
+      "id": "user_repository_userrepository_resetpassword",
+      "community": 0,
+      "norm_label": ".resetpassword()"
+    },
+    {
+      "label": ".assignRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L202",
+      "id": "user_repository_userrepository_assignrole",
+      "community": 0,
+      "norm_label": ".assignrole()"
+    },
+    {
+      "label": ".removeRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L211",
+      "id": "user_repository_userrepository_removerole",
+      "community": 0,
+      "norm_label": ".removerole()"
+    },
+    {
       "label": ".mapRowsToUser()",
       "file_type": "code",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L49",
+      "source_location": "L216",
       "id": "user_repository_userrepository_maprowstouser",
       "community": 0,
       "norm_label": ".maprowstouser()"
@@ -351,8 +594,35 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\routes\\auth.routes.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_routes_auth_routes_ts",
-      "community": 37,
+      "community": 46,
       "norm_label": "auth.routes.ts"
+    },
+    {
+      "label": "permission.routes.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\routes\\permission.routes.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_routes_permission_routes_ts",
+      "community": 47,
+      "norm_label": "permission.routes.ts"
+    },
+    {
+      "label": "role.routes.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\routes\\role.routes.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_routes_role_routes_ts",
+      "community": 48,
+      "norm_label": "role.routes.ts"
+    },
+    {
+      "label": "user.routes.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\routes\\user.routes.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_routes_user_routes_ts",
+      "community": 49,
+      "norm_label": "user.routes.ts"
     },
     {
       "label": "auth.service.ts",
@@ -360,7 +630,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_auth_service_ts",
-      "community": 0,
+      "community": 6,
       "norm_label": "auth.service.ts"
     },
     {
@@ -369,7 +639,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L9",
       "id": "auth_service_authservice",
-      "community": 0,
+      "community": 6,
       "norm_label": "authservice"
     },
     {
@@ -378,7 +648,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L10",
       "id": "auth_service_authservice_login",
-      "community": 0,
+      "community": 6,
       "norm_label": ".login()"
     },
     {
@@ -387,7 +657,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L51",
       "id": "auth_service_authservice_refreshtokens",
-      "community": 0,
+      "community": 6,
       "norm_label": ".refreshtokens()"
     },
     {
@@ -396,7 +666,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L83",
       "id": "auth_service_authservice_generateaccesstoken",
-      "community": 0,
+      "community": 6,
       "norm_label": ".generateaccesstoken()"
     },
     {
@@ -405,8 +675,188 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L89",
       "id": "auth_service_authservice_generaterefreshtoken",
-      "community": 0,
+      "community": 6,
       "norm_label": ".generaterefreshtoken()"
+    },
+    {
+      "label": "role.service.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_role_service_ts",
+      "community": 0,
+      "norm_label": "role.service.ts"
+    },
+    {
+      "label": "RoleService",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L5",
+      "id": "role_service_roleservice",
+      "community": 0,
+      "norm_label": "roleservice"
+    },
+    {
+      "label": ".getRoles()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L6",
+      "id": "role_service_roleservice_getroles",
+      "community": 0,
+      "norm_label": ".getroles()"
+    },
+    {
+      "label": ".getRoleById()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L10",
+      "id": "role_service_roleservice_getrolebyid",
+      "community": 0,
+      "norm_label": ".getrolebyid()"
+    },
+    {
+      "label": ".createRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L16",
+      "id": "role_service_roleservice_createrole",
+      "community": 0,
+      "norm_label": ".createrole()"
+    },
+    {
+      "label": ".updateRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L24",
+      "id": "role_service_roleservice_updaterole",
+      "community": 0,
+      "norm_label": ".updaterole()"
+    },
+    {
+      "label": ".deleteRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L32",
+      "id": "role_service_roleservice_deleterole",
+      "community": 0,
+      "norm_label": ".deleterole()"
+    },
+    {
+      "label": ".setPermissions()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L40",
+      "id": "role_service_roleservice_setpermissions",
+      "community": 0,
+      "norm_label": ".setpermissions()"
+    },
+    {
+      "label": ".assignPermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L54",
+      "id": "role_service_roleservice_assignpermission",
+      "community": 0,
+      "norm_label": ".assignpermission()"
+    },
+    {
+      "label": ".removePermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L63",
+      "id": "role_service_roleservice_removepermission",
+      "community": 0,
+      "norm_label": ".removepermission()"
+    },
+    {
+      "label": "user.service.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_user_service_ts",
+      "community": 0,
+      "norm_label": "user.service.ts"
+    },
+    {
+      "label": "UserService",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L4",
+      "id": "user_service_userservice",
+      "community": 0,
+      "norm_label": "userservice"
+    },
+    {
+      "label": ".getUsers()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L5",
+      "id": "user_service_userservice_getusers",
+      "community": 0,
+      "norm_label": ".getusers()"
+    },
+    {
+      "label": ".getUserById()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L14",
+      "id": "user_service_userservice_getuserbyid",
+      "community": 0,
+      "norm_label": ".getuserbyid()"
+    },
+    {
+      "label": ".createUser()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L20",
+      "id": "user_service_userservice_createuser",
+      "community": 0,
+      "norm_label": ".createuser()"
+    },
+    {
+      "label": ".updateUser()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L29",
+      "id": "user_service_userservice_updateuser",
+      "community": 0,
+      "norm_label": ".updateuser()"
+    },
+    {
+      "label": ".deleteUser()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L45",
+      "id": "user_service_userservice_deleteuser",
+      "community": 0,
+      "norm_label": ".deleteuser()"
+    },
+    {
+      "label": ".resetPassword()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L53",
+      "id": "user_service_userservice_resetpassword",
+      "community": 0,
+      "norm_label": ".resetpassword()"
+    },
+    {
+      "label": ".assignRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L61",
+      "id": "user_service_userservice_assignrole",
+      "community": 0,
+      "norm_label": ".assignrole()"
+    },
+    {
+      "label": ".removeRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L68",
+      "id": "user_service_userservice_removerole",
+      "community": 0,
+      "norm_label": ".removerole()"
     },
     {
       "label": "logger.ts",
@@ -414,7 +864,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\utils\\logger.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_utils_logger_ts",
-      "community": 38,
+      "community": 50,
       "norm_label": "logger.ts"
     },
     {
@@ -423,8 +873,26 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\validators\\auth.validator.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_validators_auth_validator_ts",
-      "community": 39,
+      "community": 51,
       "norm_label": "auth.validator.ts"
+    },
+    {
+      "label": "role.validator.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\validators\\role.validator.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_validators_role_validator_ts",
+      "community": 52,
+      "norm_label": "role.validator.ts"
+    },
+    {
+      "label": "user.validator.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\validators\\user.validator.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_validators_user_validator_ts",
+      "community": 53,
+      "norm_label": "user.validator.ts"
     },
     {
       "label": "next-env.d.ts",
@@ -432,7 +900,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\next-env.d.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_next_env_d_ts",
-      "community": 40,
+      "community": 54,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -441,7 +909,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\next.config.js",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_next_config_js",
-      "community": 41,
+      "community": 55,
       "norm_label": "next.config.js"
     },
     {
@@ -450,7 +918,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\postcss.config.js",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_postcss_config_js",
-      "community": 42,
+      "community": 56,
       "norm_label": "postcss.config.js"
     },
     {
@@ -459,7 +927,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\tailwind.config.js",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_tailwind_config_js",
-      "community": 43,
+      "community": 57,
       "norm_label": "tailwind.config.js"
     },
     {
@@ -468,16 +936,16 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\layout.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_layout_tsx",
-      "community": 16,
+      "community": 21,
       "norm_label": "layout.tsx"
     },
     {
       "label": "RootLayout()",
       "file_type": "code",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\layout.tsx",
-      "source_location": "L12",
+      "source_location": "L10",
       "id": "layout_rootlayout",
-      "community": 16,
+      "community": 21,
       "norm_label": "rootlayout()"
     },
     {
@@ -486,7 +954,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_page_tsx",
-      "community": 17,
+      "community": 22,
       "norm_label": "page.tsx"
     },
     {
@@ -495,7 +963,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\page.tsx",
       "source_location": "L3",
       "id": "page_indexpage",
-      "community": 17,
+      "community": 22,
       "norm_label": "indexpage()"
     },
     {
@@ -504,7 +972,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\analytics\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_analytics_page_tsx",
-      "community": 44,
+      "community": 58,
       "norm_label": "page.tsx"
     },
     {
@@ -513,7 +981,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\dashboard\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_dashboard_page_tsx",
-      "community": 45,
+      "community": 59,
       "norm_label": "page.tsx"
     },
     {
@@ -522,7 +990,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\design-system\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_design_system_page_tsx",
-      "community": 46,
+      "community": 60,
       "norm_label": "page.tsx"
     },
     {
@@ -603,8 +1071,26 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\help\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_help_page_tsx",
-      "community": 47,
+      "community": 61,
       "norm_label": "page.tsx"
+    },
+    {
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\login\\page.tsx",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_login_page_tsx",
+      "community": 6,
+      "norm_label": "page.tsx"
+    },
+    {
+      "label": "handleSubmit()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\login\\page.tsx",
+      "source_location": "L17",
+      "id": "page_handlesubmit",
+      "community": 6,
+      "norm_label": "handlesubmit()"
     },
     {
       "label": "page.tsx",
@@ -612,7 +1098,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\logs\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_logs_page_tsx",
-      "community": 48,
+      "community": 62,
       "norm_label": "page.tsx"
     },
     {
@@ -630,7 +1116,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_notifications_page_tsx",
-      "community": 10,
+      "community": 12,
       "norm_label": "page.tsx"
     },
     {
@@ -639,7 +1125,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L71",
       "id": "page_markallasread",
-      "community": 10,
+      "community": 12,
       "norm_label": "markallasread()"
     },
     {
@@ -648,7 +1134,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L75",
       "id": "page_markasread",
-      "community": 10,
+      "community": 12,
       "norm_label": "markasread()"
     },
     {
@@ -657,7 +1143,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L79",
       "id": "page_deletenotification",
-      "community": 10,
+      "community": 12,
       "norm_label": "deletenotification()"
     },
     {
@@ -666,7 +1152,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L89",
       "id": "page_geticon",
-      "community": 10,
+      "community": 12,
       "norm_label": "geticon()"
     },
     {
@@ -675,7 +1161,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\profile\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_profile_page_tsx",
-      "community": 18,
+      "community": 23,
       "norm_label": "page.tsx"
     },
     {
@@ -684,7 +1170,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\profile\\page.tsx",
       "source_location": "L6",
       "id": "page_profilepage",
-      "community": 18,
+      "community": 23,
       "norm_label": "profilepage()"
     },
     {
@@ -693,7 +1179,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\reports\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_reports_page_tsx",
-      "community": 12,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -702,7 +1188,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\reports\\page.tsx",
       "source_location": "L36",
       "id": "page_handlegeneratesubmit",
-      "community": 12,
+      "community": 3,
       "norm_label": "handlegeneratesubmit()"
     },
     {
@@ -711,7 +1197,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\reports\\page.tsx",
       "source_location": "L52",
       "id": "page_handledelete",
-      "community": 12,
+      "community": 3,
       "norm_label": "handledelete()"
     },
     {
@@ -729,7 +1215,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\settings\\page.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_app_settings_page_tsx",
-      "community": 19,
+      "community": 24,
       "norm_label": "page.tsx"
     },
     {
@@ -738,7 +1224,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\settings\\page.tsx",
       "source_location": "L10",
       "id": "page_handlesave",
-      "community": 19,
+      "community": 24,
       "norm_label": "handlesave()"
     },
     {
@@ -774,7 +1260,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\AppShell.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_appshell_tsx",
-      "community": 20,
+      "community": 25,
       "norm_label": "appshell.tsx"
     },
     {
@@ -783,7 +1269,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\AppShell.tsx",
       "source_location": "L7",
       "id": "appshell_appshell",
-      "community": 20,
+      "community": 25,
       "norm_label": "appshell()"
     },
     {
@@ -792,7 +1278,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\ChartCard.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_chartcard_tsx",
-      "community": 21,
+      "community": 26,
       "norm_label": "chartcard.tsx"
     },
     {
@@ -801,7 +1287,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\ChartCard.tsx",
       "source_location": "L10",
       "id": "chartcard_chartcard",
-      "community": 21,
+      "community": 26,
       "norm_label": "chartcard()"
     },
     {
@@ -810,7 +1296,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\CommandPalette.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_commandpalette_tsx",
-      "community": 13,
+      "community": 16,
       "norm_label": "commandpalette.tsx"
     },
     {
@@ -819,7 +1305,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\CommandPalette.tsx",
       "source_location": "L13",
       "id": "commandpalette_handlekeydown",
-      "community": 13,
+      "community": 16,
       "norm_label": "handlekeydown()"
     },
     {
@@ -828,7 +1314,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\CommandPalette.tsx",
       "source_location": "L36",
       "id": "commandpalette_navigateto",
-      "community": 13,
+      "community": 16,
       "norm_label": "navigateto()"
     },
     {
@@ -837,7 +1323,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\DataTable.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_datatable_tsx",
-      "community": 22,
+      "community": 27,
       "norm_label": "datatable.tsx"
     },
     {
@@ -846,7 +1332,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\DataTable.tsx",
       "source_location": "L47",
       "id": "datatable_handlesort",
-      "community": 22,
+      "community": 27,
       "norm_label": "handlesort()"
     },
     {
@@ -855,7 +1341,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Drawer.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_drawer_tsx",
-      "community": 49,
+      "community": 63,
       "norm_label": "drawer.tsx"
     },
     {
@@ -864,7 +1350,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Modal.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_modal_tsx",
-      "community": 23,
+      "community": 28,
       "norm_label": "modal.tsx"
     },
     {
@@ -873,7 +1359,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Modal.tsx",
       "source_location": "L14",
       "id": "modal_modal",
-      "community": 23,
+      "community": 28,
       "norm_label": "modal()"
     },
     {
@@ -882,8 +1368,44 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Navbar.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_navbar_tsx",
-      "community": 50,
+      "community": 29,
       "norm_label": "navbar.tsx"
+    },
+    {
+      "label": "handleLogout()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Navbar.tsx",
+      "source_location": "L29",
+      "id": "navbar_handlelogout",
+      "community": 29,
+      "norm_label": "handlelogout()"
+    },
+    {
+      "label": "RootClientLayout.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\RootClientLayout.tsx",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_rootclientlayout_tsx",
+      "community": 64,
+      "norm_label": "rootclientlayout.tsx"
+    },
+    {
+      "label": "RouteGuard.tsx",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\RouteGuard.tsx",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_routeguard_tsx",
+      "community": 30,
+      "norm_label": "routeguard.tsx"
+    },
+    {
+      "label": "RouteGuard()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\RouteGuard.tsx",
+      "source_location": "L13",
+      "id": "routeguard_routeguard",
+      "community": 30,
+      "norm_label": "routeguard()"
     },
     {
       "label": "Sidebar.tsx",
@@ -891,7 +1413,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Sidebar.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_sidebar_tsx",
-      "community": 24,
+      "community": 31,
       "norm_label": "sidebar.tsx"
     },
     {
@@ -900,7 +1422,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Sidebar.tsx",
       "source_location": "L30",
       "id": "sidebar_sidebar",
-      "community": 24,
+      "community": 31,
       "norm_label": "sidebar()"
     },
     {
@@ -909,7 +1431,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\StatCard.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_statcard_tsx",
-      "community": 51,
+      "community": 65,
       "norm_label": "statcard.tsx"
     },
     {
@@ -918,7 +1440,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\ThemeProvider.tsx",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_components_themeprovider_tsx",
-      "community": 25,
+      "community": 32,
       "norm_label": "themeprovider.tsx"
     },
     {
@@ -927,8 +1449,62 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\ThemeProvider.tsx",
       "source_location": "L14",
       "id": "themeprovider_themeprovider",
-      "community": 25,
+      "community": 32,
       "norm_label": "themeprovider()"
+    },
+    {
+      "label": "useAuth.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\useAuth.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_useauth_ts",
+      "community": 33,
+      "norm_label": "useauth.ts"
+    },
+    {
+      "label": "useAuth()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\useAuth.ts",
+      "source_location": "L9",
+      "id": "useauth_useauth",
+      "community": 33,
+      "norm_label": "useauth()"
+    },
+    {
+      "label": "usePermission.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "community": 15,
+      "norm_label": "usepermission.ts"
+    },
+    {
+      "label": "usePermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L9",
+      "id": "usepermission_usepermission",
+      "community": 15,
+      "norm_label": "usepermission()"
+    },
+    {
+      "label": "useAnyPermission()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L18",
+      "id": "usepermission_useanypermission",
+      "community": 15,
+      "norm_label": "useanypermission()"
+    },
+    {
+      "label": "useRole()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L28",
+      "id": "usepermission_userole",
+      "community": 15,
+      "norm_label": "userole()"
     },
     {
       "label": "mockDb.ts",
@@ -936,7 +1512,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\lib\\mockDb.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_lib_mockdb_ts",
-      "community": 26,
+      "community": 34,
       "norm_label": "mockdb.ts"
     },
     {
@@ -945,7 +1521,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\lib\\mockDb.ts",
       "source_location": "L5",
       "id": "mockdb_uuid",
-      "community": 26,
+      "community": 34,
       "norm_label": "uuid()"
     },
     {
@@ -954,7 +1530,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\hooks\\useDrivers.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_drivers_hooks_usedrivers_ts",
-      "community": 27,
+      "community": 35,
       "norm_label": "usedrivers.ts"
     },
     {
@@ -963,7 +1539,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\hooks\\useDrivers.ts",
       "source_location": "L6",
       "id": "usedrivers_usedrivers",
-      "community": 27,
+      "community": 35,
       "norm_label": "usedrivers()"
     },
     {
@@ -972,7 +1548,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_drivers_services_driverservice_ts",
-      "community": 4,
+      "community": 7,
       "norm_label": "driverservice.ts"
     },
     {
@@ -981,7 +1557,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L3",
       "id": "driverservice_driverservice",
-      "community": 4,
+      "community": 7,
       "norm_label": "driverservice"
     },
     {
@@ -990,7 +1566,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L4",
       "id": "driverservice_driverservice_getall",
-      "community": 4,
+      "community": 7,
       "norm_label": ".getall()"
     },
     {
@@ -999,7 +1575,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L9",
       "id": "driverservice_driverservice_getbyid",
-      "community": 4,
+      "community": 7,
       "norm_label": ".getbyid()"
     },
     {
@@ -1008,7 +1584,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L16",
       "id": "driverservice_driverservice_create",
-      "community": 4,
+      "community": 7,
       "norm_label": ".create()"
     },
     {
@@ -1017,7 +1593,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L29",
       "id": "driverservice_driverservice_update",
-      "community": 4,
+      "community": 7,
       "norm_label": ".update()"
     },
     {
@@ -1026,7 +1602,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\drivers\\services\\driverService.ts",
       "source_location": "L41",
       "id": "driverservice_driverservice_delete",
-      "community": 4,
+      "community": 7,
       "norm_label": ".delete()"
     },
     {
@@ -1035,7 +1611,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\hooks\\useExpenses.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_expenses_hooks_useexpenses_ts",
-      "community": 28,
+      "community": 36,
       "norm_label": "useexpenses.ts"
     },
     {
@@ -1044,7 +1620,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\hooks\\useExpenses.ts",
       "source_location": "L6",
       "id": "useexpenses_useexpenses",
-      "community": 28,
+      "community": 36,
       "norm_label": "useexpenses()"
     },
     {
@@ -1053,7 +1629,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_expenses_services_expenseservice_ts",
-      "community": 7,
+      "community": 9,
       "norm_label": "expenseservice.ts"
     },
     {
@@ -1062,7 +1638,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L3",
       "id": "expenseservice_expenseservice",
-      "community": 7,
+      "community": 9,
       "norm_label": "expenseservice"
     },
     {
@@ -1071,7 +1647,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L4",
       "id": "expenseservice_expenseservice_getall",
-      "community": 7,
+      "community": 9,
       "norm_label": ".getall()"
     },
     {
@@ -1080,7 +1656,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L9",
       "id": "expenseservice_expenseservice_create",
-      "community": 7,
+      "community": 9,
       "norm_label": ".create()"
     },
     {
@@ -1089,7 +1665,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L21",
       "id": "expenseservice_expenseservice_update",
-      "community": 7,
+      "community": 9,
       "norm_label": ".update()"
     },
     {
@@ -1098,7 +1674,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\expenses\\services\\expenseService.ts",
       "source_location": "L32",
       "id": "expenseservice_expenseservice_delete",
-      "community": 7,
+      "community": 9,
       "norm_label": ".delete()"
     },
     {
@@ -1107,7 +1683,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\hooks\\useFuel.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_fuel_hooks_usefuel_ts",
-      "community": 29,
+      "community": 37,
       "norm_label": "usefuel.ts"
     },
     {
@@ -1116,7 +1692,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\hooks\\useFuel.ts",
       "source_location": "L6",
       "id": "usefuel_usefuel",
-      "community": 29,
+      "community": 37,
       "norm_label": "usefuel()"
     },
     {
@@ -1125,7 +1701,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_fuel_services_fuelservice_ts",
-      "community": 8,
+      "community": 10,
       "norm_label": "fuelservice.ts"
     },
     {
@@ -1134,7 +1710,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L3",
       "id": "fuelservice_fuelservice",
-      "community": 8,
+      "community": 10,
       "norm_label": "fuelservice"
     },
     {
@@ -1143,7 +1719,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L4",
       "id": "fuelservice_fuelservice_getall",
-      "community": 8,
+      "community": 10,
       "norm_label": ".getall()"
     },
     {
@@ -1152,7 +1728,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L9",
       "id": "fuelservice_fuelservice_create",
-      "community": 8,
+      "community": 10,
       "norm_label": ".create()"
     },
     {
@@ -1161,7 +1737,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L22",
       "id": "fuelservice_fuelservice_update",
-      "community": 8,
+      "community": 10,
       "norm_label": ".update()"
     },
     {
@@ -1170,7 +1746,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\fuel\\services\\fuelService.ts",
       "source_location": "L33",
       "id": "fuelservice_fuelservice_delete",
-      "community": 8,
+      "community": 10,
       "norm_label": ".delete()"
     },
     {
@@ -1179,7 +1755,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\hooks\\useMaintenance.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_maintenance_hooks_usemaintenance_ts",
-      "community": 30,
+      "community": 38,
       "norm_label": "usemaintenance.ts"
     },
     {
@@ -1188,7 +1764,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\hooks\\useMaintenance.ts",
       "source_location": "L6",
       "id": "usemaintenance_usemaintenance",
-      "community": 30,
+      "community": 38,
       "norm_label": "usemaintenance()"
     },
     {
@@ -1197,7 +1773,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_maintenance_services_maintenanceservice_ts",
-      "community": 9,
+      "community": 11,
       "norm_label": "maintenanceservice.ts"
     },
     {
@@ -1206,7 +1782,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L3",
       "id": "maintenanceservice_maintenanceservice",
-      "community": 9,
+      "community": 11,
       "norm_label": "maintenanceservice"
     },
     {
@@ -1215,7 +1791,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L4",
       "id": "maintenanceservice_maintenanceservice_getall",
-      "community": 9,
+      "community": 11,
       "norm_label": ".getall()"
     },
     {
@@ -1224,7 +1800,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L9",
       "id": "maintenanceservice_maintenanceservice_create",
-      "community": 9,
+      "community": 11,
       "norm_label": ".create()"
     },
     {
@@ -1233,7 +1809,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L21",
       "id": "maintenanceservice_maintenanceservice_update",
-      "community": 9,
+      "community": 11,
       "norm_label": ".update()"
     },
     {
@@ -1242,7 +1818,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\maintenance\\services\\maintenanceService.ts",
       "source_location": "L32",
       "id": "maintenanceservice_maintenanceservice_delete",
-      "community": 9,
+      "community": 11,
       "norm_label": ".delete()"
     },
     {
@@ -1251,7 +1827,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\reports\\hooks\\useReports.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_reports_hooks_usereports_ts",
-      "community": 31,
+      "community": 39,
       "norm_label": "usereports.ts"
     },
     {
@@ -1260,7 +1836,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\reports\\hooks\\useReports.ts",
       "source_location": "L70",
       "id": "usereports_usereports",
-      "community": 31,
+      "community": 39,
       "norm_label": "usereports()"
     },
     {
@@ -1269,7 +1845,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\hooks\\useTrips.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_trips_hooks_usetrips_ts",
-      "community": 32,
+      "community": 40,
       "norm_label": "usetrips.ts"
     },
     {
@@ -1278,7 +1854,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\hooks\\useTrips.ts",
       "source_location": "L6",
       "id": "usetrips_usetrips",
-      "community": 32,
+      "community": 40,
       "norm_label": "usetrips()"
     },
     {
@@ -1287,7 +1863,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_trips_services_tripservice_ts",
-      "community": 5,
+      "community": 8,
       "norm_label": "tripservice.ts"
     },
     {
@@ -1296,7 +1872,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L3",
       "id": "tripservice_tripservice",
-      "community": 5,
+      "community": 8,
       "norm_label": "tripservice"
     },
     {
@@ -1305,7 +1881,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L4",
       "id": "tripservice_tripservice_getall",
-      "community": 5,
+      "community": 8,
       "norm_label": ".getall()"
     },
     {
@@ -1314,7 +1890,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L9",
       "id": "tripservice_tripservice_getbyid",
-      "community": 5,
+      "community": 8,
       "norm_label": ".getbyid()"
     },
     {
@@ -1323,7 +1899,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L16",
       "id": "tripservice_tripservice_create",
-      "community": 5,
+      "community": 8,
       "norm_label": ".create()"
     },
     {
@@ -1332,7 +1908,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L29",
       "id": "tripservice_tripservice_update",
-      "community": 5,
+      "community": 8,
       "norm_label": ".update()"
     },
     {
@@ -1341,7 +1917,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\trips\\services\\tripService.ts",
       "source_location": "L41",
       "id": "tripservice_tripservice_delete",
-      "community": 5,
+      "community": 8,
       "norm_label": ".delete()"
     },
     {
@@ -1350,7 +1926,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\hooks\\useVehicles.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_vehicles_hooks_usevehicles_ts",
-      "community": 33,
+      "community": 41,
       "norm_label": "usevehicles.ts"
     },
     {
@@ -1359,7 +1935,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\hooks\\useVehicles.ts",
       "source_location": "L6",
       "id": "usevehicles_usevehicles",
-      "community": 33,
+      "community": 41,
       "norm_label": "usevehicles()"
     },
     {
@@ -1368,7 +1944,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_apps_web_modules_vehicles_services_vehicleservice_ts",
-      "community": 6,
+      "community": 2,
       "norm_label": "vehicleservice.ts"
     },
     {
@@ -1377,7 +1953,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L3",
       "id": "vehicleservice_vehicleservice",
-      "community": 6,
+      "community": 2,
       "norm_label": "vehicleservice"
     },
     {
@@ -1386,7 +1962,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L4",
       "id": "vehicleservice_vehicleservice_getall",
-      "community": 6,
+      "community": 2,
       "norm_label": ".getall()"
     },
     {
@@ -1395,7 +1971,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L10",
       "id": "vehicleservice_vehicleservice_getbyid",
-      "community": 6,
+      "community": 2,
       "norm_label": ".getbyid()"
     },
     {
@@ -1404,7 +1980,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L17",
       "id": "vehicleservice_vehicleservice_create",
-      "community": 6,
+      "community": 0,
       "norm_label": ".create()"
     },
     {
@@ -1413,7 +1989,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L30",
       "id": "vehicleservice_vehicleservice_update",
-      "community": 6,
+      "community": 0,
       "norm_label": ".update()"
     },
     {
@@ -1422,8 +1998,242 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\modules\\vehicles\\services\\vehicleService.ts",
       "source_location": "L42",
       "id": "vehicleservice_vehicleservice_delete",
-      "community": 6,
+      "community": 2,
       "norm_label": ".delete()"
+    },
+    {
+      "label": "apiClient.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\apiClient.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_services_apiclient_ts",
+      "community": 42,
+      "norm_label": "apiclient.ts"
+    },
+    {
+      "label": "processQueue()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\apiClient.ts",
+      "source_location": "L34",
+      "id": "apiclient_processqueue",
+      "community": 42,
+      "norm_label": "processqueue()"
+    },
+    {
+      "label": "auth.api.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "community": 13,
+      "norm_label": "auth.api.ts"
+    },
+    {
+      "label": "loginApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L23",
+      "id": "auth_api_loginapi",
+      "community": 13,
+      "norm_label": "loginapi()"
+    },
+    {
+      "label": "logoutApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L28",
+      "id": "auth_api_logoutapi",
+      "community": 13,
+      "norm_label": "logoutapi()"
+    },
+    {
+      "label": "refreshApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L32",
+      "id": "auth_api_refreshapi",
+      "community": 13,
+      "norm_label": "refreshapi()"
+    },
+    {
+      "label": "meApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L37",
+      "id": "auth_api_meapi",
+      "community": 13,
+      "norm_label": "meapi()"
+    },
+    {
+      "label": "roles.api.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "community": 2,
+      "norm_label": "roles.api.ts"
+    },
+    {
+      "label": "getRolesApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L32",
+      "id": "roles_api_getrolesapi",
+      "community": 2,
+      "norm_label": "getrolesapi()"
+    },
+    {
+      "label": "getRoleByIdApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L37",
+      "id": "roles_api_getrolebyidapi",
+      "community": 2,
+      "norm_label": "getrolebyidapi()"
+    },
+    {
+      "label": "createRoleApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L42",
+      "id": "roles_api_createroleapi",
+      "community": 2,
+      "norm_label": "createroleapi()"
+    },
+    {
+      "label": "updateRoleApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L47",
+      "id": "roles_api_updateroleapi",
+      "community": 2,
+      "norm_label": "updateroleapi()"
+    },
+    {
+      "label": "deleteRoleApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L52",
+      "id": "roles_api_deleteroleapi",
+      "community": 2,
+      "norm_label": "deleteroleapi()"
+    },
+    {
+      "label": "setRolePermissionsApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L56",
+      "id": "roles_api_setrolepermissionsapi",
+      "community": 2,
+      "norm_label": "setrolepermissionsapi()"
+    },
+    {
+      "label": "getPermissionsApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L66",
+      "id": "roles_api_getpermissionsapi",
+      "community": 2,
+      "norm_label": "getpermissionsapi()"
+    },
+    {
+      "label": "users.api.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "community": 2,
+      "norm_label": "users.api.ts"
+    },
+    {
+      "label": "getUsersApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L38",
+      "id": "users_api_getusersapi",
+      "community": 2,
+      "norm_label": "getusersapi()"
+    },
+    {
+      "label": "getUserByIdApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L51",
+      "id": "users_api_getuserbyidapi",
+      "community": 2,
+      "norm_label": "getuserbyidapi()"
+    },
+    {
+      "label": "createUserApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L56",
+      "id": "users_api_createuserapi",
+      "community": 2,
+      "norm_label": "createuserapi()"
+    },
+    {
+      "label": "updateUserApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L61",
+      "id": "users_api_updateuserapi",
+      "community": 2,
+      "norm_label": "updateuserapi()"
+    },
+    {
+      "label": "deleteUserApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L66",
+      "id": "users_api_deleteuserapi",
+      "community": 2,
+      "norm_label": "deleteuserapi()"
+    },
+    {
+      "label": "resetPasswordApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L70",
+      "id": "users_api_resetpasswordapi",
+      "community": 2,
+      "norm_label": "resetpasswordapi()"
+    },
+    {
+      "label": "assignRoleApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L74",
+      "id": "users_api_assignroleapi",
+      "community": 2,
+      "norm_label": "assignroleapi()"
+    },
+    {
+      "label": "removeRoleApi()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L79",
+      "id": "users_api_removeroleapi",
+      "community": 2,
+      "norm_label": "removeroleapi()"
+    },
+    {
+      "label": "authStore.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\store\\authStore.ts",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_web_store_authstore_ts",
+      "community": 66,
+      "norm_label": "authstore.ts"
+    },
+    {
+      "label": "fix.js",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\database\\seeds\\fix.js",
+      "source_location": "L1",
+      "id": "c_web_devlopment_hackathonproject_transitops_database_seeds_fix_js",
+      "community": 67,
+      "norm_label": "fix.js"
     },
     {
       "label": "index.ts",
@@ -1431,7 +2241,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\config\\src\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_packages_config_src_index_ts",
-      "community": 52,
+      "community": 68,
       "norm_label": "index.ts"
     },
     {
@@ -1440,7 +2250,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\config\\src\\theme.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_packages_config_src_theme_ts",
-      "community": 53,
+      "community": 69,
       "norm_label": "theme.ts"
     },
     {
@@ -1449,7 +2259,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\types\\src\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_packages_types_src_index_ts",
-      "community": 54,
+      "community": 70,
       "norm_label": "index.ts"
     },
     {
@@ -1458,7 +2268,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L1",
       "id": "c_web_devlopment_hackathonproject_transitops_packages_utils_src_index_ts",
-      "community": 1,
+      "community": 4,
       "norm_label": "index.ts"
     },
     {
@@ -1467,7 +2277,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L5",
       "id": "index_generateuuid",
-      "community": 1,
+      "community": 4,
       "norm_label": "generateuuid()"
     },
     {
@@ -1476,7 +2286,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L10",
       "id": "index_formatdate",
-      "community": 1,
+      "community": 4,
       "norm_label": "formatdate()"
     },
     {
@@ -1485,7 +2295,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L35",
       "id": "index_successresponse",
-      "community": 1,
+      "community": 4,
       "norm_label": "successresponse()"
     },
     {
@@ -1494,7 +2304,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L48",
       "id": "index_errorresponse",
-      "community": 1,
+      "community": 4,
       "norm_label": "errorresponse()"
     },
     {
@@ -1503,7 +2313,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L67",
       "id": "index_buildpagination",
-      "community": 1,
+      "community": 4,
       "norm_label": "buildpagination()"
     },
     {
@@ -1512,7 +2322,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L86",
       "id": "index_buildsearchquery",
-      "community": 1,
+      "community": 4,
       "norm_label": "buildsearchquery()"
     },
     {
@@ -1521,7 +2331,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L102",
       "id": "index_buildsortquery",
-      "community": 1,
+      "community": 4,
       "norm_label": "buildsortquery()"
     },
     {
@@ -1530,7 +2340,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L116",
       "id": "index_cleanfilters",
-      "community": 1,
+      "community": 4,
       "norm_label": "cleanfilters()"
     },
     {
@@ -1539,7 +2349,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L127",
       "id": "index_getfileextension",
-      "community": 1,
+      "community": 4,
       "norm_label": "getfileextension()"
     },
     {
@@ -1548,7 +2358,7 @@
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\packages\\utils\\src\\index.ts",
       "source_location": "L131",
       "id": "index_formatbytes",
-      "community": 1,
+      "community": 4,
       "norm_label": "formatbytes()"
     }
   ],
@@ -1563,6 +2373,30 @@
       "_tgt": "auth_controller_authcontroller",
       "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_auth_controller_ts",
       "target": "auth_controller_authcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\role.controller.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_role_controller_ts",
+      "_tgt": "role_controller_rolecontroller",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_role_controller_ts",
+      "target": "role_controller_rolecontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\controllers\\user.controller.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_user_controller_ts",
+      "_tgt": "user_controller_usercontroller",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_controllers_user_controller_ts",
+      "target": "user_controller_usercontroller",
       "confidence_score": 1.0
     },
     {
@@ -1605,6 +2439,150 @@
       "relation": "calls",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository_findall",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "permission_repository_permissionrepository_findall"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository_findbyid",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "permission_repository_permissionrepository_findbyid"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository_findbycodes",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "permission_repository_permissionrepository_findbycodes"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_findall",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_findall"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_findbyid",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_findbyid"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L58",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_findbycode",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_findbycode"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_create",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L91",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_update",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_update"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L96",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_softdelete",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_softdelete"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_assignpermission",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_assignpermission"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L111",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_removepermission",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_removepermission"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_setpermissions",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "role_repository_rolerepository_setpermissions"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
       "source_location": "L28",
       "weight": 1.0,
@@ -1624,6 +2602,90 @@
       "_tgt": "user_repository_userrepository_findbyid",
       "source": "index_query",
       "target": "user_repository_userrepository_findbyid"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_findall",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_findall"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L147",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_create",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L184",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_update",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_update"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L190",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_softdelete",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_softdelete"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L198",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_resetpassword",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_resetpassword"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L208",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_assignrole",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_assignrole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L213",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_removerole",
+      "_tgt": "index_query",
+      "source": "index_query",
+      "target": "user_repository_userrepository_removerole"
     },
     {
       "relation": "contains",
@@ -1892,8 +2954,224 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_permission_repository_ts",
+      "_tgt": "permission_repository_permissionrepository",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_permission_repository_ts",
+      "target": "permission_repository_permissionrepository",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository",
+      "_tgt": "permission_repository_permissionrepository_findall",
+      "source": "permission_repository_permissionrepository",
+      "target": "permission_repository_permissionrepository_findall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository",
+      "_tgt": "permission_repository_permissionrepository_findbyid",
+      "source": "permission_repository_permissionrepository",
+      "target": "permission_repository_permissionrepository_findbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\permission.repository.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "permission_repository_permissionrepository",
+      "_tgt": "permission_repository_permissionrepository_findbycodes",
+      "source": "permission_repository_permissionrepository",
+      "target": "permission_repository_permissionrepository_findbycodes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_role_repository_ts",
+      "_tgt": "role_repository_rolerepository",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_role_repository_ts",
+      "target": "role_repository_rolerepository",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_findall",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_findall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_findbyid",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_findbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L57",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_findbycode",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_findbycode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_create",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_create",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_update",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L95",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_softdelete",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_softdelete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L103",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_assignpermission",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_assignpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L110",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_removepermission",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_removepermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L114",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository",
+      "_tgt": "role_repository_rolerepository_setpermissions",
+      "source": "role_repository_rolerepository",
+      "target": "role_repository_rolerepository_setpermissions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L60",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_findbycode",
+      "_tgt": "role_repository_rolerepository_findbyid",
+      "source": "role_repository_rolerepository_findbyid",
+      "target": "role_repository_rolerepository_findbycode",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L71",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_create",
+      "_tgt": "role_repository_rolerepository_findbyid",
+      "source": "role_repository_rolerepository_findbyid",
+      "target": "role_repository_rolerepository_create",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\role.repository.ts",
+      "source_location": "L87",
+      "weight": 1.0,
+      "_src": "role_repository_rolerepository_update",
+      "_tgt": "role_repository_rolerepository_findbyid",
+      "source": "role_repository_rolerepository_findbyid",
+      "target": "role_repository_rolerepository_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_createrole",
+      "_tgt": "role_repository_rolerepository_findbycode",
+      "source": "role_repository_rolerepository_findbycode",
+      "target": "role_service_roleservice_createrole"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L14",
+      "source_location": "L50",
       "weight": 1.0,
       "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_user_repository_ts",
       "_tgt": "user_repository_userrepository",
@@ -1905,7 +3183,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L15",
+      "source_location": "L51",
       "weight": 1.0,
       "_src": "user_repository_userrepository",
       "_tgt": "user_repository_userrepository_findbyemail",
@@ -1917,7 +3195,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L32",
+      "source_location": "L68",
       "weight": 1.0,
       "_src": "user_repository_userrepository",
       "_tgt": "user_repository_userrepository_findbyid",
@@ -1929,7 +3207,91 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L49",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_findall",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_findall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_create",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_create",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L158",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_update",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_update",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L188",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_softdelete",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_softdelete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L194",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_resetpassword",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_resetpassword",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L202",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_assignrole",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_assignrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L211",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository",
+      "_tgt": "user_repository_userrepository_removerole",
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_removerole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L216",
       "weight": 1.0,
       "_src": "user_repository_userrepository",
       "_tgt": "user_repository_userrepository_maprowstouser",
@@ -1941,7 +3303,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L29",
+      "source_location": "L65",
       "weight": 1.0,
       "_src": "user_repository_userrepository_findbyemail",
       "_tgt": "user_repository_userrepository_maprowstouser",
@@ -1963,14 +3325,62 @@
     },
     {
       "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "_src": "user_service_userservice_createuser",
+      "_tgt": "user_repository_userrepository_findbyemail",
+      "source": "user_repository_userrepository_findbyemail",
+      "target": "user_service_userservice_createuser"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "_src": "user_service_userservice_updateuser",
+      "_tgt": "user_repository_userrepository_findbyemail",
+      "source": "user_repository_userrepository_findbyemail",
+      "target": "user_service_userservice_updateuser"
+    },
+    {
+      "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
-      "source_location": "L46",
+      "source_location": "L82",
       "weight": 1.0,
       "_src": "user_repository_userrepository_findbyid",
       "_tgt": "user_repository_userrepository_maprowstouser",
       "source": "user_repository_userrepository_findbyid",
       "target": "user_repository_userrepository_maprowstouser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L155",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_create",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_repository_userrepository_create",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L179",
+      "weight": 1.0,
+      "_src": "user_repository_userrepository_update",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_repository_userrepository_update",
       "confidence_score": 1.0
     },
     {
@@ -1984,6 +3394,198 @@
       "_tgt": "auth_service_authservice_refreshtokens",
       "source": "user_repository_userrepository_findbyid",
       "target": "auth_service_authservice_refreshtokens"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_getrolebyid",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_getrolebyid"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_updaterole",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_updaterole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_deleterole",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_deleterole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_setpermissions",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_setpermissions"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_assignpermission",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_assignpermission"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_removepermission",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "role_service_roleservice_removepermission"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_src": "user_service_userservice_getuserbyid",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_getuserbyid"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "_src": "user_service_userservice_updateuser",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_updateuser"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L46",
+      "weight": 1.0,
+      "_src": "user_service_userservice_deleteuser",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_deleteuser"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_src": "user_service_userservice_resetpassword",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_resetpassword"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L62",
+      "weight": 1.0,
+      "_src": "user_service_userservice_assignrole",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_assignrole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L69",
+      "weight": 1.0,
+      "_src": "user_service_userservice_removerole",
+      "_tgt": "user_repository_userrepository_findbyid",
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_service_userservice_removerole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_getroles",
+      "_tgt": "user_repository_userrepository_findall",
+      "source": "user_repository_userrepository_findall",
+      "target": "role_service_roleservice_getroles"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_src": "user_service_userservice_getusers",
+      "_tgt": "user_repository_userrepository_findall",
+      "source": "user_repository_userrepository_findall",
+      "target": "user_service_userservice_getusers"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L35",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_deleterole",
+      "_tgt": "user_repository_userrepository_softdelete",
+      "source": "user_repository_userrepository_softdelete",
+      "target": "role_service_roleservice_deleterole"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_src": "user_service_userservice_deleteuser",
+      "_tgt": "user_repository_userrepository_softdelete",
+      "source": "user_repository_userrepository_softdelete",
+      "target": "user_service_userservice_deleteuser"
     },
     {
       "relation": "contains",
@@ -2071,6 +3673,18 @@
     },
     {
       "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\login\\page.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "page_handlesubmit",
+      "_tgt": "auth_service_authservice_login",
+      "source": "auth_service_authservice_login",
+      "target": "page_handlesubmit"
+    },
+    {
+      "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\auth.service.ts",
       "source_location": "L68",
@@ -2096,8 +3710,296 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_role_service_ts",
+      "_tgt": "role_service_roleservice",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_role_service_ts",
+      "target": "role_service_roleservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_getroles",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_getroles",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L10",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_getrolebyid",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_getrolebyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_createrole",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_createrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_updaterole",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_updaterole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_deleterole",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_deleterole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_setpermissions",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_setpermissions",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L54",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_assignpermission",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_assignpermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "_src": "role_service_roleservice",
+      "_tgt": "role_service_roleservice_removepermission",
+      "source": "role_service_roleservice",
+      "target": "role_service_roleservice_removepermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_createrole",
+      "_tgt": "vehicleservice_vehicleservice_create",
+      "source": "role_service_roleservice_createrole",
+      "target": "vehicleservice_vehicleservice_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\role.service.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_src": "role_service_roleservice_updaterole",
+      "_tgt": "vehicleservice_vehicleservice_update",
+      "source": "role_service_roleservice_updaterole",
+      "target": "vehicleservice_vehicleservice_update"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_user_service_ts",
+      "_tgt": "user_service_userservice",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_services_user_service_ts",
+      "target": "user_service_userservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_getusers",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_getusers",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_getuserbyid",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_getuserbyid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_createuser",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_createuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_updateuser",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_updateuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L45",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_deleteuser",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_deleteuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_resetpassword",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_resetpassword",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_assignrole",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_assignrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L68",
+      "weight": 1.0,
+      "_src": "user_service_userservice",
+      "_tgt": "user_service_userservice_removerole",
+      "source": "user_service_userservice",
+      "target": "user_service_userservice_removerole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L65",
+      "weight": 1.0,
+      "_src": "user_service_userservice_assignrole",
+      "_tgt": "user_service_userservice_getuserbyid",
+      "source": "user_service_userservice_getuserbyid",
+      "target": "user_service_userservice_assignrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "_src": "user_service_userservice_removerole",
+      "_tgt": "user_service_userservice_getuserbyid",
+      "source": "user_service_userservice_getuserbyid",
+      "target": "user_service_userservice_removerole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "user_service_userservice_createuser",
+      "_tgt": "vehicleservice_vehicleservice_create",
+      "source": "user_service_userservice_createuser",
+      "target": "vehicleservice_vehicleservice_create"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\services\\user.service.ts",
+      "source_location": "L40",
+      "weight": 1.0,
+      "_src": "user_service_userservice_updateuser",
+      "_tgt": "vehicleservice_vehicleservice_update",
+      "source": "user_service_userservice_updateuser",
+      "target": "vehicleservice_vehicleservice_update"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\layout.tsx",
-      "source_location": "L12",
+      "source_location": "L10",
       "weight": 1.0,
       "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_app_layout_tsx",
       "_tgt": "layout_rootlayout",
@@ -2492,6 +4394,18 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\login\\page.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_app_login_page_tsx",
+      "_tgt": "page_handlesubmit",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_app_login_page_tsx",
+      "target": "page_handlesubmit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\app\\notifications\\page.tsx",
       "source_location": "L71",
       "weight": 1.0,
@@ -2660,6 +4574,30 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Navbar.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_components_navbar_tsx",
+      "_tgt": "navbar_handlelogout",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_components_navbar_tsx",
+      "target": "navbar_handlelogout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\RouteGuard.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_components_routeguard_tsx",
+      "_tgt": "routeguard_routeguard",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_components_routeguard_tsx",
+      "target": "routeguard_routeguard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\components\\Sidebar.tsx",
       "source_location": "L30",
       "weight": 1.0,
@@ -2679,6 +4617,54 @@
       "_tgt": "themeprovider_themeprovider",
       "source": "c_web_devlopment_hackathonproject_transitops_apps_web_components_themeprovider_tsx",
       "target": "themeprovider_themeprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\useAuth.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_useauth_ts",
+      "_tgt": "useauth_useauth",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_useauth_ts",
+      "target": "useauth_useauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "_tgt": "usepermission_usepermission",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "target": "usepermission_usepermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "_tgt": "usepermission_useanypermission",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "target": "usepermission_useanypermission",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\hooks\\usePermission.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "_tgt": "usepermission_userole",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_hooks_usepermission_ts",
+      "target": "usepermission_userole",
       "confidence_score": 1.0
     },
     {
@@ -3171,6 +5157,270 @@
       "_tgt": "vehicleservice_vehicleservice_delete",
       "source": "vehicleservice_vehicleservice",
       "target": "vehicleservice_vehicleservice_delete",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "roles_api_deleteroleapi",
+      "_tgt": "vehicleservice_vehicleservice_delete",
+      "source": "vehicleservice_vehicleservice_delete",
+      "target": "roles_api_deleteroleapi"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "users_api_deleteuserapi",
+      "_tgt": "vehicleservice_vehicleservice_delete",
+      "source": "vehicleservice_vehicleservice_delete",
+      "target": "users_api_deleteuserapi"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\apiClient.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_apiclient_ts",
+      "_tgt": "apiclient_processqueue",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_apiclient_ts",
+      "target": "apiclient_processqueue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L23",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "_tgt": "auth_api_loginapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "target": "auth_api_loginapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L28",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "_tgt": "auth_api_logoutapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "target": "auth_api_logoutapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "_tgt": "auth_api_refreshapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "target": "auth_api_refreshapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\auth.api.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "_tgt": "auth_api_meapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_auth_api_ts",
+      "target": "auth_api_meapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L32",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_getrolesapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_getrolesapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_getrolebyidapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_getrolebyidapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_createroleapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_createroleapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_updateroleapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_updateroleapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_deleteroleapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_deleteroleapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_setrolepermissionsapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_setrolepermissionsapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\roles.api.ts",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "_tgt": "roles_api_getpermissionsapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_roles_api_ts",
+      "target": "roles_api_getpermissionsapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L38",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_getusersapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_getusersapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L51",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_getuserbyidapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_getuserbyidapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L56",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_createuserapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_createuserapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_updateuserapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_updateuserapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L66",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_deleteuserapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_deleteuserapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_resetpasswordapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_resetpasswordapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L74",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_assignroleapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_assignroleapi",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\web\\services\\users.api.ts",
+      "source_location": "L79",
+      "weight": 1.0,
+      "_src": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "_tgt": "users_api_removeroleapi",
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_web_services_users_api_ts",
+      "target": "users_api_removeroleapi",
       "confidence_score": 1.0
     },
     {

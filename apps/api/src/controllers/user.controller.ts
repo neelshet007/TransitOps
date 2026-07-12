@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { userService } from '../services/user.service';
 import { successResponse } from '@transitops/utils';
 import { HTTP_STATUS } from '../constants';
+import { AuthenticatedRequest } from '@transitops/types';
 
 export class UserController {
   getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -40,54 +41,60 @@ export class UserController {
     }
   };
 
-  createUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  createUser = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = await userService.createUser(req.body);
+      const operatorId = req.user?.userId;
+      const user = await userService.createUser(req.body, operatorId);
       res.status(HTTP_STATUS.CREATED).json(successResponse('User created successfully.', user));
     } catch (error) {
       next(error);
     }
   };
 
-  updateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  updateUser = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = await userService.updateUser(req.params.id, req.body);
+      const operatorId = req.user?.userId;
+      const user = await userService.updateUser(req.params.id, req.body, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('User updated successfully.', user));
     } catch (error) {
       next(error);
     }
   };
 
-  deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  deleteUser = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const result = await userService.deleteUser(req.params.id);
+      const operatorId = req.user?.userId;
+      const result = await userService.deleteUser(req.params.id, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse(result.message));
     } catch (error) {
       next(error);
     }
   };
 
-  resetPassword = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  resetPassword = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const result = await userService.resetPassword(req.params.id, req.body.new_password);
+      const operatorId = req.user?.userId;
+      const result = await userService.resetPassword(req.params.id, req.body.new_password, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse(result.message));
     } catch (error) {
       next(error);
     }
   };
 
-  assignRole = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  assignRole = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = await userService.assignRole(req.params.id, req.body.role_id);
+      const operatorId = req.user?.userId;
+      const user = await userService.assignRole(req.params.id, req.body.role_id, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Role assigned to user.', user));
     } catch (error) {
       next(error);
     }
   };
 
-  removeRole = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  removeRole = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const user = await userService.removeRole(req.params.id, req.params.roleId);
+      const operatorId = req.user?.userId;
+      const user = await userService.removeRole(req.params.id, req.params.roleId, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Role removed from user.', user));
     } catch (error) {
       next(error);

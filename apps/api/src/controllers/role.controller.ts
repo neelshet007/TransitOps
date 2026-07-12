@@ -3,6 +3,7 @@ import { roleService } from '../services/role.service';
 import { permissionRepository } from '../repositories/permission.repository';
 import { successResponse } from '@transitops/utils';
 import { HTTP_STATUS } from '../constants';
+import { AuthenticatedRequest } from '@transitops/types';
 
 export class RoleController {
   getRoles = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -23,54 +24,60 @@ export class RoleController {
     }
   };
 
-  createRole = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  createRole = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const role = await roleService.createRole(req.body);
+      const operatorId = req.user?.userId;
+      const role = await roleService.createRole(req.body, operatorId);
       res.status(HTTP_STATUS.CREATED).json(successResponse('Role created successfully.', role));
     } catch (error) {
       next(error);
     }
   };
 
-  updateRole = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  updateRole = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const role = await roleService.updateRole(req.params.id, req.body);
+      const operatorId = req.user?.userId;
+      const role = await roleService.updateRole(req.params.id, req.body, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Role updated successfully.', role));
     } catch (error) {
       next(error);
     }
   };
 
-  deleteRole = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  deleteRole = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const result = await roleService.deleteRole(req.params.id);
+      const operatorId = req.user?.userId;
+      const result = await roleService.deleteRole(req.params.id, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse(result.message));
     } catch (error) {
       next(error);
     }
   };
 
-  setPermissions = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  setPermissions = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const role = await roleService.setPermissions(req.params.id, req.body.permission_ids);
+      const operatorId = req.user?.userId;
+      const role = await roleService.setPermissions(req.params.id, req.body.permission_ids, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Role permissions updated.', role));
     } catch (error) {
       next(error);
     }
   };
 
-  assignPermission = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  assignPermission = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const role = await roleService.assignPermission(req.params.id, req.body.permission_id);
+      const operatorId = req.user?.userId;
+      const role = await roleService.assignPermission(req.params.id, req.body.permission_id, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Permission assigned to role.', role));
     } catch (error) {
       next(error);
     }
   };
 
-  removePermission = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  removePermission = async (req: AuthenticatedRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const role = await roleService.removePermission(req.params.id, req.params.permissionId);
+      const operatorId = req.user?.userId;
+      const role = await roleService.removePermission(req.params.id, req.params.permissionId, operatorId);
       res.status(HTTP_STATUS.OK).json(successResponse('Permission removed from role.', role));
     } catch (error) {
       next(error);

@@ -5,6 +5,9 @@ import { HTTP_STATUS, MESSAGES } from '../constants';
 import { AuthenticatedRequest } from '@transitops/types';
 import { userRepository } from '../repositories/user.repository';
 import { NotFoundError } from '../helpers/errors';
+import { activityRepository } from '../repositories/activity.repository';
+import jwt from 'jsonwebtoken';
+import { config } from '../config';
 
 export class AuthController {
   login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -18,6 +21,14 @@ export class AuthController {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
+
+      await activityRepository.log({
+        user_id: result.user.id,
+        action: 'LOGIN',
+        details: `User ${result.user.email} logged in successfully`,
+        ip_address: req.ip,
+        user_agent: req.headers['user-agent']
       });
 
       res.status(HTTP_STATUS.OK).json(
@@ -55,6 +66,26 @@ export class AuthController {
 
   logout = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+      const authHeader = req.headers.authorization;
+      let userId: string | null = null;
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.split(' ')[1];
+        try {
+          const decoded = jwt.verify(token, config.JWT_SECRET) as any;
+          userId = decoded.userId;
+        } catch {}
+      }
+
+      if (userId) {
+        await activityRepository.log({
+          user_id: userId,
+          action: 'LOGOUT',
+          details: 'User logged out successfully',
+          ip_address: req.ip,
+          user_agent: req.headers['user-agent']
+        });
+      }
+
       res.clearCookie('refreshToken', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',

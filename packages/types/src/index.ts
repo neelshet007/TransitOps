@@ -74,10 +74,87 @@ export interface Vehicle extends BaseEntity {
 }
 
 export interface Driver extends BaseEntity {
-  user_id: string;
+  user_id?: string | null;
+  employee_id: string;
+  first_name: string;
+  last_name: string;
+  phone: string;
+  email: string;
+  date_of_birth?: Date | string | null;
+  gender?: string | null;
+  blood_group?: string | null;
+  address?: string | null;
+  city?: string | null;
+  state?: string | null;
+  pincode?: string | null;
+  emergency_contact_name?: string | null;
+  emergency_contact_phone?: string | null;
+  emergency_contact_relation?: string | null;
   license_number: string;
-  license_expiry: Date;
+  license_class: string;
+  license_issue_date?: Date | string | null;
+  license_expiry: Date | string;
+  license_issuing_authority?: string | null;
+  license_verified?: boolean;
+  medical_certificate_number?: string | null;
+  medical_certificate_expiry?: Date | string | null;
+  medical_certificate_verified?: boolean;
+  avatar_url?: string | null;
+  date_of_joining?: Date | string | null;
+  experience_years?: number;
+  availability: 'available' | 'assigned' | 'driving' | 'resting' | 'leave' | 'training' | 'suspended' | 'unavailable';
   status: 'active' | 'inactive' | 'suspended';
+  total_trips?: number;
+  completed_trips?: number;
+  cancelled_trips?: number;
+  average_rating?: number;
+  on_time_percentage?: number;
+  safety_score?: number;
+  total_distance?: number;
+  total_driving_hours?: number;
+  violations?: number;
+  accidents?: number;
+  notes?: string | null;
+  current_vehicle_plate?: string | null;
+  current_vehicle_id?: string | null;
+}
+
+export interface DriverDocument extends BaseEntity {
+  driver_id: string;
+  document_type: 'driving_license' | 'government_id' | 'medical_certificate' | 'police_verification' | 'address_proof' | 'photograph' | 'employment_contract' | 'other';
+  document_number?: string | null;
+  issue_date?: Date | string | null;
+  expiry_date?: Date | string | null;
+  issuing_authority?: string | null;
+  file_url?: string | null;
+  status: 'pending' | 'active' | 'expiring_soon' | 'expired' | 'rejected';
+  verified?: boolean;
+  verified_by?: string | null;
+  verified_at?: Date | string | null;
+  notes?: string | null;
+}
+
+export interface DriverAssignment extends BaseEntity {
+  driver_id: string;
+  vehicle_id?: string | null;
+  trip_id?: string | null;
+  assigned_at?: Date | string;
+  unassigned_at?: Date | string | null;
+  status: 'active' | 'completed' | 'cancelled';
+  notes?: string | null;
+}
+
+export interface DriverAttendance {
+  id: string;
+  driver_id: string;
+  date: Date | string;
+  status: 'present' | 'absent' | 'leave' | 'half_day' | 'training' | 'holiday';
+  clock_in?: Date | string | null;
+  clock_out?: Date | string | null;
+  working_hours?: number | null;
+  notes?: string | null;
+  created_at: Date | string;
+  updated_at: Date | string;
 }
 
 export interface Trip extends BaseEntity {
