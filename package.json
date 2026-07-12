@@ -12,6 +12,8 @@
     "build": "npm run build --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "db:migrate": "npm run db:migrate -w @transitops/api",
+    "db:seed": "npm run db:seed -w @transitops/api",
     "prepare": "husky"
   },
   "devDependencies": {

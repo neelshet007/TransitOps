@@ -60,8 +60,8 @@ ON CONFLICT DO NOTHING;
 
 -- 5. Insert default admin user (Password: Password123)
 INSERT INTO users (id, email, password_hash, first_name, last_name, is_active) VALUES
-('a192ea60-1a9d-1235-afc7-d86895df7b1a', 'admin@transitops.com', '$2b$10$wKz0bB41N4lFkU5nK4uS2eH3q1fU93C2h90/sY.jL6B2K1Ua6mUie', 'System', 'Administrator', true)
-ON CONFLICT (email) DO NOTHING;
+('a192ea60-1a9d-1235-afc7-d86895df7b1a', 'admin@transitops.com', '$2b$10$WmqI7ydlfgkm5H2eKLws..pruf6Y/hBYYBJQxw0ftUkBM/cw5kFsy', 'System', 'Administrator', true)
+ON CONFLICT (email) DO UPDATE SET password_hash = EXCLUDED.password_hash;
 
 -- 6. Map admin user to admin role
 INSERT INTO user_roles (user_id, role_id) VALUES

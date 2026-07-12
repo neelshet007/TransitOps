@@ -10,6 +10,9 @@ import { config } from './config';
 import { logger } from './utils/logger';
 import { errorHandler, notFoundHandler } from './middlewares/error.middleware';
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
+import roleRoutes from './routes/role.routes';
+import permissionRoutes from './routes/permission.routes';
 import { HTTP_STATUS } from './constants';
 import { successResponse } from '@transitops/utils';
 
@@ -78,6 +81,9 @@ app.get('/', (req, res) => {
 
 // Register routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/roles', roleRoutes);
+app.use('/api/v1/permissions', permissionRoutes);
 
 // Fallback handlers
 app.use(notFoundHandler);

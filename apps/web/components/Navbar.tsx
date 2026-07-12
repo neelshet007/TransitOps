@@ -15,12 +15,21 @@ import {
   Sun,
 } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { useAuth } from '../hooks/useAuth';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
   const pathname = usePathname();
   const { theme, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
+  const router = useRouter();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace('/login');
+  };
 
   // Generate breadcrumbs from pathname
   const pathSegments = pathname.split('/').filter(Boolean);
@@ -195,14 +204,13 @@ export default function Navbar() {
             }}
             className="flex items-center gap-2 hover:opacity-90 focus:outline-none"
           >
-            <div
-              className="w-8 h-8 rounded-full border flex items-center justify-center text-accent-purple font-semibold text-sm"
+              <div className="w-8 h-8 rounded-full border flex items-center justify-center text-accent-purple font-semibold text-sm"
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 borderColor: 'var(--border-subtle)',
               }}
             >
-              SA
+              {user ? `${user.first_name[0]}${user.last_name[0]}`.toUpperCase() : 'SA'}
             </div>
           </button>
 
@@ -215,8 +223,10 @@ export default function Navbar() {
               }}
             >
               <div className="px-4 py-3 border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-                <p className="text-xs font-semibold text-white">System Admin</p>
-                <p className="text-[10px] text-text-muted">admin@transitops.com</p>
+                <p className="text-xs font-semibold text-white">
+                  {user ? `${user.first_name} ${user.last_name}` : 'System Admin'}
+                </p>
+                <p className="text-[10px] text-text-muted">{user?.email ?? 'admin@transitops.com'}</p>
               </div>
               <div className="py-1">
                 <Link
@@ -243,7 +253,7 @@ export default function Navbar() {
               </div>
               <div className="border-t py-1" style={{ borderColor: 'var(--border-subtle)' }}>
                 <button
-                  onClick={() => alert('Mock Logout Triggered')}
+                  onClick={handleLogout}
                   className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-accent-red hover:bg-brand-panel transition-colors"
                 >
                   <LogOut size={14} /> Logout Session
