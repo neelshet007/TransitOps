@@ -1,42 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
-  Truck,
-  Compass,
-  TrendingUp,
-  AlertTriangle,
-  UserCheck,
-  ChevronRight,
-  MapPin,
-  Activity,
-  CheckCircle,
-  Plus,
-  FileText,
-  CloudRain,
-  CloudSun,
+  Truck, Compass, TrendingUp, AlertTriangle, UserCheck,
+  Plus, FileText, CheckCircle, MapPin, Activity, CloudRain, CloudSun, ChevronRight,
 } from 'lucide-react';
 import {
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
+  AreaChart, Area, BarChart, Bar,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
+import { motion } from 'framer-motion';
 
-import StatCard from '../../components/StatCard';
+import StatCard  from '../../components/StatCard';
 import ChartCard from '../../components/ChartCard';
-import Modal from '../../components/Modal';
+import Modal     from '../../components/Modal';
+import FormFooter from '../../components/ui/FormFooter';
+
 import { useDashboard } from '../../modules/dashboard/hooks/useDashboard';
 import { driverService } from '../../modules/drivers/services/driverService';
 import { Driver } from '@transitops/types';
-import { useEffect } from 'react';
 
-// Realistic Indian corporate dataset
+const CHART_STYLE = {
+  tooltip: { backgroundColor: '#181C28', borderColor: '#212636', borderRadius: 8 },
+  grid:    '#1A1E2C',
+  axis:    '#525B72',
+  sz:      11,
+};
+
 const financialData = [
   { month: 'Jan', revenue: 4500000, expenses: 3100000 },
   { month: 'Feb', revenue: 5200000, expenses: 3400000 },
@@ -46,7 +36,7 @@ const financialData = [
   { month: 'Jun', revenue: 7500000, expenses: 4500000 },
 ];
 
-const fuelConsumptionData = [
+const fuelData = [
   { day: 'Mon', liters: 4520 },
   { day: 'Tue', liters: 4890 },
   { day: 'Wed', liters: 5120 },
@@ -57,564 +47,288 @@ const fuelConsumptionData = [
 ];
 
 const upcomingServices = [
-  {
-    id: 'maint-101',
-    vehicle: 'MH-12-Q-4521',
-    type: 'Brake Disc Inspection',
-    date: 'Jul 15, 2026',
-    cost: '₹12,500',
-  },
-  {
-    id: 'maint-102',
-    vehicle: 'DL-01-A-8962',
-    type: 'Differential Oil Flush',
-    date: 'Jul 18, 2026',
-    cost: '₹8,400',
-  },
+  { id: 'm1', vehicle: 'MH-12-Q-4521', type: 'Brake Disc Inspection', date: 'Jul 15', cost: '₹12,500' },
+  { id: 'm2', vehicle: 'DL-01-A-8962', type: 'Differential Oil Flush', date: 'Jul 18', cost: '₹8,400' },
 ];
+
+const corridorNodes = [
+  { label: 'Delhi Hub',          top: '10%', left: '50%', color: 'text-accent-amber-soft' },
+  { label: 'Mumbai Depot',       top: '52%', left: '36%', color: 'text-accent-blue-soft' },
+  { label: 'Bengaluru Terminal', top: '76%', left: '42%', color: 'text-accent-green-soft' },
+  { label: 'Kolkata Hub',        top: '34%', left: '64%', color: 'text-accent-purple-soft' },
+];
+
+function getTimeAgo(dateStr: string) {
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'Just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  return `${Math.floor(h / 24)}d ago`;
+}
 
 export default function DashboardPage() {
   const { stats, isLoading, logActivity } = useDashboard();
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [isDispatchOpen, setIsDispatchOpen] = useState(false);
+  const [isDispatchOpen,   setIsDispatchOpen]   = useState(false);
   const [availableDrivers, setAvailableDrivers] = useState<Driver[]>([]);
-  const [dispatchForm, setDispatchForm] = useState({
-    origin: 'Mumbai Depot',
-    destination: 'Delhi Hub',
-    driver_id: '',
-    vehicle_plate: 'MH-12-Q-4521',
-    start_odometer: '125400',
+  const [submitting,       setSubmitting]        = useState(false);
+  const [dispatchForm,     setDispatchForm]      = useState({
+    origin: 'Mumbai Depot', destination: 'Delhi Hub',
+    driver_id: '', vehicle_plate: 'MH-12-Q-4521', start_odometer: '125400',
   });
 
-  const loadAvailableDrivers = async () => {
+  const loadDrivers = useCallback(async () => {
     try {
       const res = await driverService.getAll({ availability: 'available', limit: 100 });
       setAvailableDrivers(res.data);
-      if (res.data.length > 0) {
-        setDispatchForm(prev => ({ ...prev, driver_id: res.data[0].id }));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
+      if (res.data.length > 0) setDispatchForm((p) => ({ ...p, driver_id: res.data[0].id }));
+    } catch { /* silent */ }
+  }, []);
 
-  useEffect(() => {
-    if (isDispatchOpen) {
-      loadAvailableDrivers();
-    }
-  }, [isDispatchOpen]);
+  useEffect(() => { if (isDispatchOpen) loadDrivers(); }, [isDispatchOpen, loadDrivers]);
 
-  const handleDispatchInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleDispatchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setDispatchForm(prev => ({ ...prev, [name]: value }));
+    setDispatchForm((p) => ({ ...p, [name]: value }));
   };
 
-  const handleDispatchSubmit = async (e: React.FormEvent) => {
+  const handleDispatch = async (e: React.FormEvent) => {
     e.preventDefault();
-    const selectedDriver = availableDrivers.find(d => d.id === dispatchForm.driver_id);
-    const driverName = selectedDriver ? `${selectedDriver.first_name} ${selectedDriver.last_name}` : 'Unknown Driver';
-    const details = `Route dispatched: ${dispatchForm.origin} ➔ ${dispatchForm.destination} with Vehicle ${dispatchForm.vehicle_plate} driven by ${driverName}. Odometer: ${dispatchForm.start_odometer} km.`;
-    
+    setSubmitting(true);
     try {
-      await logActivity('TRIP_DISPATCHED', details);
+      const drv = availableDrivers.find((d) => d.id === dispatchForm.driver_id);
+      const name = drv ? `${drv.first_name} ${drv.last_name}` : 'Unknown';
+      await logActivity('TRIP_DISPATCHED', `Route: ${dispatchForm.origin} → ${dispatchForm.destination} | Vehicle: ${dispatchForm.vehicle_plate} | Driver: ${name}`);
       setIsDispatchOpen(false);
-      alert('Trip dispatched successfully!');
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  // Format activity details nicely
-  const getActivityMessage = (act: any) => {
-    return act.details || `${act.action.replace('_', ' ')} action performed`;
-  };
-
-  const getTimeAgo = (dateStr: string) => {
-    const diff = Date.now() - new Date(dateStr).getTime();
-    const mins = Math.floor(diff / 60000);
-    if (mins < 1) return 'Just now';
-    if (mins < 60) return `${mins}m ago`;
-    const hours = Math.floor(mins / 60);
-    if (hours < 24) return `${hours}h ago`;
-    return `${Math.floor(hours / 24)}d ago`;
+    } catch { /* silent */ }
+    finally { setSubmitting(false); }
   };
 
   return (
     <div className="space-y-6">
-      {/* Upper Control Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 select-none">
+      {/* Header */}
+      <div className="section-header">
         <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">
-            Enterprise Operations Control
-          </h2>
-          <p className="text-xs text-text-secondary mt-0.5">
-            VRL Logistics India — Regional Dispatch Dashboard
-          </p>
+          <h1 className="page-title">Operations Control</h1>
+          <p className="page-subtitle">VRL Logistics India — Regional Dispatch Dashboard</p>
         </div>
-
-        {/* Quick actions panel */}
-        <div className="flex items-center gap-2 self-start md:self-auto">
-          <button
-            onClick={() => setIsDispatchOpen(true)}
-            className="btn btn-primary text-xs flex items-center gap-1.5"
-          >
-            <Plus size={14} /> New Dispatch
+        <div className="flex items-center gap-2">
+          <button onClick={() => setIsDispatchOpen(true)} className="btn btn-primary btn-sm">
+            <Plus size={13} /> New Dispatch
           </button>
-          <button
-            onClick={() => alert('Exporting monthly invoice logs...')}
-            className="btn btn-outline text-xs flex items-center gap-1.5"
-          >
-            <FileText size={14} /> Export Logs
+          <button onClick={() => alert('Exporting logs…')} className="btn btn-secondary btn-sm">
+            <FileText size={13} /> Export Logs
           </button>
         </div>
       </div>
 
-      {/* Weather & System Status Widgets */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 select-none">
-        <div
-          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="p-2.5 bg-accent-blue/10 rounded-lg text-accent-blue">
-            <CloudRain size={20} className="animate-bounce" />
-          </div>
-          <div>
-            <span className="text-[10px] text-text-muted font-semibold block">
-              MUMBAI TERMINAL WEATHER
-            </span>
-            <span className="text-xs font-semibold text-white">31°C • Monsoon Rains</span>
-          </div>
-        </div>
-        <div
-          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="p-2.5 bg-accent-amber/10 rounded-lg text-accent-amber">
-            <CloudSun size={20} />
-          </div>
-          <div>
-            <span className="text-[10px] text-text-muted block font-semibold">
-              DELHI TRANSIT HUB
-            </span>
-            <span className="text-xs font-semibold text-white">38°C • Overcast haze</span>
-          </div>
-        </div>
-        <div
-          className="bg-brand-card border border-brand-border rounded-card p-4 flex items-center gap-3.5 md:col-span-2"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="p-2.5 bg-accent-green/10 rounded-lg text-accent-green">
-            <CheckCircle size={20} />
-          </div>
-          <div>
-            <span className="text-[10px] text-text-muted block font-semibold">
-              SYSTEM WORKLOAD METRICS
-            </span>
-            <span className="text-xs font-semibold text-white">
-              All gateways fully functional. 0 sync latencies.
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* Main KPI Stats grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard
-          title="Active Vehicles"
-          value={isLoading ? '...' : `${stats?.active_vehicles || 0} / ${stats?.total_vehicles || 0}`}
-          change={`${stats?.total_vehicles || 0} registered fleet`}
-          changeType="positive"
-          icon={Truck}
-          iconColor="text-accent-blue"
-          sparklineData={[38, 39, 40, 38, 41, 42, 42]}
-        />
-        <StatCard
-          title="Trips Tracked"
-          value={isLoading ? '...' : String(stats?.total_trips || 0)}
-          change={`${stats?.active_trips || 0} actively driving`}
-          changeType="neutral"
-          icon={Compass}
-          iconColor="text-accent-purple"
-          sparklineData={[15, 18, 16, 20, 19, 17, 18]}
-        />
-        <StatCard
-          title="Total Users"
-          value={isLoading ? '...' : String(stats?.total_users || 0)}
-          change={`${stats?.total_roles || 0} configured roles`}
-          changeType="positive"
-          icon={TrendingUp}
-          iconColor="text-accent-green"
-          sparklineData={[80, 81, 83, 82, 83.5, 84, 84.2]}
-        />
-        <StatCard
-          title="Upcoming Service"
-          value={isLoading ? '...' : String(stats?.upcoming_maintenance || 0)}
-          change="Brakes & Oil inspect"
-          changeType="negative"
-          icon={AlertTriangle}
-          iconColor="text-accent-red"
-          sparklineData={[5, 4, 3, 4, 2, 3, 3]}
-        />
-        <StatCard
-          title="Driver availability"
-          value={isLoading ? '...' : `${stats?.available_drivers || 0} / ${stats?.total_drivers || 0}`}
-          change={`${stats?.drivers_on_leave || 0} on rest cycle`}
-          changeType="neutral"
-          icon={UserCheck}
-          iconColor="text-accent-amber"
-          sparklineData={[35, 36, 35, 37, 36, 38, 38]}
-        />
-      </div>
-
-      {/* SVG Dispatch Map Corridor Visualizer */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Animated India routes */}
-        <div
-          className="lg:col-span-2 bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between min-h-[380px]"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div
-            className="flex items-center justify-between border-b border-brand-divider pb-4 mb-4 select-none"
-            style={{ borderColor: 'var(--border-subtle)' }}
-          >
+      {/* Status widgets */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {[
+          { icon: CloudRain, bg: 'bg-blue-500/10', color: 'text-accent-blue-soft',  label: 'MUMBAI TERMINAL', value: '31°C · Monsoon Rains', anim: true },
+          { icon: CloudSun,  bg: 'bg-amber-500/10', color: 'text-accent-amber-soft', label: 'DELHI TRANSIT HUB', value: '38°C · Overcast haze', anim: false },
+          null, // colspan placeholder
+        ].filter(Boolean).map((w: any, i) => (
+          <div key={i} className="card p-4 flex items-center gap-3">
+            <div className={`p-2.5 rounded-xl ${w.bg}`}>
+              <w.icon size={18} className={`${w.color} ${w.anim ? 'animate-bounce-sm' : ''}`} />
+            </div>
             <div>
-              <h4 className="text-sm font-semibold text-white">Corridor Dispatch Status</h4>
-              <p className="text-xs text-text-secondary mt-0.5">
-                Real-time connecting routes between primary Indian hub terminals
-              </p>
-            </div>
-            <span className="flex items-center gap-1.5 text-xs text-accent-green bg-accent-green/10 px-2.5 py-0.5 rounded-badge font-medium">
-              <span className="w-1.5 h-1.5 bg-accent-green rounded-full animate-ping"></span> Live
-              Corridors Active
-            </span>
-          </div>
-
-          {/* SVG Map */}
-          <div
-            className="flex-grow bg-[#090a0f] border border-brand-border rounded-lg relative overflow-hidden flex items-center justify-center min-h-[240px]"
-            style={{ borderColor: 'var(--border-subtle)' }}
-          >
-            {/* Grid Dots */}
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
-            {/* Connecting Paths */}
-            <svg
-              className="absolute inset-0 w-full h-full text-brand-border"
-              viewBox="0 0 500 240"
-              fill="none"
-            >
-              <path
-                d="M250,30 L180,130"
-                stroke="#3B82F6"
-                strokeWidth="2"
-                className="route-animate"
-              />
-              <path
-                d="M180,130 L210,190"
-                stroke="#10B981"
-                strokeWidth="2"
-                className="route-animate"
-              />
-              <path
-                d="M210,190 L320,90"
-                stroke="#8B5CF6"
-                strokeWidth="2"
-                className="route-animate"
-              />
-              <path
-                d="M320,90 L250,30"
-                stroke="#F59E0B"
-                strokeWidth="2"
-                className="route-animate"
-              />
-            </svg>
-
-            {/* Nodes overlay */}
-            <div className="absolute top-[20px] left-[250px] flex flex-col items-center">
-              <MapPin className="text-accent-amber animate-bounce" size={16} />
-              <span
-                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
-                style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-              >
-                Delhi Hub
-              </span>
-            </div>
-            <div className="absolute top-[120px] left-[170px] flex flex-col items-center">
-              <MapPin className="text-accent-blue animate-bounce" size={16} />
-              <span
-                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
-                style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-              >
-                Mumbai Depot
-              </span>
-            </div>
-            <div className="absolute top-[180px] left-[200px] flex flex-col items-center">
-              <MapPin className="text-accent-green animate-bounce" size={16} />
-              <span
-                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
-                style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-              >
-                Bengaluru Terminal
-              </span>
-            </div>
-            <div className="absolute top-[80px] left-[320px] flex flex-col items-center">
-              <MapPin className="text-accent-purple animate-bounce" size={16} />
-              <span
-                className="text-[9px] text-text-secondary mt-0.5 bg-brand-panel px-1 py-0.5 rounded border border-brand-border"
-                style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  borderColor: 'var(--border-subtle)',
-                }}
-              >
-                Kolkata Hub
-              </span>
+              <p className="label-xs">{w.label}</p>
+              <p className="text-xs font-semibold text-text-primary">{w.value}</p>
             </div>
           </div>
-        </div>
-
-        {/* Recent Activities feed widget */}
-        <div
-          className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="select-none overflow-hidden">
-            <h4 className="text-sm font-semibold text-white mb-4">Operations Timeline</h4>
-            <div className="space-y-4 max-h-[320px] overflow-y-auto pr-1">
-              {isLoading ? (
-                <div className="text-xs text-text-muted py-8 text-center">Loading timeline...</div>
-              ) : !stats?.recent_activities || stats.recent_activities.length === 0 ? (
-                <div className="text-xs text-text-muted py-8 text-center">No recent activities recorded.</div>
-              ) : (
-                stats.recent_activities.map((act: any) => (
-                  <div
-                    key={act.id}
-                    className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-start gap-3"
-                    style={{
-                      backgroundColor: 'var(--bg-secondary)',
-                      borderColor: 'var(--border-subtle)',
-                    }}
-                  >
-                    <div className="p-1.5 rounded-full mt-0.5 bg-accent-purple/10 text-accent-purple">
-                      <Activity size={12} />
-                    </div>
-                    <div>
-                      <h5 className="text-[11px] font-semibold text-white capitalize">
-                        {act.action.replace('_', ' ').toLowerCase()}
-                      </h5>
-                      <p className="text-[10px] text-text-secondary mt-0.5">
-                        {getActivityMessage(act)}
-                      </p>
-                      <span className="text-[9px] text-text-muted mt-1 block">
-                        {getTimeAgo(act.created_at)}
-                      </span>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+        ))}
+        <div className="md:col-span-2 card p-4 flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-green-500/10">
+            <CheckCircle size={18} className="text-accent-green-soft" />
+          </div>
+          <div>
+            <p className="label-xs">SYSTEM STATUS</p>
+            <p className="text-xs font-semibold text-text-primary">All gateways operational · 0 latencies</p>
           </div>
         </div>
       </div>
 
-      {/* Analytics & Expenses detailed graphs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Recharts Area Chart: Operations Revenue */}
-        <ChartCard
-          title="Revenue Operations"
-          subtitle="Gross shipping transactions vs expenses (INR)"
-        >
+      {/* KPI row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <StatCard title="Active Vehicles" value={isLoading ? '…' : `${stats?.active_vehicles ?? 0} / ${stats?.total_vehicles ?? 0}`} change={`${stats?.total_vehicles ?? 0} registered`} changeType="positive" icon={Truck}     iconColor="text-accent-blue-soft"   iconBg="bg-blue-500/10"   sparklineData={[38,39,40,38,41,42,42]} />
+        <StatCard title="Trips Tracked"   value={isLoading ? '…' : String(stats?.total_trips ?? 0)}                                  change={`${stats?.active_trips ?? 0} active`}       changeType="neutral"  icon={Compass}   iconColor="text-accent-purple-soft" iconBg="bg-purple-500/10" sparklineData={[15,18,16,20,19,17,18]} />
+        <StatCard title="Total Users"     value={isLoading ? '…' : String(stats?.total_users ?? 0)}                                  change={`${stats?.total_roles ?? 0} roles`}          changeType="positive" icon={TrendingUp} iconColor="text-accent-green-soft"  iconBg="bg-green-500/10"  sparklineData={[80,81,83,82,83,84,84]} />
+        <StatCard title="Upcoming Service" value={isLoading ? '…' : String(stats?.upcoming_maintenance ?? 0)}                        change="Brakes & Oil"                                changeType="negative" icon={AlertTriangle} iconColor="text-accent-red-soft"  iconBg="bg-red-500/10"    sparklineData={[5,4,3,4,2,3,3]} />
+        <StatCard title="Drivers Available" value={isLoading ? '…' : `${stats?.available_drivers ?? 0} / ${stats?.total_drivers ?? 0}`} change={`${stats?.drivers_on_leave ?? 0} on leave`} changeType="neutral" icon={UserCheck} iconColor="text-accent-amber-soft"  iconBg="bg-amber-500/10"  sparklineData={[35,36,35,37,36,38,38]} />
+      </div>
+
+      {/* Map + Activity feed */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Corridor Map */}
+        <div className="lg:col-span-2 card p-5 flex flex-col min-h-[360px]">
+          <div className="flex items-center justify-between pb-4 mb-4 border-b border-brand-border">
+            <div>
+              <h4 className="section-title">Corridor Dispatch Status</h4>
+              <p className="text-xs text-text-muted mt-0.5">Real-time connecting routes between primary Indian hub terminals</p>
+            </div>
+            <span className="flex items-center gap-1.5 text-xs font-semibold text-accent-green-soft bg-green-500/10 border border-green-500/20 px-2.5 py-1 rounded-full">
+              <span className="w-1.5 h-1.5 bg-accent-green-soft rounded-full animate-pulse" /> Live
+            </span>
+          </div>
+          <div className="flex-1 rounded-xl border border-brand-border bg-[#070810] relative overflow-hidden">
+            {/* Dot grid */}
+            <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px]" />
+            {/* SVG routes */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 300" fill="none" preserveAspectRatio="xMidYMid meet">
+              <path d="M250,30 L180,155" stroke="#60A5FA" strokeWidth="1.5" className="route-animate" />
+              <path d="M180,155 L210,228" stroke="#34D399" strokeWidth="1.5" className="route-animate" />
+              <path d="M210,228 L320,102" stroke="#A78BFA" strokeWidth="1.5" className="route-animate" />
+              <path d="M320,102 L250,30" stroke="#FCD34D" strokeWidth="1.5" className="route-animate" />
+            </svg>
+            {/* Nodes */}
+            {corridorNodes.map((node) => (
+              <div key={node.label} className="absolute flex flex-col items-center" style={{ top: node.top, left: node.left, transform: 'translate(-50%,-50%)' }}>
+                <MapPin size={15} className={`${node.color} animate-bounce-sm`} />
+                <span className="text-[9px] font-semibold text-text-muted mt-0.5 bg-brand-elevated/80 backdrop-blur-sm px-1.5 py-0.5 rounded border border-brand-border whitespace-nowrap">
+                  {node.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Activity feed */}
+        <div className="card p-5 flex flex-col">
+          <h4 className="section-title mb-4">Operations Timeline</h4>
+          <div className="flex-1 space-y-3 overflow-y-auto max-h-72 pr-1">
+            {isLoading ? (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="shimmer-bg w-7 h-7 rounded-full flex-shrink-0" />
+                  <div className="flex-1 space-y-1.5 pt-1">
+                    <div className="shimmer-bg h-3 w-3/4 rounded" />
+                    <div className="shimmer-bg h-2.5 w-full rounded" />
+                  </div>
+                </div>
+              ))
+            ) : !stats?.recent_activities?.length ? (
+              <p className="text-xs text-text-muted text-center py-8">No recent activities recorded.</p>
+            ) : (
+              stats.recent_activities.map((act: any) => (
+                <motion.div
+                  key={act.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="flex items-start gap-3 p-3 card"
+                >
+                  <div className="p-1.5 rounded-lg bg-accent-purple/10 flex-shrink-0 mt-0.5">
+                    <Activity size={12} className="text-accent-purple-soft" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-text-primary capitalize leading-tight">
+                      {act.action.replace(/_/g, ' ').toLowerCase()}
+                    </p>
+                    <p className="text-2xs text-text-muted mt-0.5 leading-snug line-clamp-2">
+                      {act.details || `${act.action} action performed`}
+                    </p>
+                    <span className="text-2xs text-text-disabled mt-1 block">{getTimeAgo(act.created_at)}</span>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Charts row */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <ChartCard title="Revenue Operations" subtitle="Gross shipping vs operating costs (₹)" minHeight={240}>
           <ResponsiveContainer width="100%" height={240}>
-            <AreaChart data={financialData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+            <AreaChart data={financialData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
               <defs>
-                <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
+                <linearGradient id="dRev" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%"  stopColor="#A78BFA" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#A78BFA" stopOpacity={0} />
                 </linearGradient>
-                <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#6B7280" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#6B7280" stopOpacity={0} />
+                <linearGradient id="dExp" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%"  stopColor="#525B72" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#525B72" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" />
-              <XAxis dataKey="month" stroke="#6B7280" fontSize={11} />
-              <YAxis
-                stroke="#6B7280"
-                fontSize={11}
-                tickFormatter={(tick) => `₹${tick / 100000}L`}
-              />
-              <Tooltip contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B' }} />
-              <Area
-                type="monotone"
-                dataKey="revenue"
-                stroke="#8B5CF6"
-                fillOpacity={1}
-                fill="url(#colorRevenue)"
-                name="Gross revenue"
-              />
-              <Area
-                type="monotone"
-                dataKey="expenses"
-                stroke="#6B7280"
-                fillOpacity={1}
-                fill="url(#colorExpenses)"
-                name="Operating costs"
-              />
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} vertical={false} />
+              <XAxis dataKey="month" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickLine={false} axisLine={false} />
+              <YAxis stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickFormatter={(v) => `₹${v / 100000}L`} tickLine={false} axisLine={false} />
+              <Tooltip contentStyle={CHART_STYLE.tooltip} />
+              <Area type="monotone" dataKey="revenue"  stroke="#A78BFA" strokeWidth={2} fill="url(#dRev)" name="Gross Revenue" />
+              <Area type="monotone" dataKey="expenses" stroke="#525B72" strokeWidth={2} fill="url(#dExp)" name="Operating Costs" />
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Recharts Line Chart: Liters Consumed */}
-        <ChartCard
-          title="Fuel Consumption Density"
-          subtitle="Volumetric liters fuel summary (7-Day)"
-        >
+        <ChartCard title="Fuel Consumption" subtitle="Volumetric litres refuelled (7-day)" minHeight={240}>
           <ResponsiveContainer width="100%" height={240}>
-            <BarChart
-              data={fuelConsumptionData}
-              margin={{ top: 10, right: 10, left: -10, bottom: 0 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" />
-              <XAxis dataKey="day" stroke="#6B7280" fontSize={11} />
-              <YAxis stroke="#6B7280" fontSize={11} tickFormatter={(tick) => `${tick}L`} />
-              <Tooltip contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B' }} />
-              <Bar dataKey="liters" fill="#3B82F6" radius={[4, 4, 0, 0]} name="Liters Refueled" />
+            <BarChart data={fuelData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} vertical={false} />
+              <XAxis dataKey="day" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickLine={false} axisLine={false} />
+              <YAxis stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickFormatter={(v) => `${v}L`} tickLine={false} axisLine={false} />
+              <Tooltip cursor={{ fill: 'rgba(255,255,255,0.03)' }} contentStyle={CHART_STYLE.tooltip} />
+              <Bar dataKey="liters" fill="#60A5FA" radius={[4, 4, 0, 0]} name="Litres Refuelled" barSize={28} />
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Upcoming Maintenance checklist */}
-        <div
-          className="bg-brand-card border border-brand-border rounded-card p-6 flex flex-col justify-between"
-          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
-        >
-          <div className="select-none">
-            <h4 className="text-sm font-semibold text-white mb-4">Upcoming Service calendar</h4>
-            <div className="space-y-4">
-              {upcomingServices.map((ser) => (
-                <div
-                  key={ser.id}
-                  className="p-3 bg-brand-panel border border-brand-border rounded-lg flex items-center justify-between"
-                  style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    borderColor: 'var(--border-subtle)',
-                  }}
-                >
-                  <div>
-                    <h5 className="text-[11px] font-semibold text-white">{ser.type}</h5>
-                    <p className="text-[10px] text-text-secondary mt-0.5">
-                      Vehicle: {ser.vehicle} | Date: {ser.date}
-                    </p>
-                  </div>
-                  <span className="text-[11px] font-semibold text-accent-green">{ser.cost}</span>
+        {/* Upcoming Service */}
+        <div className="card p-5 flex flex-col">
+          <h4 className="section-title mb-4">Upcoming Service</h4>
+          <div className="space-y-3 flex-1">
+            {upcomingServices.map((s) => (
+              <div key={s.id} className="flex items-center justify-between gap-3 p-3 card card-hover">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-text-primary leading-tight">{s.type}</p>
+                  <p className="text-2xs text-text-muted mt-0.5">{s.vehicle} · {s.date}</p>
                 </div>
-              ))}
-            </div>
+                <span className="text-xs font-semibold text-accent-green-soft flex-shrink-0">{s.cost}</span>
+              </div>
+            ))}
           </div>
-          <button className="w-full text-center mt-6 text-xs text-accent-purple hover:underline flex items-center justify-center gap-1 select-none">
-            Schedule Maintenance Service <ChevronRight size={14} />
+          <button className="mt-4 w-full text-center text-xs text-accent-purple-mid hover:text-accent-purple-soft transition-colors flex items-center justify-center gap-1 pt-4 border-t border-brand-border">
+            Schedule Service <ChevronRight size={13} />
           </button>
         </div>
       </div>
-      {/* NEW DISPATCH MODAL */}
-      <Modal
-        isOpen={isDispatchOpen}
-        onClose={() => setIsDispatchOpen(false)}
-        title="New Fleet Dispatch"
-        description="Assign a driver and vehicle to start a new transport corridor route"
-      >
-        <form onSubmit={handleDispatchSubmit} className="space-y-4">
+
+      {/* Dispatch Modal */}
+      <Modal isOpen={isDispatchOpen} onClose={() => setIsDispatchOpen(false)} title="New Fleet Dispatch" description="Assign a driver and vehicle to start a new transport corridor">
+        <form onSubmit={handleDispatch} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
-              <label className="form-label text-xs">Origin Station</label>
-              <input
-                type="text"
-                name="origin"
-                value={dispatchForm.origin}
-                onChange={handleDispatchInputChange}
-                required
-                className="input-field text-xs"
-              />
+              <label className="form-label">Origin Station</label>
+              <input name="origin" value={dispatchForm.origin} onChange={handleDispatchChange} required className="input-field" />
             </div>
             <div className="form-group">
-              <label className="form-label text-xs">Destination Hub</label>
-              <input
-                type="text"
-                name="destination"
-                value={dispatchForm.destination}
-                onChange={handleDispatchInputChange}
-                required
-                className="input-field text-xs"
-              />
+              <label className="form-label">Destination Hub</label>
+              <input name="destination" value={dispatchForm.destination} onChange={handleDispatchChange} required className="input-field" />
             </div>
           </div>
-
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
-              <label className="form-label text-xs">Available Driver</label>
-              <select
-                name="driver_id"
-                value={dispatchForm.driver_id}
-                onChange={handleDispatchInputChange}
-                required
-                className="input-field text-xs bg-brand-panel text-white"
-              >
-                {availableDrivers.length === 0 ? (
-                  <option value="" disabled>No drivers available</option>
-                ) : (
-                  availableDrivers.map((d) => (
-                    <option key={d.id} value={d.id}>
-                      {d.first_name} {d.last_name} ({d.employee_id})
-                    </option>
-                  ))
-                )}
+              <label className="form-label">Available Driver</label>
+              <select name="driver_id" value={dispatchForm.driver_id} onChange={handleDispatchChange} required className="input-field">
+                {availableDrivers.length === 0
+                  ? <option value="" disabled>No drivers available</option>
+                  : availableDrivers.map((d) => (
+                      <option key={d.id} value={d.id}>{d.first_name} {d.last_name} ({d.employee_id})</option>
+                    ))}
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label text-xs">Vehicle Plate Number</label>
-              <input
-                type="text"
-                name="vehicle_plate"
-                value={dispatchForm.vehicle_plate}
-                onChange={handleDispatchInputChange}
-                required
-                className="input-field text-xs"
-              />
+              <label className="form-label">Vehicle Plate</label>
+              <input name="vehicle_plate" value={dispatchForm.vehicle_plate} onChange={handleDispatchChange} required className="input-field font-mono" />
             </div>
           </div>
-
           <div className="form-group">
-            <label className="form-label text-xs">Starting Odometer (km)</label>
-            <input
-              type="number"
-              name="start_odometer"
-              value={dispatchForm.start_odometer}
-              onChange={handleDispatchInputChange}
-              required
-              className="input-field text-xs"
-            />
+            <label className="form-label">Starting Odometer (km)</label>
+            <input name="start_odometer" type="number" value={dispatchForm.start_odometer} onChange={handleDispatchChange} required className="input-field" />
           </div>
-
-          <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-brand-divider">
-            <button
-              type="button"
-              onClick={() => setIsDispatchOpen(false)}
-              className="btn btn-outline text-xs"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-primary text-xs">
-              Confirm Dispatch
-            </button>
-          </div>
+          <FormFooter onCancel={() => setIsDispatchOpen(false)} submitLabel="Confirm Dispatch" loading={submitting} />
         </form>
       </Modal>
     </div>

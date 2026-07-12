@@ -1,95 +1,156 @@
-import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import React, { memo } from 'react';
+import { motion } from 'framer-motion';
+import { LucideIcon, TrendingUp, TrendingDown } from 'lucide-react';
 
 interface StatCardProps {
-  title: string;
-  value: string | number;
-  description?: string;
-  change?: string;
-  changeType?: 'positive' | 'negative' | 'neutral';
-  icon?: LucideIcon;
-  iconColor?: string;
-  sparklineData?: number[]; // Array of 7 values, e.g. [10, 15, 8, 12, 18, 14, 22]
+  title:         string;
+  value:         string | number;
+  description?:  string;
+  change?:       string;
+  changeType?:   'positive' | 'negative' | 'neutral';
+  icon?:         LucideIcon;
+  iconColor?:    string;
+  iconBg?:       string;
+  sparklineData?: number[];
+  loading?:      boolean;
 }
 
-export default function StatCard({
+const strokeColors = {
+  positive: '#34D399',
+  negative: '#F87171',
+  neutral:  '#60A5FA',
+};
+
+function SparklineSVG({
+  data,
+  color,
+}: {
+  data: number[];
+  color: string;
+}) {
+  const W = 72;
+  const H = 28;
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+  const points = data
+    .map((v, i) => {
+      const x = (i / (data.length - 1)) * W;
+      const y = H - ((v - min) / range) * (H - 4) - 2;
+      return `${x},${y}`;
+    })
+    .join(' ');
+
+  // Fill area
+  const fillPoints = `0,${H} ${points} ${W},${H}`;
+
+  return (
+    <svg width={W} height={H} aria-hidden="true">
+      <defs>
+        <linearGradient id={`sg-${color.replace('#','')}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={color} stopOpacity={0.25} />
+          <stop offset="100%" stopColor={color} stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <polygon
+        points={fillPoints}
+        fill={`url(#sg-${color.replace('#','')})`}
+      />
+      <polyline
+        fill="none"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+        points={points}
+      />
+    </svg>
+  );
+}
+
+function StatCardComponent({
   title,
   value,
   description,
   change,
   changeType = 'neutral',
-  icon: IconComponent,
-  iconColor = 'text-accent-purple',
+  icon: Icon,
+  iconColor = 'text-accent-purple-mid',
+  iconBg = 'bg-accent-purple/10',
   sparklineData = [10, 12, 9, 14, 11, 16, 20],
+  loading = false,
 }: StatCardProps) {
-  // Compute SVG sparkline points
-  const width = 80;
-  const height = 30;
-  const min = Math.min(...sparklineData);
-  const max = Math.max(...sparklineData);
-  const range = max - min || 1;
+  const strokeColor = strokeColors[changeType];
 
-  const points = sparklineData
-    .map((val, idx) => {
-      const x = (idx / (sparklineData.length - 1)) * width;
-      const y = height - ((val - min) / range) * height;
-      return `${x},${y}`;
-    })
-    .join(' ');
-
-  const strokeColor =
-    changeType === 'positive'
-      ? '#10B981' // Green
-      : changeType === 'negative'
-        ? '#EF4444' // Red
-        : '#3B82F6'; // Blue
+  if (loading) {
+    return (
+      <div className="stat-card">
+        <div className="flex items-start justify-between">
+          <div className="space-y-2 flex-1">
+            <div className="shimmer-bg h-3 w-20 rounded" />
+            <div className="shimmer-bg h-7 w-32 rounded" />
+          </div>
+          <div className="shimmer-bg w-9 h-9 rounded-lg" />
+        </div>
+        <div className="flex items-end justify-between">
+          <div className="shimmer-bg h-3 w-24 rounded" />
+          <div className="shimmer-bg h-7 w-18 rounded" />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-brand-card border border-brand-border rounded-card p-5 shadow-subtle flex flex-col justify-between hover:border-brand-divider transition-all group focus-within:ring-2 focus-within:ring-accent-purple">
-      <div className="flex items-start justify-between">
-        <div>
-          <span className="text-[10px] font-bold text-text-secondary uppercase tracking-wider select-none">
-            {title}
-          </span>
-          <h3 className="text-xl font-bold text-white mt-1.5 tracking-tight select-all">{value}</h3>
+    <motion.div
+      className="stat-card card-hover group"
+      whileHover={{ y: -2 }}
+      transition={{ duration: 0.2 }}
+    >
+      {/* Top row */}
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="label-xs">{title}</p>
+          <p className="text-xl font-bold text-text-primary mt-1.5 leading-none tracking-tight">
+            {value}
+          </p>
         </div>
-        {IconComponent && (
-          <div className="p-2 bg-brand-bg rounded-lg border border-brand-border group-hover:border-brand-divider transition-colors">
-            <IconComponent size={16} className={iconColor} />
+        {Icon && (
+          <div
+            className={`p-2 rounded-xl border border-transparent ${iconBg} flex-shrink-0 transition-transform group-hover:scale-105`}
+          >
+            <Icon size={17} className={iconColor} aria-hidden="true" />
           </div>
         )}
       </div>
 
-      {/* Sparkline & Details Footer */}
-      <div className="flex items-center justify-between gap-4 mt-6">
-        <div>
+      {/* Bottom row */}
+      <div className="flex items-end justify-between gap-3 mt-auto">
+        <div className="space-y-1 min-w-0">
           {change && (
-            <span
-              className={`font-semibold px-2 py-0.5 rounded-badge text-[10px] ${
-                changeType === 'positive'
-                  ? 'bg-accent-green/10 text-accent-green'
-                  : changeType === 'negative'
-                    ? 'bg-accent-red/10 text-accent-red'
-                    : 'bg-text-muted/10 text-text-secondary'
-              }`}
-            >
-              {change}
-            </span>
+            <div className="flex items-center gap-1">
+              {changeType === 'positive' && <TrendingUp size={11} className="text-accent-green-soft flex-shrink-0" />}
+              {changeType === 'negative' && <TrendingDown size={11} className="text-accent-red-soft flex-shrink-0" />}
+              <span
+                className={`text-2xs font-semibold ${
+                  changeType === 'positive' ? 'text-accent-green-soft' :
+                  changeType === 'negative' ? 'text-accent-red-soft' :
+                  'text-text-muted'
+                }`}
+              >
+                {change}
+              </span>
+            </div>
           )}
           {description && (
-            <p className="text-[10px] text-text-muted mt-1 select-none truncate max-w-[110px]">
-              {description}
-            </p>
+            <p className="text-2xs text-text-muted truncate">{description}</p>
           )}
         </div>
-
-        {/* Mini Sparkline Chart */}
-        <div className="w-[80px] h-[30px] opacity-85 group-hover:opacity-100 transition-opacity select-none">
-          <svg width={width} height={height}>
-            <polyline fill="none" stroke={strokeColor} strokeWidth="2" points={points} />
-          </svg>
+        <div className="flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
+          <SparklineSVG data={sparklineData} color={strokeColor} />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
+export default memo(StatCardComponent);

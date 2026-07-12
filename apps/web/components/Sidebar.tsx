@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard,
   Truck,
@@ -13,159 +14,218 @@ import {
   CreditCard,
   FileText,
   BarChart3,
-  UserCheck,
   Settings,
   HelpCircle,
   ChevronLeft,
   ChevronRight,
   ChevronsUpDown,
   Building2,
+  Zap,
 } from 'lucide-react';
+
+interface NavItem {
+  name: string;
+  href: string;
+  icon: React.ElementType;
+}
+
+interface NavGroup {
+  group: string;
+  items: NavItem[];
+}
+
+const navigation: NavGroup[] = [
+  {
+    group: 'Operations',
+    items: [
+      { name: 'Dashboard',  href: '/dashboard',    icon: LayoutDashboard },
+      { name: 'Vehicles',   href: '/vehicles',     icon: Truck },
+      { name: 'Drivers',    href: '/drivers',      icon: Users },
+      { name: 'Trips',      href: '/trips',        icon: Compass },
+    ],
+  },
+  {
+    group: 'Management',
+    items: [
+      { name: 'Maintenance', href: '/maintenance', icon: Wrench },
+      { name: 'Fuel Logs',   href: '/fuel',        icon: Fuel },
+      { name: 'Expenses',    href: '/expenses',    icon: CreditCard },
+    ],
+  },
+  {
+    group: 'System',
+    items: [
+      { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+      { name: 'Reports',   href: '/reports',   icon: FileText },
+      { name: 'Settings',  href: '/settings',  icon: Settings },
+    ],
+  },
+];
+
+const workspaces = [
+  'VRL Logistics (Mumbai)',
+  'SafeExpress (Delhi)',
+  'TCI Freight (Bengaluru)',
+];
 
 interface SidebarProps {
   collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
+  setCollapsed: (c: boolean) => void;
+  isMobile?: boolean;
 }
 
-export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
+function SidebarComponent({ collapsed, setCollapsed, isMobile = false }: SidebarProps) {
   const pathname = usePathname();
-  const [showWorkspaceDropdown, setShowWorkspaceDropdown] = useState(false);
-  const [workspace, setWorkspace] = useState('VRL Logistics (Mumbai)');
+  const [workspace, setWorkspace] = useState(workspaces[0]);
+  const [wsDropOpen, setWsDropOpen] = useState(false);
 
-  const workspacesList = [
-    'VRL Logistics (Mumbai)',
-    'SafeExpress (Delhi)',
-    'TCI Freight (Bengaluru)',
-  ];
-
-  const navigation = [
-    {
-      group: 'Operations',
-      items: [
-        { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-        { name: 'Vehicles', href: '/vehicles', icon: Truck },
-        { name: 'Drivers', href: '/drivers', icon: Users },
-        { name: 'Trips', href: '/trips', icon: Compass },
-      ],
-    },
-    {
-      group: 'Management',
-      items: [
-        { name: 'Maintenance', href: '/maintenance', icon: Wrench },
-        { name: 'Fuel Logs', href: '/fuel', icon: Fuel },
-        { name: 'Expenses', href: '/expenses', icon: CreditCard },
-      ],
-    },
-    {
-      group: 'System',
-      items: [
-        { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-        { name: 'Reports', href: '/reports', icon: FileText },
-        { name: 'Settings', href: '/settings', icon: Settings },
-      ],
-    },
-  ];
+  const sidebarWidth = collapsed && !isMobile ? 64 : 256;
 
   return (
-    <aside
-      className={`flex flex-col bg-brand-sidebar border-r border-brand-border h-full transition-all duration-300 relative select-none z-30 ${
-        collapsed ? 'w-[68px]' : 'w-[260px]'
-      }`}
-      style={{
-        backgroundColor: 'var(--bg-sidebar)',
-        borderColor: 'var(--border-subtle)',
-      }}
+    <motion.aside
+      animate={{ width: sidebarWidth }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className="sidebar flex-shrink-0"
+      style={{ width: sidebarWidth }}
     >
-      {/* Brand logo & Workspace Switcher */}
-      <div className="flex items-center justify-between px-4 py-4 border-b border-brand-border h-[60px] overflow-hidden">
-        {!collapsed ? (
-          <div className="relative w-full mr-2">
-            <button
-              onClick={() => setShowWorkspaceDropdown(!showWorkspaceDropdown)}
-              className="flex items-center justify-between w-full p-2 bg-brand-panel hover:bg-brand-card rounded border border-brand-border text-left transition-all focus:outline-none"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                borderColor: 'var(--border-subtle)',
-              }}
+      {/* ── Brand / Workspace Switcher ──────────────────────────────────────── */}
+      <div
+        className="flex items-center justify-between px-3 border-b border-brand-border"
+        style={{ height: 58 }}
+      >
+        <AnimatePresence mode="wait">
+          {(!collapsed || isMobile) ? (
+            <motion.div
+              key="workspace-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="relative flex-1 min-w-0 mr-2"
             >
-              <div className="flex items-center gap-2 truncate">
-                <div className="w-5 h-5 rounded bg-accent-purple flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
-                  V
-                </div>
-                <span className="text-[11px] font-semibold text-white truncate">{workspace}</span>
-              </div>
-              <ChevronsUpDown size={12} className="text-text-muted flex-shrink-0 ml-1" />
-            </button>
-
-            {showWorkspaceDropdown && (
-              <div
-                className="absolute top-[38px] left-0 w-full bg-brand-card border border-brand-border rounded shadow-dialog py-1 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                style={{
-                  backgroundColor: 'var(--bg-card)',
-                  borderColor: 'var(--border-subtle)',
-                }}
+              <button
+                onClick={() => setWsDropOpen((o) => !o)}
+                className="flex items-center justify-between w-full gap-2 px-2 py-1.5 rounded-lg hover:bg-brand-elevated transition-colors text-left"
+                aria-label="Switch workspace"
+                aria-expanded={wsDropOpen}
               >
-                {workspacesList.map((ws) => (
-                  <button
-                    key={ws}
-                    onClick={() => {
-                      setWorkspace(ws);
-                      setShowWorkspaceDropdown(false);
-                    }}
-                    className="flex items-center gap-2 w-full text-left px-3 py-2 text-xs text-text-secondary hover:text-white hover:bg-brand-panel transition-colors"
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-6 h-6 rounded-md bg-accent-purple flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
+                    V
+                  </div>
+                  <span className="text-xs font-semibold text-text-primary truncate">
+                    {workspace}
+                  </span>
+                </div>
+                <ChevronsUpDown size={13} className="text-text-muted flex-shrink-0" />
+              </button>
+
+              <AnimatePresence>
+                {wsDropOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -4, scale: 0.97 }}
+                    transition={{ duration: 0.15 }}
+                    className="dropdown-menu absolute top-full left-0 right-0 mt-1"
                   >
-                    <Building2 size={12} className="text-text-muted" />
-                    <span className="truncate">{ws}</span>
-                  </button>
-                ))}
+                    {workspaces.map((ws) => (
+                      <button
+                        key={ws}
+                        onClick={() => {
+                          setWorkspace(ws);
+                          setWsDropOpen(false);
+                        }}
+                        className="dropdown-item w-full text-left gap-2 py-2"
+                      >
+                        <Building2 size={12} className="text-text-muted flex-shrink-0" />
+                        <span className="text-xs truncate">{ws}</span>
+                        {ws === workspace && (
+                          <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent-purple-mid flex-shrink-0" />
+                        )}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="workspace-icon"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="mx-auto"
+            >
+              <div className="w-8 h-8 rounded-lg bg-accent-purple flex items-center justify-center text-white font-bold text-sm">
+                V
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="mx-auto w-8 h-8 rounded-lg bg-accent-purple flex items-center justify-center text-white font-bold">
-            V
-          </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {!isMobile && (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="btn-icon flex-shrink-0 hidden md:flex"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+          </button>
         )}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="text-text-secondary hover:text-white focus:outline-none transition-colors hidden md:block"
-        >
-          {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-        </button>
       </div>
 
-      {/* Navigation Groups */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-6">
+      {/* ── Navigation ──────────────────────────────────────────────────────── */}
+      <nav
+        className="flex-1 overflow-y-auto overflow-x-hidden px-2.5 py-3 space-y-5"
+        aria-label="Main navigation"
+      >
         {navigation.map((group) => (
-          <div key={group.group} className="space-y-1">
-            {!collapsed && (
-              <h3 className="px-3 text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2">
-                {group.group}
-              </h3>
-            )}
-            <ul className="space-y-1">
+          <div key={group.group}>
+            <AnimatePresence>
+              {(!collapsed || isMobile) && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="label-xs px-2 mb-1.5"
+                >
+                  {group.group}
+                </motion.p>
+              )}
+            </AnimatePresence>
+
+            <ul className="space-y-0.5">
               {group.items.map((item) => {
-                const isActive = pathname.startsWith(item.href);
-                const IconComponent = item.icon;
+                const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                const Icon = item.icon;
 
                 return (
                   <li key={item.name}>
                     <Link
                       href={item.href}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-button text-[13px] font-medium transition-all ${
-                        isActive
-                          ? 'bg-brand-card text-white border-l-2 border-accent-purple'
-                          : 'text-text-secondary hover:text-white hover:bg-brand-panel'
-                      }`}
-                      title={collapsed ? item.name : undefined}
-                      style={
-                        isActive
-                          ? { backgroundColor: 'var(--bg-card)', borderLeftColor: '#8B5CF6' }
-                          : {}
-                      }
+                      className={`nav-item ${isActive ? 'active' : ''} ${collapsed && !isMobile ? 'justify-center px-0' : ''}`}
+                      data-tooltip={collapsed && !isMobile ? item.name : undefined}
+                      aria-current={isActive ? 'page' : undefined}
                     >
-                      <IconComponent size={16} className={isActive ? 'text-accent-purple' : ''} />
-                      {!collapsed && <span>{item.name}</span>}
+                      <Icon
+                        size={17}
+                        className={`nav-icon flex-shrink-0 transition-colors ${isActive ? 'text-accent-purple-mid' : 'text-text-muted'}`}
+                      />
+                      <AnimatePresence>
+                        {(!collapsed || isMobile) && (
+                          <motion.span
+                            initial={{ opacity: 0, width: 0 }}
+                            animate={{ opacity: 1, width: 'auto' }}
+                            exit={{ opacity: 0, width: 0 }}
+                            transition={{ duration: 0.15 }}
+                            className="overflow-hidden whitespace-nowrap text-sm"
+                          >
+                            {item.name}
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
                     </Link>
                   </li>
                 );
@@ -175,20 +235,31 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Bottom Footer Help */}
-      <div
-        className="p-4 border-t border-brand-border"
-        style={{ borderColor: 'var(--border-subtle)' }}
-      >
+      {/* ── Footer ──────────────────────────────────────────────────────────── */}
+      <div className="px-2.5 py-3 border-t border-brand-border">
         <Link
           href="/help"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-button text-[13px] text-text-secondary hover:text-white transition-colors"
-          title={collapsed ? 'Help Center' : undefined}
+          className={`nav-item ${collapsed && !isMobile ? 'justify-center px-0' : ''}`}
+          data-tooltip={collapsed && !isMobile ? 'Help Center' : undefined}
         >
-          <HelpCircle size={16} />
-          {!collapsed && <span>Help Center</span>}
+          <HelpCircle size={17} className="nav-icon text-text-muted flex-shrink-0" />
+          <AnimatePresence>
+            {(!collapsed || isMobile) && (
+              <motion.span
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 'auto' }}
+                exit={{ opacity: 0, width: 0 }}
+                transition={{ duration: 0.15 }}
+                className="overflow-hidden whitespace-nowrap text-sm"
+              >
+                Help Center
+              </motion.span>
+            )}
+          </AnimatePresence>
         </Link>
       </div>
-    </aside>
+    </motion.aside>
   );
 }
+
+export default memo(SidebarComponent);

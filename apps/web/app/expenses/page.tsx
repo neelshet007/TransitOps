@@ -1,164 +1,176 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Plus, CreditCard, CheckCircle, Clock } from 'lucide-react';
 
-import DataTable from '../../components/DataTable';
-import Modal from '../../components/Modal';
-import StatCard from '../../components/StatCard';
+import DataTable  from '../../components/DataTable';
+import Modal      from '../../components/Modal';
+import StatCard   from '../../components/StatCard';
+import PageHeader from '../../components/ui/PageHeader';
+import FormFooter from '../../components/ui/FormFooter';
 import { useExpenses } from '../../modules/expenses/hooks/useExpenses';
+
+const defaultForm = {
+  trip_id:      'trp-5000',
+  trip_number:  'TRP-10000',
+  category:     'Tolls',
+  amount:       '',
+  expense_date: '',
+  notes:        '',
+};
 
 export default function ExpensesPage() {
   const { expenses, isLoading, createExpense } = useExpenses();
+
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [submitting,   setSubmitting]   = useState(false);
+  const [formData,     setFormData]     = useState(defaultForm);
 
-  // Form states
-  const [formData, setFormData] = useState({
-    trip_id: 'trp-5000',
-    trip_number: 'TRP-10000',
-    category: 'Tolls',
-    amount: '',
-    expense_date: '',
-    notes: '',
-  });
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormData((p) => ({ ...p, [name]: value }));
+    },
+    [],
+  );
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCreateSubmit = async (e: React.FormEvent) => {
+  const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
     try {
-      await createExpense({
-        ...formData,
-        amount: Number(formData.amount),
-        vehicle_plate: 'MH-12-Q-4521',
-      });
+      await createExpense({ ...formData, amount: Number(formData.amount), vehicle_plate: 'MH-12-Q-4521' });
       setIsCreateOpen(false);
-      setFormData({
-        trip_id: 'trp-5000',
-        trip_number: 'TRP-10000',
-        category: 'Tolls',
-        amount: '',
-        expense_date: '',
-        notes: '',
-      });
-    } catch (err) {
-      alert('Failed to log expense');
-    }
+      setFormData(defaultForm);
+    } catch { alert('Failed to log expense'); }
+    finally { setSubmitting(false); }
   };
 
   const columns = [
-    { header: 'Expense ID', accessorKey: 'id', sortable: true },
-    { header: 'Trip Code', accessorKey: 'trip_number', sortable: true },
-    { header: 'Vehicle Plate', accessorKey: 'vehicle_plate', sortable: true },
-    { header: 'Category', accessorKey: 'category', sortable: true },
+    {
+      header: 'Trip Code',
+      accessorKey: 'trip_number',
+      sortable: true,
+      cell: (row: any) => (
+        <span className="font-mono text-xs text-text-primary">{row.trip_number}</span>
+      ),
+    },
+    {
+      header: 'Vehicle',
+      accessorKey: 'vehicle_plate',
+      sortable: true,
+      cell: (row: any) => (
+        <span className="font-mono text-xs text-text-secondary">{row.vehicle_plate}</span>
+      ),
+    },
+    {
+      header: 'Category',
+      accessorKey: 'category',
+      sortable: true,
+      cell: (row: any) => (
+        <span className="badge badge-draft capitalize">{row.category}</span>
+      ),
+    },
     {
       header: 'Amount',
       accessorKey: 'amount',
       sortable: true,
-      cell: (row: any) => `₹${row.amount.toLocaleString()}`,
+      cell: (row: any) => (
+        <span className="text-xs font-semibold text-text-primary">₹{(row.amount || 0).toLocaleString()}</span>
+      ),
     },
-    { header: 'Expense Date', accessorKey: 'expense_date', sortable: true },
-    { header: 'Payment Method', accessorKey: 'payment_method' },
     {
-      header: 'Audit Status',
+      header: 'Date',
+      accessorKey: 'expense_date',
+      sortable: true,
+      cell: (row: any) => (
+        <span className="text-xs tabular-nums text-text-secondary">{row.expense_date}</span>
+      ),
+    },
+    {
+      header: 'Payment',
+      accessorKey: 'payment_method',
+      cell: (row: any) => (
+        <span className="text-xs text-text-muted">{row.payment_method}</span>
+      ),
+    },
+    {
+      header: 'Status',
       accessorKey: 'status',
       cell: (row: any) => (
-        <span
-          className={`badge ${
-            row.status === 'approved'
-              ? 'badge-success'
-              : row.status === 'pending'
-                ? 'badge-warning'
-                : 'badge-error'
-          }`}
-        >
+        <span className={`badge ${
+          row.status === 'approved' ? 'badge-success' :
+          row.status === 'pending'  ? 'badge-warning' : 'badge-error'
+        }`}>
           {row.status}
         </span>
       ),
     },
   ];
 
+  const totalApproved = expenses.filter((e) => e.status === 'approved').reduce((s, e) => s + (e.amount || 0), 0);
+  const pendingCount  = expenses.filter((e) => e.status === 'pending').length;
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Expense Audit Ledgers</h2>
-          <p className="text-xs text-text-secondary mt-0.5">
-            Audit, approve, and track operations expenses (tolls, lodging, permits, maintenance
-            repairs)
-          </p>
-        </div>
-        <button
-          onClick={() => setIsCreateOpen(true)}
-          className="btn btn-primary self-start md:self-auto flex items-center gap-2 text-xs"
-        >
-          <Plus size={14} /> Log Expense Invoice
-        </button>
-      </div>
+      <PageHeader
+        title="Expense Ledger"
+        description="Audit, approve, and track fleet operating expenses — tolls, lodging, permits"
+        actions={
+          <button onClick={() => setIsCreateOpen(true)} className="btn btn-primary">
+            <Plus size={14} /> Log Expense
+          </button>
+        }
+      />
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
           title="Approved Expenses"
-          value="₹1.4 Lakh"
-          change="92% validation rate"
+          value={`₹${(totalApproved / 100000).toFixed(1)}L`}
+          change="Validation rate 92%"
           changeType="positive"
           icon={CheckCircle}
-          iconColor="text-accent-green"
+          iconColor="text-accent-green-soft"
+          iconBg="bg-green-500/10"
           sparklineData={[1.1, 1.2, 1.2, 1.3, 1.3, 1.4, 1.4]}
         />
         <StatCard
           title="Pending Approvals"
-          value={expenses.filter((e) => e.status === 'pending').length}
-          change="Toll clearance approvals"
+          value={pendingCount}
+          change="Requires review"
           changeType="neutral"
           icon={Clock}
-          iconColor="text-accent-amber"
+          iconColor="text-accent-amber-soft"
+          iconBg="bg-amber-500/10"
           sparklineData={[8, 12, 10, 15, 11, 13, 12]}
         />
         <StatCard
-          title="Fastag RFID Balances"
+          title="Fastag Balance"
           value="₹42,500"
           change="Corporate wallet"
           changeType="positive"
           icon={CreditCard}
-          iconColor="text-accent-blue"
+          iconColor="text-accent-blue-soft"
+          iconBg="bg-blue-500/10"
           sparklineData={[30000, 32000, 35000, 38000, 41000, 42000, 42500]}
         />
       </div>
 
-      {/* Data Table */}
       <DataTable
         columns={columns}
         data={expenses}
         searchKey="trip_number"
-        searchPlaceholder="Filter by trip number..."
+        searchPlaceholder="Search by trip number..."
         isLoading={isLoading}
       />
 
-      {/* LOG EXPENSE MODAL */}
-      <Modal
-        isOpen={isCreateOpen}
-        onClose={() => setIsCreateOpen(false)}
-        title="Log Operations Expense"
-        description="Submit a new fleet transaction invoice"
-      >
-        <form onSubmit={handleCreateSubmit} className="space-y-4">
+      {/* Log Expense Modal */}
+      <Modal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} title="Log Expense" description="Submit a new fleet transaction invoice">
+        <form onSubmit={handleCreate} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
-              <label className="form-label text-xs">Expense Category</label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                className="input-field text-xs bg-brand-panel"
-              >
+              <label className="form-label">Expense Category</label>
+              <select name="category" value={formData.category} onChange={handleChange} className="input-field">
                 <option value="Tolls">Tolls</option>
                 <option value="Driver Lodging">Driver Lodging</option>
                 <option value="State Permits">State Permits</option>
@@ -167,52 +179,19 @@ export default function ExpensesPage() {
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label text-xs">Expense Date</label>
-              <input
-                type="date"
-                name="expense_date"
-                value={formData.expense_date}
-                onChange={handleInputChange}
-                required
-                className="input-field text-xs"
-              />
+              <label className="form-label">Expense Date</label>
+              <input name="expense_date" type="date" value={formData.expense_date} onChange={handleChange} required className="input-field" />
             </div>
           </div>
           <div className="form-group">
-            <label className="form-label text-xs">Amount (INR)</label>
-            <input
-              type="number"
-              name="amount"
-              value={formData.amount}
-              onChange={handleInputChange}
-              required
-              placeholder="3500"
-              className="input-field text-xs"
-            />
+            <label className="form-label">Amount (₹)</label>
+            <input name="amount" type="number" value={formData.amount} onChange={handleChange} required placeholder="3500" className="input-field" />
           </div>
           <div className="form-group">
-            <label className="form-label text-xs">Transaction Details / Notes</label>
-            <textarea
-              name="notes"
-              value={formData.notes}
-              onChange={handleInputChange}
-              placeholder="Enter receipt references, fastag IDs, etc."
-              rows={3}
-              className="input-field text-xs resize-none"
-            />
+            <label className="form-label">Notes / Receipt Reference</label>
+            <textarea name="notes" value={formData.notes} onChange={handleChange} placeholder="Receipt ref, fastag ID, permit number…" rows={3} className="input-field" />
           </div>
-          <div className="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-brand-divider">
-            <button
-              type="button"
-              onClick={() => setIsCreateOpen(false)}
-              className="btn btn-outline text-xs"
-            >
-              Cancel
-            </button>
-            <button type="submit" className="btn btn-primary text-xs">
-              Submit Expense
-            </button>
-          </div>
+          <FormFooter onCancel={() => setIsCreateOpen(false)} submitLabel="Submit Expense" loading={submitting} />
         </form>
       </Modal>
     </div>

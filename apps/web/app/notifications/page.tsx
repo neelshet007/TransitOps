@@ -1,238 +1,151 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Bell, Check, Trash2, AlertTriangle, ShieldAlert, Truck, DollarSign, Settings } from 'lucide-react';
+import { Bell, Check, Trash2, AlertTriangle, DollarSign, Truck, Settings } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import PageHeader from '../../components/ui/PageHeader';
 
 interface AppNotification {
-  id: string;
-  type: 'system' | 'maintenance' | 'finance' | 'dispatch';
-  title: string;
-  message: string;
-  time: string;
-  read: boolean;
+  id:       string;
+  type:     'system' | 'maintenance' | 'finance' | 'dispatch';
+  title:    string;
+  message:  string;
+  time:     string;
+  read:     boolean;
   priority: 'low' | 'medium' | 'high';
 }
 
-const initialNotifications: AppNotification[] = [
-  {
-    id: 'notif-1',
-    type: 'maintenance',
-    title: 'Odometer Threshold Reached',
-    message: 'Vehicle MH-12-Q-4521 has crossed 80,000 km. Schedule preventive maintenance for brake inspection.',
-    time: '12 mins ago',
-    read: false,
-    priority: 'high',
-  },
-  {
-    id: 'notif-2',
-    type: 'dispatch',
-    title: 'Trip Delayed - Route #419',
-    message: 'Driver Amit Patel reported a 2-hour delay due to heavy traffic on Mumbai-Pune Expressway.',
-    time: '1 hour ago',
-    read: false,
-    priority: 'medium',
-  },
-  {
-    id: 'notif-3',
-    type: 'finance',
-    title: 'Fastag Auto-Recharge Successful',
-    message: '₹25,000 was successfully added to the corporate Fastag wallet. Current balance: ₹42,500.',
-    time: '3 hours ago',
-    read: true,
-    priority: 'low',
-  },
-  {
-    id: 'notif-4',
-    type: 'system',
-    title: 'System Update Scheduled',
-    message: 'TransitOps v2.4 deployment is scheduled for Sunday 02:00 AM IST. Expect 15 mins of downtime.',
-    time: '5 hours ago',
-    read: true,
-    priority: 'medium',
-  },
-  {
-    id: 'notif-5',
-    type: 'maintenance',
-    title: 'Service Completed',
-    message: 'Oil change and alignment for DL-01-A-8962 is marked as completed by workshop #4.',
-    time: '1 day ago',
-    read: true,
-    priority: 'low',
-  },
+const INITIAL: AppNotification[] = [
+  { id: 'n1', type: 'maintenance', priority: 'high',   read: false, time: '12m ago',  title: 'Odometer Threshold Reached',    message: 'Vehicle MH-12-Q-4521 has crossed 80,000 km. Schedule preventive maintenance.' },
+  { id: 'n2', type: 'dispatch',    priority: 'medium', read: false, time: '1h ago',   title: 'Trip Delayed — Route #419',     message: 'Driver Amit Patel reported a 2-hour delay on Mumbai–Pune Expressway.' },
+  { id: 'n3', type: 'finance',     priority: 'low',    read: true,  time: '3h ago',   title: 'Fastag Auto-Recharge Successful', message: '₹25,000 added to corporate Fastag wallet. Current balance: ₹42,500.' },
+  { id: 'n4', type: 'system',      priority: 'medium', read: true,  time: '5h ago',   title: 'Maintenance Window Scheduled',  message: 'TransitOps v2.4 deployment Sunday 02:00 AM IST. Expect 15 min downtime.' },
+  { id: 'n5', type: 'maintenance', priority: 'low',    read: true,  time: '1d ago',   title: 'Service Completed',             message: 'Oil change and alignment for DL-01-A-8962 marked complete by workshop #4.' },
 ];
 
+const TYPE_CONFIG: Record<string, { icon: React.ElementType; color: string; bg: string }> = {
+  maintenance: { icon: AlertTriangle, color: 'text-accent-amber-soft', bg: 'bg-amber-500/10' },
+  finance:     { icon: DollarSign,    color: 'text-accent-green-soft', bg: 'bg-green-500/10' },
+  dispatch:    { icon: Truck,         color: 'text-accent-blue-soft',  bg: 'bg-blue-500/10'  },
+  system:      { icon: Settings,      color: 'text-text-secondary',    bg: 'bg-brand-elevated' },
+};
+
+const PRIORITY_DOT: Record<string, string> = {
+  high:   'bg-accent-red-soft',
+  medium: 'bg-accent-amber-soft',
+  low:    'bg-text-disabled',
+};
+
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(initialNotifications);
-  const [activeTab, setActiveTab] = useState<'all' | 'unread'>('all');
-  const [filterType, setFilterType] = useState<string>('all');
+  const [items,      setItems]      = useState(INITIAL);
+  const [tab,        setTab]        = useState<'all' | 'unread'>('all');
+  const [typeFilter, setTypeFilter] = useState('all');
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unread = items.filter((n) => !n.read).length;
 
-  const markAllAsRead = () => {
-    setNotifications(notifications.map(n => ({ ...n, read: true })));
-  };
-
-  const markAsRead = (id: string) => {
-    setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
-  };
-
-  const deleteNotification = (id: string) => {
-    setNotifications(notifications.filter(n => n.id !== id));
-  };
-
-  const filteredNotifications = notifications.filter(n => {
-    if (activeTab === 'unread' && n.read) return false;
-    if (filterType !== 'all' && n.type !== filterType) return false;
+  const visible = items.filter((n) => {
+    if (tab === 'unread' && n.read) return false;
+    if (typeFilter !== 'all' && n.type !== typeFilter) return false;
     return true;
   });
 
-  const getIcon = (type: string, priority: string) => {
-    switch (type) {
-      case 'maintenance': return <AlertTriangle size={18} className="text-accent-amber" />;
-      case 'finance': return <DollarSign size={18} className="text-accent-green" />;
-      case 'dispatch': return <Truck size={18} className="text-accent-blue" />;
-      case 'system': return <Settings size={18} className="text-text-secondary" />;
-      default: return <Bell size={18} className="text-text-secondary" />;
-    }
-  };
+  const markAll  = () => setItems((p) => p.map((n) => ({ ...n, read: true })));
+  const markOne  = (id: string) => setItems((p) => p.map((n) => n.id === id ? { ...n, read: true } : n));
+  const remove   = (id: string) => setItems((p) => p.filter((n) => n.id !== id));
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
-            Notification Center
-            {unreadCount > 0 && (
-              <span className="bg-accent-red text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
-                {unreadCount} New
-              </span>
-            )}
-          </h2>
-          <p className="text-xs text-text-secondary mt-0.5">
-            Manage system alerts, operational triggers, and automated updates
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <button
-            onClick={markAllAsRead}
-            disabled={unreadCount === 0}
-            className="btn btn-outline text-xs flex items-center gap-2 disabled:opacity-50"
-          >
-            <Check size={14} /> Mark all read
+    <div className="space-y-6 max-w-3xl">
+      <PageHeader
+        title="Notification Centre"
+        description="System alerts, operational triggers, and automated updates"
+        badge={unread > 0 && <span className="badge badge-error">{unread} new</span>}
+        actions={
+          <button onClick={markAll} disabled={unread === 0} className="btn btn-secondary btn-sm">
+            <Check size={13} /> Mark all read
           </button>
-        </div>
-      </div>
+        }
+      />
 
-      <div className="bg-brand-card border border-brand-border rounded-card shadow-subtle min-h-[500px] flex flex-col">
+      <div className="card overflow-hidden">
         {/* Toolbar */}
-        <div className="p-4 border-b border-brand-divider flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-4 text-sm font-semibold">
-            <button
-              onClick={() => setActiveTab('all')}
-              className={`pb-1 border-b-2 transition-all ${
-                activeTab === 'all' 
-                  ? 'border-accent-purple text-white' 
-                  : 'border-transparent text-text-secondary hover:text-white'
-              }`}
-            >
-              All Alerts
-            </button>
-            <button
-              onClick={() => setActiveTab('unread')}
-              className={`pb-1 border-b-2 transition-all ${
-                activeTab === 'unread' 
-                  ? 'border-accent-purple text-white' 
-                  : 'border-transparent text-text-secondary hover:text-white'
-              }`}
-            >
-              Unread
-            </button>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 py-3 border-b border-brand-border">
+          <div className="flex items-center gap-1" role="tablist">
+            {(['all', 'unread'] as const).map((t) => (
+              <button
+                key={t}
+                role="tab"
+                aria-selected={tab === t}
+                onClick={() => setTab(t)}
+                className={`filter-tab ${tab === t ? 'active' : ''} capitalize`}
+              >
+                {t === 'unread' ? `Unread (${unread})` : 'All'}
+              </button>
+            ))}
           </div>
-          
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="input-field text-xs bg-brand-panel max-w-[200px]"
-          >
+          <select value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)} className="input-field w-auto text-xs">
             <option value="all">All Categories</option>
-            <option value="dispatch">Dispatch & Routing</option>
+            <option value="dispatch">Dispatch</option>
             <option value="maintenance">Maintenance</option>
             <option value="finance">Finance</option>
             <option value="system">System</option>
           </select>
         </div>
 
-        {/* Notifications List */}
-        <div className="flex-grow">
-          {filteredNotifications.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-64 text-center">
-              <div className="p-4 bg-brand-panel rounded-full text-text-muted mb-4">
-                <Bell size={32} />
+        {/* List */}
+        <div className="divide-y divide-brand-border">
+          <AnimatePresence initial={false}>
+            {visible.length === 0 ? (
+              <div className="empty-state py-16">
+                <div className="empty-state-icon">
+                  <Bell size={20} />
+                </div>
+                <p className="text-sm font-medium text-text-secondary">You're all caught up</p>
+                <p className="text-xs text-text-muted">No notifications match the current filter.</p>
               </div>
-              <h3 className="text-sm font-semibold text-white">You're all caught up!</h3>
-              <p className="text-xs text-text-secondary mt-1">No notifications match your current filters.</p>
-            </div>
-          ) : (
-            <div className="divide-y divide-brand-divider">
-              {filteredNotifications.map((notif) => (
-                <div 
-                  key={notif.id} 
-                  className={`p-5 flex gap-4 transition-colors ${
-                    notif.read ? 'bg-transparent' : 'bg-brand-panel/30 hover:bg-brand-panel/50'
-                  }`}
-                >
-                  {/* Icon */}
-                  <div className={`mt-1 flex-shrink-0 p-2 rounded-full border ${
-                    notif.read ? 'bg-brand-panel border-brand-border' : 'bg-brand-card border-brand-border'
-                  }`}>
-                    {getIcon(notif.type, notif.priority)}
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="flex-grow">
-                    <div className="flex items-center justify-between">
-                      <h4 className={`text-sm font-semibold ${notif.read ? 'text-text-secondary' : 'text-white'}`}>
-                        {notif.title}
-                      </h4>
-                      <span className="text-[10px] text-text-muted">{notif.time}</span>
+            ) : (
+              visible.map((n) => {
+                const cfg  = TYPE_CONFIG[n.type] ?? TYPE_CONFIG.system;
+                const Icon = cfg.icon;
+                return (
+                  <motion.div
+                    key={n.id}
+                    layout
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.18 }}
+                    className={`group flex items-start gap-3.5 p-5 transition-colors ${!n.read ? 'bg-brand-elevated/40 hover:bg-brand-elevated/60' : 'hover:bg-brand-elevated/20'}`}
+                  >
+                    <div className={`p-2 rounded-xl ${cfg.bg} flex-shrink-0 mt-0.5`}>
+                      <Icon size={15} className={cfg.color} />
                     </div>
-                    <p className={`text-xs mt-1 leading-relaxed ${notif.read ? 'text-text-muted' : 'text-text-secondary'}`}>
-                      {notif.message}
-                    </p>
-                    
-                    {/* Action buttons (only if unread) */}
-                    {!notif.read && (
-                      <div className="mt-3 flex items-center gap-3">
-                        <button 
-                          onClick={() => markAsRead(notif.id)}
-                          className="text-[11px] font-medium text-accent-blue hover:underline"
-                        >
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          {!n.read && <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 mt-0.5 ${PRIORITY_DOT[n.priority]}`} />}
+                          <p className={`text-xs font-semibold leading-tight ${n.read ? 'text-text-secondary' : 'text-text-primary'}`}>{n.title}</p>
+                        </div>
+                        <span className="text-2xs text-text-muted flex-shrink-0">{n.time}</span>
+                      </div>
+                      <p className="text-xs text-text-muted mt-1 leading-relaxed">{n.message}</p>
+                      {!n.read && (
+                        <button onClick={() => markOne(n.id)} className="mt-2 text-2xs font-semibold text-accent-purple-mid hover:text-accent-purple-soft transition-colors">
                           Mark as read
                         </button>
-                        <span className="text-brand-divider">•</span>
-                        <button className="text-[11px] font-medium text-text-secondary hover:text-white transition-colors">
-                          View details
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Delete Action */}
-                  <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button 
-                      onClick={() => deleteNotification(notif.id)}
-                      className="p-1.5 text-text-muted hover:text-accent-red hover:bg-brand-panel rounded transition-colors"
-                      title="Delete"
+                      )}
+                    </div>
+                    <button
+                      onClick={() => remove(n.id)}
+                      className="btn-icon opacity-0 group-hover:opacity-100 transition-opacity hover:text-accent-red-soft flex-shrink-0"
+                      aria-label="Delete notification"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={13} />
                     </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+                  </motion.div>
+                );
+              })
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

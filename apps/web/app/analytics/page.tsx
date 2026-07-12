@@ -1,27 +1,25 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, BarChart2, TrendingUp, TrendingDown, Clock, Map, PieChart as PieChartIcon } from 'lucide-react';
+import { Download, TrendingUp, TrendingDown, Clock, PieChart as PieChartIcon } from 'lucide-react';
 import {
-  AreaChart,
-  Area,
-  BarChart,
-  Bar,
-  PieChart,
-  Pie,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  Legend
+  AreaChart, Area,
+  BarChart, Bar,
+  PieChart, Pie, Cell,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from 'recharts';
 
-import StatCard from '../../components/StatCard';
-import ChartCard from '../../components/ChartCard';
+import StatCard   from '../../components/StatCard';
+import ChartCard  from '../../components/ChartCard';
+import PageHeader from '../../components/ui/PageHeader';
 
-// Mock Data
+const CHART_STYLE = {
+  tooltip:    { backgroundColor: '#181C28', borderColor: '#212636', borderRadius: 8 },
+  grid:       '#1A1E2C',
+  axis:       '#525B72',
+  axisFontSz: 11,
+};
+
 const revenueData = [
   { month: 'Jan', revenue: 4500000, profit: 1400000 },
   { month: 'Feb', revenue: 5200000, profit: 1800000 },
@@ -41,67 +39,67 @@ const maintenanceCostData = [
 ];
 
 const tripStatusData = [
-  { name: 'Completed', value: 450, color: '#10B981' },
-  { name: 'In Transit', value: 85, color: '#3B82F6' },
-  { name: 'Delayed', value: 25, color: '#EF4444' },
-  { name: 'Cancelled', value: 12, color: '#6B7280' },
+  { name: 'Completed', value: 450, color: '#34D399' },
+  { name: 'In Transit', value: 85,  color: '#60A5FA' },
+  { name: 'Delayed',    value: 25,  color: '#F87171' },
+  { name: 'Cancelled',  value: 12,  color: '#525B72' },
 ];
 
-const regionalPerformanceData = [
-  { region: 'Mumbai Hub', trips: 145, efficiency: 92 },
-  { region: 'Delhi Hub', trips: 180, efficiency: 88 },
-  { region: 'Bengaluru Hub', trips: 120, efficiency: 95 },
-  { region: 'Chennai Hub', trips: 90, efficiency: 85 },
+const regionalData = [
+  { region: 'Mumbai',    trips: 145, efficiency: 92 },
+  { region: 'Delhi',     trips: 180, efficiency: 88 },
+  { region: 'Bengaluru', trips: 120, efficiency: 95 },
+  { region: 'Chennai',   trips: 90,  efficiency: 85 },
 ];
+
+const TIME_RANGES = ['1m', '3m', '6m', '1y'];
 
 export default function AnalyticsPage() {
-  const [timeRange, setTimeRange] = useState('6m');
+  const [range, setRange] = useState('6m');
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Enterprise Analytics</h2>
-          <p className="text-xs text-text-secondary mt-0.5">
-            Comprehensive business intelligence and operational efficiency metrics
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-2 self-start md:self-auto">
-          <div className="flex items-center bg-brand-panel border border-brand-border rounded-lg p-1 mr-2">
-            {['1m', '3m', '6m', '1y'].map((range) => (
-              <button
-                key={range}
-                onClick={() => setTimeRange(range)}
-                className={`px-3 py-1 text-[11px] font-medium rounded-md transition-all ${
-                  timeRange === range
-                    ? 'bg-brand-card text-white shadow-sm border border-brand-border'
-                    : 'text-text-secondary hover:text-white'
-                }`}
-              >
-                {range.toUpperCase()}
-              </button>
-            ))}
+      <PageHeader
+        title="Enterprise Analytics"
+        description="Business intelligence and operational efficiency metrics"
+        actions={
+          <div className="flex items-center gap-2">
+            {/* Time range selector */}
+            <div className="flex items-center bg-brand-panel border border-brand-border rounded-lg p-0.5">
+              {TIME_RANGES.map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setRange(r)}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
+                    range === r
+                      ? 'bg-brand-elevated text-text-primary border border-brand-border shadow-sm'
+                      : 'text-text-muted hover:text-text-secondary'
+                  }`}
+                >
+                  {r.toUpperCase()}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => alert('Exporting analytics…')}
+              className="btn btn-secondary btn-sm"
+            >
+              <Download size={13} /> Export
+            </button>
           </div>
-          <button
-            onClick={() => alert('Exporting Analytics Dashboard...')}
-            className="btn btn-outline text-xs flex items-center gap-2"
-          >
-            <Download size={14} /> Export Data
-          </button>
-        </div>
-      </div>
+        }
+      />
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* KPI row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
-          title="Total Revenue (YTD)"
+          title="Revenue YTD"
           value="₹3.58 Cr"
           change="+18.4% vs last year"
           changeType="positive"
           icon={TrendingUp}
-          iconColor="text-accent-green"
+          iconColor="text-accent-green-soft"
+          iconBg="bg-green-500/10"
           sparklineData={[30, 35, 45, 40, 50, 60, 65]}
         />
         <StatCard
@@ -110,169 +108,101 @@ export default function AnalyticsPage() {
           change="+2.1% this quarter"
           changeType="positive"
           icon={PieChartIcon}
-          iconColor="text-accent-purple"
+          iconColor="text-accent-purple-soft"
+          iconBg="bg-purple-500/10"
           sparklineData={[30, 31, 32, 33, 33.5, 34, 34.2]}
         />
         <StatCard
-          title="Cost per Km"
+          title="Cost per km"
           value="₹32.4"
-          change="-₹1.2 this month"
+          change="−₹1.2 this month"
           changeType="positive"
           icon={TrendingDown}
-          iconColor="text-accent-blue"
+          iconColor="text-accent-blue-soft"
+          iconBg="bg-blue-500/10"
           sparklineData={[35, 34.5, 34, 33.8, 33.5, 32.8, 32.4]}
         />
         <StatCard
           title="Avg Turnaround"
           value="4.2 Hrs"
-          change="Delayed by 15 mins"
+          change="+15m delay vs target"
           changeType="negative"
           icon={Clock}
-          iconColor="text-accent-amber"
+          iconColor="text-accent-amber-soft"
+          iconBg="bg-amber-500/10"
           sparklineData={[3.8, 3.9, 4.0, 3.9, 4.1, 4.1, 4.2]}
         />
       </div>
 
-      {/* Charts Grid Row 1 */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {/* Row 1: Revenue (2/3) + Trip Distribution (1/3) */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div className="lg:col-span-2">
-          <ChartCard
-            title="Revenue & Profit Margins"
-            subtitle="Gross shipping transactions vs net profit (INR)"
-          >
+          <ChartCard title="Revenue & Profit" subtitle="Gross revenue vs net profit (₹ INR)" minHeight={300}>
             <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={revenueData} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
+              <AreaChart data={revenueData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
                 <defs>
-                  <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                  <linearGradient id="gRev" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor="#60A5FA" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#60A5FA" stopOpacity={0} />
                   </linearGradient>
-                  <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
-                    <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                  <linearGradient id="gProfit" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%"  stopColor="#34D399" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="#34D399" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#20222B" vertical={false} />
-                <XAxis dataKey="month" stroke="#6B7280" fontSize={11} tickLine={false} axisLine={false} />
-                <YAxis
-                  stroke="#6B7280"
-                  fontSize={11}
-                  tickFormatter={(tick) => `₹${tick / 100000}L`}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <Tooltip contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B', borderRadius: '8px' }} />
-                <Legend iconType="circle" wrapperStyle={{ fontSize: '12px' }} />
-                <Area
-                  type="monotone"
-                  dataKey="revenue"
-                  stroke="#3B82F6"
-                  strokeWidth={2}
-                  fillOpacity={1}
-                  fill="url(#colorRev)"
-                  name="Gross Revenue"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="profit"
-                  stroke="#10B981"
-                  strokeWidth={2}
-                  fillOpacity={1}
-                  fill="url(#colorProfit)"
-                  name="Net Profit"
-                />
+                <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} vertical={false} />
+                <XAxis dataKey="month" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickLine={false} axisLine={false} />
+                <YAxis stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickFormatter={(v) => `₹${v/100000}L`} tickLine={false} axisLine={false} />
+                <Tooltip contentStyle={CHART_STYLE.tooltip} />
+                <Legend iconType="circle" wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
+                <Area type="monotone" dataKey="revenue" stroke="#60A5FA" strokeWidth={2} fill="url(#gRev)" name="Gross Revenue" />
+                <Area type="monotone" dataKey="profit"  stroke="#34D399" strokeWidth={2} fill="url(#gProfit)" name="Net Profit" />
               </AreaChart>
             </ResponsiveContainer>
           </ChartCard>
         </div>
-        
+
         <div className="lg:col-span-1">
-          <ChartCard
-            title="Trip Status Distribution"
-            subtitle="YTD breakdown of all dispatched routes"
-          >
+          <ChartCard title="Trip Distribution" subtitle="YTD breakdown of all routes" minHeight={300}>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
-                <Pie
-                  data={tripStatusData}
-                  cx="50%"
-                  cy="45%"
-                  innerRadius={60}
-                  outerRadius={90}
-                  paddingAngle={5}
-                  dataKey="value"
-                >
-                  {tripStatusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} stroke="transparent" />
+                <Pie data={tripStatusData} cx="50%" cy="42%" innerRadius={55} outerRadius={85} paddingAngle={4} dataKey="value">
+                  {tripStatusData.map((e, i) => (
+                    <Cell key={i} fill={e.color} stroke="transparent" />
                   ))}
                 </Pie>
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B', borderRadius: '8px' }}
-                  itemStyle={{ color: '#fff' }}
-                />
-                <Legend 
-                  layout="vertical" 
-                  verticalAlign="bottom" 
-                  align="center"
-                  iconType="circle"
-                  wrapperStyle={{ fontSize: '11px' }}
-                />
+                <Tooltip contentStyle={CHART_STYLE.tooltip} itemStyle={{ color: '#F1F3F9' }} />
+                <Legend layout="vertical" verticalAlign="bottom" align="center" iconType="circle" wrapperStyle={{ fontSize: 11 }} />
               </PieChart>
             </ResponsiveContainer>
           </ChartCard>
         </div>
       </div>
 
-      {/* Charts Grid Row 2 */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ChartCard
-          title="Maintenance Expenditure"
-          subtitle="Monthly breakdown of repair and service costs"
-        >
+      {/* Row 2: Maintenance costs + Regional Performance */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <ChartCard title="Maintenance Expenditure" subtitle="Monthly repair and service costs" minHeight={260}>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart
-              data={maintenanceCostData}
-              margin={{ top: 10, right: 10, left: 10, bottom: 0 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" vertical={false} />
-              <XAxis dataKey="month" stroke="#6B7280" fontSize={11} tickLine={false} axisLine={false} />
-              <YAxis 
-                stroke="#6B7280" 
-                fontSize={11} 
-                tickFormatter={(tick) => `₹${tick / 1000}k`} 
-                tickLine={false} 
-                axisLine={false} 
-              />
-              <Tooltip cursor={{ fill: '#20222B' }} contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B', borderRadius: '8px' }} />
-              <Bar dataKey="cost" fill="#8B5CF6" radius={[4, 4, 0, 0]} name="Cost (INR)" barSize={40} />
+            <BarChart data={maintenanceCostData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} vertical={false} />
+              <XAxis dataKey="month" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickLine={false} axisLine={false} />
+              <YAxis stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickFormatter={(v) => `₹${v/1000}k`} tickLine={false} axisLine={false} />
+              <Tooltip cursor={{ fill: 'rgba(255,255,255,0.03)' }} contentStyle={CHART_STYLE.tooltip} />
+              <Bar dataKey="cost" fill="#A78BFA" radius={[4, 4, 0, 0]} name="Cost (₹)" barSize={36} />
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        <ChartCard
-          title="Regional Hub Performance"
-          subtitle="Trips dispatched vs Efficiency Score"
-        >
+        <ChartCard title="Regional Hub Performance" subtitle="Trips dispatched vs efficiency score" minHeight={260}>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart
-              data={regionalPerformanceData}
-              layout="vertical"
-              margin={{ top: 10, right: 10, left: 20, bottom: 0 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#20222B" horizontal={false} />
-              <XAxis type="number" stroke="#6B7280" fontSize={11} tickLine={false} axisLine={false} />
-              <YAxis 
-                type="category" 
-                dataKey="region" 
-                stroke="#9CA3AF" 
-                fontSize={11} 
-                tickLine={false} 
-                axisLine={false}
-                width={90}
-              />
-              <Tooltip cursor={{ fill: '#20222B' }} contentStyle={{ backgroundColor: '#16171E', borderColor: '#20222B', borderRadius: '8px' }} />
-              <Bar dataKey="efficiency" fill="#10B981" radius={[0, 4, 4, 0]} name="Efficiency %" barSize={16} />
-              <Bar dataKey="trips" fill="#3B82F6" radius={[0, 4, 4, 0]} name="Total Trips" barSize={16} />
+            <BarChart data={regionalData} layout="vertical" margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} horizontal={false} />
+              <XAxis type="number" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickLine={false} axisLine={false} />
+              <YAxis type="category" dataKey="region" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.axisFontSz} tickLine={false} axisLine={false} width={70} />
+              <Tooltip cursor={{ fill: 'rgba(255,255,255,0.03)' }} contentStyle={CHART_STYLE.tooltip} />
+              <Legend iconType="circle" wrapperStyle={{ fontSize: 11 }} />
+              <Bar dataKey="efficiency" fill="#34D399" radius={[0, 4, 4, 0]} name="Efficiency %" barSize={14} />
+              <Bar dataKey="trips"      fill="#60A5FA" radius={[0, 4, 4, 0]} name="Total Trips"  barSize={14} />
             </BarChart>
           </ResponsiveContainer>
         </ChartCard>
