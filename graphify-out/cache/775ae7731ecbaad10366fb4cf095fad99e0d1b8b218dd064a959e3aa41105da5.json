@@ -1,0 +1,194 @@
+{
+  "nodes": [
+    {
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "label": "error.middleware.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "error_middleware_errorhandler",
+      "label": "errorHandler()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "error_middleware_notfoundhandler",
+      "label": "notFoundHandler()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L38"
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_utils_logger",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "utils",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "error_middleware_errorhandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_error_middleware_ts",
+      "target": "error_middleware_notfoundhandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L38",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "warn",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "stringify",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L16"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "json",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "status",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "errorResponse",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "error",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L24"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "json",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "status",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L25"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "errorResponse",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L27"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "error",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "json",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "status",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L33"
+    },
+    {
+      "caller_nid": "error_middleware_errorhandler",
+      "callee": "errorResponse",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L35"
+    },
+    {
+      "caller_nid": "error_middleware_notfoundhandler",
+      "callee": "warn",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L39"
+    },
+    {
+      "caller_nid": "error_middleware_notfoundhandler",
+      "callee": "json",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "error_middleware_notfoundhandler",
+      "callee": "status",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L40"
+    },
+    {
+      "caller_nid": "error_middleware_notfoundhandler",
+      "callee": "errorResponse",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\error.middleware.ts",
+      "source_location": "L40"
+    }
+  ]
+}

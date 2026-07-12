@@ -155,13 +155,11 @@ export default function Navbar() {
               </div>
               <div
                 className="divide-y divide-brand-divider max-h-[300px] overflow-y-auto"
-                style={{ dividerColor: 'var(--border-subtle)' }}
               >
                 {notifications.map((notif) => (
                   <div
                     key={notif.id}
                     className="p-4 hover:bg-brand-panel transition-colors"
-                    style={{ hoverBackgroundColor: 'var(--bg-secondary)' }}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <h4 className="text-xs font-semibold text-white">{notif.title}</h4>

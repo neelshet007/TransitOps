@@ -1,136 +1,182 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Settings, Bell, Shield, Database } from 'lucide-react';
+import { Save, Building2, Globe, Lock, Bell, Palette, CreditCard, Shield, Settings } from 'lucide-react';
 
 export default function SettingsPage() {
-  const [formData, setFormData] = useState({
-    companyName: 'Apex Logistics Operations Inc.',
-    timezone: 'America/New_York',
-    currency: 'USD',
-    idleAlert: '15',
-    speedAlert: '75',
-    sessionTimeout: '900',
-  });
+  const [activeTab, setActiveTab] = useState('general');
+  const [isSaving, setIsSaving] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Settings updated successfully!');
+    setIsSaving(true);
+    await new Promise(resolve => setTimeout(resolve, 800));
+    setIsSaving(false);
+    alert('Settings successfully updated.');
   };
 
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div>
-        <h2 className="text-xl font-bold text-white tracking-tight">System Settings</h2>
-        <p className="text-xs text-text-secondary mt-0.5">
-          Configure general parameters, alert triggers, and security controls for the ERP
-        </p>
+    <div className="space-y-6 max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-bold text-white tracking-tight">System Settings</h2>
+          <p className="text-xs text-text-secondary mt-0.5">
+            Manage your workspace configuration, security protocols, and enterprise preferences.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Left Tabs Column */}
-        <div className="bg-brand-card border border-brand-border rounded-card p-4 space-y-1 h-fit select-none">
-          <button className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-white bg-brand-panel border border-brand-border rounded-button font-medium">
-            <Settings size={14} className="text-accent-purple" /> General Profile
-          </button>
-          <button className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-text-secondary hover:text-white hover:bg-brand-panel transition-colors rounded-button">
-            <Bell size={14} /> Alert Triggers
-          </button>
-          <button className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-text-secondary hover:text-white hover:bg-brand-panel transition-colors rounded-button">
-            <Shield size={14} /> Security Controls
-          </button>
-          <button className="flex items-center gap-2.5 w-full text-left px-4 py-2 text-xs text-text-secondary hover:text-white hover:bg-brand-panel transition-colors rounded-button">
-            <Database size={14} /> Database Sync
-          </button>
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Settings Sidebar */}
+        <div className="w-full md:w-64 flex-shrink-0 space-y-1">
+          {[
+            { id: 'general', label: 'General Info', icon: Building2 },
+            { id: 'security', label: 'Security & Access', icon: Lock },
+            { id: 'notifications', label: 'Notifications', icon: Bell },
+            { id: 'appearance', label: 'Appearance', icon: Palette },
+            { id: 'billing', label: 'Billing & Plans', icon: CreditCard },
+            { id: 'api', label: 'API Integrations', icon: Globe },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-brand-card text-white shadow-sm border border-brand-border'
+                    : 'text-text-secondary hover:text-white hover:bg-brand-panel/50'
+                }`}
+                style={activeTab === tab.id ? { backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' } : {}}
+              >
+                <Icon size={16} className={activeTab === tab.id ? 'text-accent-purple' : 'text-text-muted'} />
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Right Settings Form Column */}
-        <div className="lg:col-span-3 bg-brand-card border border-brand-border rounded-card p-6">
-          <h4 className="text-sm font-semibold text-white mb-4 border-b border-brand-divider pb-4">
-            General Configuration
-          </h4>
-          <form onSubmit={handleSave} className="space-y-4">
-            <div className="form-group">
-              <label className="form-label text-xs">Registered Company Name</label>
-              <input
-                type="text"
-                name="companyName"
-                value={formData.companyName}
-                onChange={handleInputChange}
-                required
-                className="input-field text-xs"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-group">
-                <label className="form-label text-xs">Standard Timezone</label>
-                <select
-                  name="timezone"
-                  value={formData.timezone}
-                  onChange={handleInputChange}
-                  className="input-field text-xs bg-brand-panel"
-                >
-                  <option value="America/New_York">Eastern Standard (EST)</option>
-                  <option value="America/Chicago">Central Standard (CST)</option>
-                  <option value="America/Denver">Mountain Standard (MST)</option>
-                  <option value="America/Los_Angeles">Pacific Standard (PST)</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label text-xs">Operating Currency</label>
-                <select
-                  name="currency"
-                  value={formData.currency}
-                  onChange={handleInputChange}
-                  className="input-field text-xs bg-brand-panel"
-                >
-                  <option value="USD">US Dollar ($)</option>
-                  <option value="EUR">Euro (€)</option>
-                  <option value="CAD">Canadian Dollar (C$)</option>
-                </select>
-              </div>
-            </div>
+        {/* Settings Content Area */}
+        <div 
+          className="flex-grow bg-brand-card border border-brand-border rounded-card p-6 shadow-subtle min-h-[500px]"
+          style={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-subtle)' }}
+        >
+          {activeTab === 'general' && (
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <h3 className="text-base font-semibold text-white mb-6 border-b border-brand-divider pb-4">
+                Enterprise Information
+              </h3>
+              
+              <form onSubmit={handleSave} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="form-group">
+                    <label className="form-label text-xs">Company Name</label>
+                    <input type="text" defaultValue="VRL Logistics India" className="input-field text-sm" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label text-xs">GSTIN / Tax ID</label>
+                    <input type="text" defaultValue="27AADCV8956R1Z5" className="input-field text-sm" />
+                  </div>
+                </div>
 
-            <h4 className="text-sm font-semibold text-white mb-4 border-b border-brand-divider pt-6 pb-4">
-              Alert Trigger Configurations
-            </h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="form-group">
-                <label className="form-label text-xs">Max Idle Alert (Minutes)</label>
-                <input
-                  type="number"
-                  name="idleAlert"
-                  value={formData.idleAlert}
-                  onChange={handleInputChange}
-                  required
-                  className="input-field text-xs"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label text-xs">Speed Alert Threshold (mph)</label>
-                <input
-                  type="number"
-                  name="speedAlert"
-                  value={formData.speedAlert}
-                  onChange={handleInputChange}
-                  required
-                  className="input-field text-xs"
-                />
-              </div>
-            </div>
+                <div className="form-group">
+                  <label className="form-label text-xs">Headquarters Address</label>
+                  <input type="text" defaultValue="Plot 45, MIDC Industrial Area, Andheri East, Mumbai, 400093" className="input-field text-sm" />
+                </div>
 
-            <div className="flex justify-end gap-3 mt-8 pt-4 border-t border-brand-divider">
-              <button type="submit" className="btn btn-primary text-xs">
-                Save Configurations
-              </button>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="form-group">
+                    <label className="form-label text-xs">Primary Contact Email</label>
+                    <input type="email" defaultValue="operations@vrl.in" className="input-field text-sm" />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-label text-xs">Support Phone Number</label>
+                    <input type="text" defaultValue="+91 1800-456-7890" className="input-field text-sm" />
+                  </div>
+                </div>
+                
+                <div className="form-group">
+                  <label className="form-label text-xs">Default Currency</label>
+                  <select className="input-field text-sm bg-brand-panel">
+                    <option value="INR">INR (₹) - Indian Rupee</option>
+                    <option value="USD">USD ($) - US Dollar</option>
+                    <option value="EUR">EUR (€) - Euro</option>
+                  </select>
+                </div>
+
+                <div className="flex items-center justify-end pt-6 border-t border-brand-divider mt-8">
+                  <button type="submit" disabled={isSaving} className="btn btn-primary flex items-center gap-2">
+                    <Save size={14} /> {isSaving ? 'Saving...' : 'Save Configuration'}
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          )}
+
+          {activeTab === 'security' && (
+            <div className="animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <h3 className="text-base font-semibold text-white mb-6 border-b border-brand-divider pb-4 flex items-center gap-2">
+                <Shield size={18} className="text-accent-blue" />
+                Security & Access Policies
+              </h3>
+              
+              <div className="space-y-6">
+                <div className="p-4 bg-brand-panel rounded-lg border border-brand-border">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-semibold text-white">Two-Factor Authentication (2FA)</h4>
+                      <p className="text-xs text-text-secondary mt-1">Require all administrative users to use 2FA for login.</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" defaultChecked className="sr-only peer" />
+                      <div className="w-9 h-5 bg-brand-card border border-brand-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary peer-checked:after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-purple"></div>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-brand-panel rounded-lg border border-brand-border">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-semibold text-white">Enforce Strong Passwords</h4>
+                      <p className="text-xs text-text-secondary mt-1">Require at least 12 characters, numbers, and symbols.</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" defaultChecked className="sr-only peer" />
+                      <div className="w-9 h-5 bg-brand-card border border-brand-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-text-secondary peer-checked:after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-accent-purple"></div>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="p-4 bg-brand-panel rounded-lg border border-brand-border">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-sm font-semibold text-white">Session Timeout</h4>
+                      <p className="text-xs text-text-secondary mt-1">Automatically log out inactive users.</p>
+                    </div>
+                    <select className="input-field text-xs bg-brand-card py-1.5 px-3 max-w-[150px]">
+                      <option>15 Minutes</option>
+                      <option>30 Minutes</option>
+                      <option>1 Hour</option>
+                      <option>Never</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab !== 'general' && activeTab !== 'security' && (
+            <div className="flex flex-col items-center justify-center h-64 text-center animate-in fade-in">
+              <div className="p-4 bg-brand-panel rounded-full text-text-muted mb-4">
+                <Settings size={32} />
+              </div>
+              <h3 className="text-sm font-semibold text-white capitalize">{activeTab} Settings</h3>
+              <p className="text-xs text-text-secondary mt-1 max-w-sm">
+                This configuration module is currently being finalized. Check back after the next release update.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

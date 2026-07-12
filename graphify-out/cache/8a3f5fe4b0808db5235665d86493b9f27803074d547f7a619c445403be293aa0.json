@@ -1,0 +1,159 @@
+{
+  "nodes": [
+    {
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "label": "auth.middleware.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "auth_middleware_requireauth",
+      "label": "requireAuth()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "auth_middleware_requireroles",
+      "label": "requireRoles()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L29"
+    },
+    {
+      "id": "auth_middleware_requirepermissions",
+      "label": "requirePermissions()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L45"
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "express",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "jsonwebtoken",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "types",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_config",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "auth_middleware_requireauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "auth_middleware_requireroles",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_middlewares_auth_middleware_ts",
+      "target": "auth_middleware_requirepermissions",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L45",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "startsWith",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L11"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "next",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L12"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "split",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L15"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "verify",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L18"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "next",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "next",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L23"
+    },
+    {
+      "caller_nid": "auth_middleware_requireauth",
+      "callee": "next",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\middlewares\\auth.middleware.ts",
+      "source_location": "L25"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "nodes": [
+    {
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_user_repository_ts",
+      "label": "user.repository.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "user_repository_userrepository",
+      "label": "UserRepository",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L14"
+    },
+    {
+      "id": "user_repository_userrepository_findbyemail",
+      "label": ".findByEmail()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "user_repository_userrepository_findbyid",
+      "label": ".findById()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L32"
+    },
+    {
+      "id": "user_repository_userrepository_maprowstouser",
+      "label": ".mapRowsToUser()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L49"
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_user_repository_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_database",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_repositories_user_repository_ts",
+      "target": "user_repository_userrepository",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_findbyemail",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_findbyid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "user_repository_userrepository",
+      "target": "user_repository_userrepository_maprowstouser",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "user_repository_userrepository_findbyemail",
+      "target": "user_repository_userrepository_maprowstouser",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "user_repository_userrepository_findbyid",
+      "target": "user_repository_userrepository_maprowstouser",
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L46",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "user_repository_userrepository_findbyemail",
+      "callee": "query",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L28"
+    },
+    {
+      "caller_nid": "user_repository_userrepository_findbyid",
+      "callee": "query",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L45"
+    },
+    {
+      "caller_nid": "user_repository_userrepository_maprowstouser",
+      "callee": "forEach",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L55"
+    },
+    {
+      "caller_nid": "user_repository_userrepository_maprowstouser",
+      "callee": "from",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L68"
+    },
+    {
+      "caller_nid": "user_repository_userrepository_maprowstouser",
+      "callee": "from",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\repositories\\user.repository.ts",
+      "source_location": "L69"
+    }
+  ]
+}

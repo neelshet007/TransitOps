@@ -1,0 +1,264 @@
+{
+  "nodes": [
+    {
+      "id": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "label": "errors.ts",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "errors_apperror",
+      "label": "AppError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "errors_apperror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "errors_validationerror",
+      "label": "ValidationError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L18"
+    },
+    {
+      "id": "errors_validationerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "errors_authenticationerror",
+      "label": "AuthenticationError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L24"
+    },
+    {
+      "id": "errors_authenticationerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "errors_forbiddenerror",
+      "label": "ForbiddenError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L30"
+    },
+    {
+      "id": "errors_forbiddenerror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L31"
+    },
+    {
+      "id": "errors_notfounderror",
+      "label": "NotFoundError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L36"
+    },
+    {
+      "id": "errors_notfounderror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L37"
+    },
+    {
+      "id": "errors_conflicterror",
+      "label": "ConflictError",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L42"
+    },
+    {
+      "id": "errors_conflicterror_constructor",
+      "label": ".constructor()",
+      "file_type": "code",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L43"
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "c_web_devlopment_hackathonproject_transitops_apps_api_src_constants",
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_apperror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_apperror",
+      "target": "errors_apperror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_validationerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_validationerror",
+      "target": "errors_validationerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_authenticationerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_authenticationerror",
+      "target": "errors_authenticationerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_forbiddenerror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_forbiddenerror",
+      "target": "errors_forbiddenerror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_notfounderror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_notfounderror",
+      "target": "errors_notfounderror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "c_web_devlopment_hackathonproject_transitops_apps_api_src_helpers_errors_ts",
+      "target": "errors_conflicterror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "errors_conflicterror",
+      "target": "errors_conflicterror_constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L43",
+      "weight": 1.0
+    }
+  ],
+  "raw_calls": [
+    {
+      "caller_nid": "errors_apperror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L9"
+    },
+    {
+      "caller_nid": "errors_apperror_constructor",
+      "callee": "setPrototypeOf",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L13"
+    },
+    {
+      "caller_nid": "errors_apperror_constructor",
+      "callee": "captureStackTrace",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L14"
+    },
+    {
+      "caller_nid": "errors_validationerror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L20"
+    },
+    {
+      "caller_nid": "errors_authenticationerror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L26"
+    },
+    {
+      "caller_nid": "errors_forbiddenerror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L32"
+    },
+    {
+      "caller_nid": "errors_notfounderror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L38"
+    },
+    {
+      "caller_nid": "errors_conflicterror_constructor",
+      "callee": "super",
+      "source_file": "C:\\Web Devlopment\\HackathonProject\\transitops\\apps\\api\\src\\helpers\\errors.ts",
+      "source_location": "L44"
+    }
+  ]
+}
