@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuthStore } from '../store/authStore';
 
-const PUBLIC_ROUTES = ['/login'];
+const PUBLIC_ROUTES = ['/login', '/'];
 
 interface RouteGuardProps {
   children: React.ReactNode;
@@ -31,6 +31,10 @@ export default function RouteGuard({ children }: RouteGuardProps) {
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
 
+  // Determine if we should show the loading screen
+  const hasToken = typeof window !== 'undefined' && !!localStorage.getItem('accessToken');
+  const showLoading = isLoading || (!mounted && !isPublicRoute) || (hasToken && !isAuthenticated && mounted);
+
   useEffect(() => {
     if (!mounted || isLoading) return; // Wait for mount and fetch to complete
 
@@ -38,13 +42,13 @@ export default function RouteGuard({ children }: RouteGuardProps) {
       router.replace('/login');
     }
 
-    if (isAuthenticated && isPublicRoute) {
+    if (isAuthenticated && (pathname === '/login' || pathname === '/')) {
       router.replace('/dashboard');
     }
-  }, [isAuthenticated, isPublicRoute, isLoading, router, mounted]);
+  }, [isAuthenticated, isPublicRoute, pathname, isLoading, router, mounted]);
 
   // Show a minimal loading indicator while validating token or mounting
-  if (!mounted || isLoading) {
+  if (showLoading) {
     return (
       <div className="h-screen w-screen flex items-center justify-center bg-[#090A0F]">
         <div className="flex flex-col items-center gap-4">

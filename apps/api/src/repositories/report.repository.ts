@@ -341,26 +341,33 @@ export class ReportRepository {
     if (range === 'yearly') truncateUnit = 'year';
 
     const sql = `
+      WITH period_trips AS (
+        SELECT 
+          DATE_TRUNC('${truncateUnit}', start_time) as period,
+          COUNT(id) as trips_count,
+          COALESCE(SUM(distance), 0) as total_distance
+        FROM trips
+        WHERE deleted_at IS NULL AND status = 'completed'
+        GROUP BY DATE_TRUNC('${truncateUnit}', start_time)
+      )
       SELECT 
-        DATE_TRUNC('${truncateUnit}', t.start_time) as period,
-        COUNT(t.id) as trips_count,
-        COALESCE(SUM(t.distance), 0) as total_distance,
+        pt.period,
+        pt.trips_count,
+        pt.total_distance,
         (
           SELECT COALESCE(SUM(cost), 0) 
           FROM maintenance 
-          WHERE DATE_TRUNC('${truncateUnit}', scheduled_date) = DATE_TRUNC('${truncateUnit}', t.start_time)
+          WHERE DATE_TRUNC('${truncateUnit}', scheduled_date) = pt.period
           AND deleted_at IS NULL
         ) as maintenance_cost,
         (
           SELECT COALESCE(SUM(total_cost), 0) 
           FROM fuel_logs 
-          WHERE DATE_TRUNC('${truncateUnit}', fuel_date) = DATE_TRUNC('${truncateUnit}', t.start_time)
+          WHERE DATE_TRUNC('${truncateUnit}', fuel_date) = pt.period
           AND deleted_at IS NULL
         ) as fuel_cost
-      FROM trips t
-      WHERE t.deleted_at IS NULL AND t.status = 'completed'
-      GROUP BY period
-      ORDER BY period ASC
+      FROM period_trips pt
+      ORDER BY pt.period ASC
       LIMIT 12
     `;
 

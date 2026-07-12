@@ -7,7 +7,7 @@ import CommandPalette from './CommandPalette';
 import { ThemeProvider } from './ThemeProvider';
 import RouteGuard from './RouteGuard';
 
-const SHELL_EXCLUDED_ROUTES = ['/login'];
+const SHELL_EXCLUDED_ROUTES = ['/login', '/'];
 
 export default function RootClientLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

@@ -5,6 +5,8 @@ import { dashboardService } from '../services/dashboardService';
 
 export function useDashboard() {
   const [stats, setStats] = useState<any | null>(null);
+  const [trends, setTrends] = useState<any[]>([]);
+  const [fuelTrends, setFuelTrends] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -12,8 +14,14 @@ export function useDashboard() {
     setIsLoading(true);
     setError(null);
     try {
-      const data = await dashboardService.getStats();
-      setStats(data);
+      const [statsData, trendsData, fuelData] = await Promise.all([
+        dashboardService.getStats(),
+        dashboardService.getAnalyticsTrends('monthly'),
+        dashboardService.getFuelAnalytics()
+      ]);
+      setStats(statsData);
+      setTrends(trendsData);
+      setFuelTrends(fuelData?.trends ?? []);
     } catch (err: any) {
       setError(err?.response?.data?.message || err.message || 'Failed to load dashboard statistics');
     } finally {
@@ -36,6 +44,8 @@ export function useDashboard() {
 
   return {
     stats,
+    trends,
+    fuelTrends,
     isLoading,
     error,
     refresh: fetchStats,

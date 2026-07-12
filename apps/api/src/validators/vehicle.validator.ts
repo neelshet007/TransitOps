@@ -8,6 +8,7 @@ export const createVehicleSchema = z.object({
     year: z.number().int().min(1990),
     vin: z.string().min(5),
     status: z.enum(["active", "inactive", "maintenance"]).optional(),
+    odometer: z.number().int().nonnegative().optional(),
   }),
 });
 
@@ -19,5 +20,6 @@ export const updateVehicleSchema = z.object({
     year: z.number().optional(),
     vin: z.string().optional(),
     status: z.enum(["active", "inactive", "maintenance"]).optional(),
+    odometer: z.number().int().nonnegative().optional(),
   }),
 });

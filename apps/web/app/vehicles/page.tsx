@@ -68,35 +68,75 @@ export default function VehiclesPage() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[Add Vehicle] Submit button clicked');
+    console.log('[Add Vehicle] Form Validation started');
+    if (!formData.plate_number || !formData.make || !formData.model || !formData.year || !formData.vin) {
+      console.warn('[Add Vehicle] Validation failed: missing required fields');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Add Vehicle] Validation passed');
     setSubmitting(true);
     try {
-      await createVehicle(formData);
+      console.log('[Add Vehicle] API function called with payload:', formData);
+      const res = await createVehicle(formData);
+      console.log('[Add Vehicle] Response received:', res);
+      console.log('[Add Vehicle] Success handler triggered');
       setIsCreateOpen(false);
       resetForm();
-    } catch { alert('Failed to register vehicle'); }
+    } catch (err) {
+      console.error('[Add Vehicle] Error handler triggered:', err);
+      alert('Failed to register vehicle');
+    }
     finally { setSubmitting(false); }
   };
 
   const handleEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selected) return;
+    console.log('[Edit Vehicle] Submit button clicked');
+    if (!selected) {
+      console.warn('[Edit Vehicle] No vehicle selected');
+      return;
+    }
+    console.log('[Edit Vehicle] Validation started');
+    if (!formData.plate_number || !formData.make || !formData.model || !formData.year || !formData.vin) {
+      console.warn('[Edit Vehicle] Validation failed');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Edit Vehicle] Validation passed');
     setSubmitting(true);
     try {
-      await updateVehicle(selected.id, formData);
+      console.log('[Edit Vehicle] API function called with payload:', formData);
+      const res = await updateVehicle(selected.id, formData);
+      console.log('[Edit Vehicle] Response received:', res);
+      console.log('[Edit Vehicle] Success handler triggered');
       setIsEditOpen(false);
       resetForm();
-    } catch { alert('Failed to update vehicle'); }
+    } catch (err) {
+      console.error('[Edit Vehicle] Error handler triggered:', err);
+      alert('Failed to update vehicle');
+    }
     finally { setSubmitting(false); }
   };
 
   const handleDelete = async () => {
-    if (!selected) return;
+    console.log('[Delete Vehicle] Confirm button clicked');
+    if (!selected) {
+      console.warn('[Delete Vehicle] No vehicle selected');
+      return;
+    }
     setSubmitting(true);
     try {
+      console.log('[Delete Vehicle] API function called for ID:', selected.id);
       await deleteVehicle(selected.id);
+      console.log('[Delete Vehicle] Success handler triggered');
       setIsDeleteOpen(false);
       setSelected(null);
-    } catch { alert('Failed to remove vehicle'); }
+    } catch (err) {
+      console.error('[Delete Vehicle] Error handler triggered:', err);
+      alert('Failed to remove vehicle');
+    }
     finally { setSubmitting(false); }
   };
 
@@ -199,7 +239,7 @@ export default function VehiclesPage() {
         title="Vehicle Fleet"
         description="Register, audit, and manage commercial carriage assets"
         actions={
-          <button onClick={() => { resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
+          <button onClick={() => { console.log('[Add Vehicle Button] Clicked to open modal'); resetForm(); setIsCreateOpen(true); }} className="btn btn-primary">
             <Plus size={14} /> Add Vehicle
           </button>
         }
@@ -255,7 +295,9 @@ export default function VehiclesPage() {
             <button
               className="btn-icon"
               title="Edit vehicle"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('[Edit Vehicle Button] Clicked for ID:', row.id);
                 setSelected(row);
                 setFormData({
                   plate_number:    row.plate_number,
@@ -274,7 +316,12 @@ export default function VehiclesPage() {
             <button
               className="btn-icon hover:text-accent-red-soft"
               title="Delete vehicle"
-              onClick={() => { setSelected(row); setIsDeleteOpen(true); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log('[Delete Vehicle Button] Clicked for ID:', row.id);
+                setSelected(row);
+                setIsDeleteOpen(true);
+              }}
             >
               <Trash2 size={14} />
             </button>

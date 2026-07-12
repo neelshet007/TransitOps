@@ -1,30 +1,60 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { Plus, CreditCard, CheckCircle, Clock } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Plus, CreditCard, Clock, CheckCircle } from 'lucide-react';
 
-import DataTable  from '../../components/DataTable';
-import Modal      from '../../components/Modal';
-import StatCard   from '../../components/StatCard';
-import PageHeader from '../../components/ui/PageHeader';
-import FormFooter from '../../components/ui/FormFooter';
+import DataTable   from '../../components/DataTable';
+import Modal       from '../../components/Modal';
+import StatCard    from '../../components/StatCard';
+import PageHeader  from '../../components/ui/PageHeader';
+import FormFooter  from '../../components/ui/FormFooter';
 import { useExpenses } from '../../modules/expenses/hooks/useExpenses';
+import { driverService } from '../../modules/drivers/services/driverService';
+import apiClient from '../../services/apiClient';
 
 const defaultForm = {
-  trip_id:      'trp-5000',
-  trip_number:  'TRP-10000',
-  category:     'Tolls',
-  amount:       '',
-  expense_date: '',
-  notes:        '',
+  category:       'Tolls',
+  expense_date:   '',
+  amount:         '',
+  notes:          '',
+  vehicle_id:     '',
+  driver_id:      '',
 };
 
 export default function ExpensesPage() {
   const { expenses, isLoading, createExpense } = useExpenses();
 
-  const [isCreateOpen, setIsCreateOpen] = useState(false);
-  const [submitting,   setSubmitting]   = useState(false);
-  const [formData,     setFormData]     = useState(defaultForm);
+  const [isCreateOpen,  setIsCreateOpen]  = useState(false);
+  const [submitting,    setSubmitting]    = useState(false);
+  const [formData,      setFormData]      = useState(defaultForm);
+  const [vehicles,     setVehicles]     = useState<any[]>([]);
+  const [drivers,      setDrivers]      = useState<any[]>([]);
+
+  // Load vehicles and drivers for selectors
+  const loadSelectors = useCallback(async () => {
+    try {
+      const [vehiclesRes, driversRes] = await Promise.all([
+        apiClient.get('/vehicles'),
+        driverService.getAll({ limit: 100 })
+      ]);
+      const vehicleList = vehiclesRes.data?.data || [];
+      const driverList = driversRes.data || [];
+      setVehicles(vehicleList);
+      setDrivers(driverList);
+      
+      setFormData(p => ({
+        ...p,
+        vehicle_id: vehicleList[0]?.id || 'veh-1000',
+        driver_id: driverList[0]?.id || 'drv-2000'
+      }));
+    } catch (e) {
+      console.error('Failed to load selectors data', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSelectors();
+  }, [loadSelectors]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -36,12 +66,39 @@ export default function ExpensesPage() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[Log Expense] Submit button clicked');
+    console.log('[Log Expense] Form Validation started');
+    if (!formData.expense_date || !formData.amount || !formData.category || !formData.vehicle_id) {
+      console.warn('[Log Expense] Validation failed: missing date, amount, category, or vehicle');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Log Expense] Validation passed');
     setSubmitting(true);
     try {
-      await createExpense({ ...formData, amount: Number(formData.amount), vehicle_plate: 'MH-12-Q-4521' });
+      const selectedVehicle = vehicles.find(v => v.id === formData.vehicle_id);
+
+      const payload = {
+        ...formData,
+        amount: Number(formData.amount),
+        vehicle_plate: selectedVehicle?.plate_number || 'MH-12-Q-4521'
+      };
+
+      console.log('[Log Expense] API function called with payload:', payload);
+      const res = await createExpense(payload);
+      console.log('[Log Expense] Response received:', res);
+      console.log('[Log Expense] Success handler finished');
+
       setIsCreateOpen(false);
-      setFormData(defaultForm);
-    } catch { alert('Failed to log expense'); }
+      setFormData({
+        ...defaultForm,
+        vehicle_id: vehicles[0]?.id || 'veh-1000',
+        driver_id: drivers[0]?.id || 'drv-2000'
+      });
+    } catch (err) {
+      console.error('[Log Expense] Error handler triggered:', err);
+      alert('Failed to log expense');
+    }
     finally { setSubmitting(false); }
   };
 
@@ -51,7 +108,7 @@ export default function ExpensesPage() {
       accessorKey: 'trip_number',
       sortable: true,
       cell: (row: any) => (
-        <span className="font-mono text-xs text-text-primary">{row.trip_number}</span>
+        <span className="font-mono text-xs text-text-primary">{row.trip_number || 'OP-LOG'}</span>
       ),
     },
     {
@@ -59,23 +116,20 @@ export default function ExpensesPage() {
       accessorKey: 'vehicle_plate',
       sortable: true,
       cell: (row: any) => (
-        <span className="font-mono text-xs text-text-secondary">{row.vehicle_plate}</span>
+        <span className="font-mono text-xs font-semibold text-text-primary">{row.vehicle_plate}</span>
       ),
     },
     {
       header: 'Category',
       accessorKey: 'category',
       sortable: true,
-      cell: (row: any) => (
-        <span className="badge badge-draft capitalize">{row.category}</span>
-      ),
     },
     {
       header: 'Amount',
       accessorKey: 'amount',
       sortable: true,
       cell: (row: any) => (
-        <span className="text-xs font-semibold text-text-primary">₹{(row.amount || 0).toLocaleString()}</span>
+        <span className="text-xs font-medium text-accent-green-soft">₹{(row.amount || 0).toLocaleString()}</span>
       ),
     },
     {
@@ -83,14 +137,14 @@ export default function ExpensesPage() {
       accessorKey: 'expense_date',
       sortable: true,
       cell: (row: any) => (
-        <span className="text-xs tabular-nums text-text-secondary">{row.expense_date}</span>
+        <span className="text-xs tabular-nums">{row.expense_date}</span>
       ),
     },
     {
       header: 'Payment',
       accessorKey: 'payment_method',
       cell: (row: any) => (
-        <span className="text-xs text-text-muted">{row.payment_method}</span>
+        <span className="text-xs text-text-muted">{row.payment_method || 'Corporate Card'}</span>
       ),
     },
     {
@@ -116,7 +170,7 @@ export default function ExpensesPage() {
         title="Expense Ledger"
         description="Audit, approve, and track fleet operating expenses — tolls, lodging, permits"
         actions={
-          <button onClick={() => setIsCreateOpen(true)} className="btn btn-primary">
+          <button onClick={() => { console.log('[Log Expense Button] Clicked to open modal'); setIsCreateOpen(true); }} className="btn btn-primary">
             <Plus size={14} /> Log Expense
           </button>
         }
@@ -167,6 +221,32 @@ export default function ExpensesPage() {
       {/* Log Expense Modal */}
       <Modal isOpen={isCreateOpen} onClose={() => setIsCreateOpen(false)} title="Log Expense" description="Submit a new fleet transaction invoice">
         <form onSubmit={handleCreate} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-group">
+              <label className="form-label">Available Vehicle</label>
+              <select name="vehicle_id" value={formData.vehicle_id} onChange={handleChange} required className="input-field">
+                {vehicles.length === 0 ? (
+                  <option value="">No vehicles available</option>
+                ) : (
+                  vehicles.map(v => (
+                    <option key={v.id} value={v.id}>{v.plate_number} ({v.make} {v.model})</option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div className="form-group">
+              <label className="form-label">Driver</label>
+              <select name="driver_id" value={formData.driver_id} onChange={handleChange} required className="input-field">
+                {drivers.length === 0 ? (
+                  <option value="">No drivers available</option>
+                ) : (
+                  drivers.map(d => (
+                    <option key={d.id} value={d.id}>{d.first_name} {d.last_name}</option>
+                  ))
+                )}
+              </select>
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">Expense Category</label>

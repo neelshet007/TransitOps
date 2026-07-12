@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Plus, Wrench, AlertTriangle, Calendar } from 'lucide-react';
 
 import DataTable     from '../../components/DataTable';
@@ -13,6 +13,7 @@ import InfoRow       from '../../components/ui/InfoRow';
 import InfoSection   from '../../components/ui/InfoSection';
 import FormFooter    from '../../components/ui/FormFooter';
 import { useMaintenance } from '../../modules/maintenance/hooks/useMaintenance';
+import apiClient from '../../services/apiClient';
 
 const FILTERS = [
   { label: 'All',         value: 'all' },
@@ -22,7 +23,7 @@ const FILTERS = [
 ];
 
 const defaultForm = {
-  vehicle_id:     'veh-1000',
+  vehicle_id:     '',
   type:           'Preventative Maintenance',
   scheduled_date: '',
   cost:           '4500',
@@ -39,6 +40,26 @@ export default function MaintenancePage() {
   const [isDetailOpen,  setIsDetailOpen]  = useState(false);
   const [submitting,    setSubmitting]    = useState(false);
   const [formData,      setFormData]      = useState(defaultForm);
+  const [vehicles,     setVehicles]     = useState<any[]>([]);
+
+  // Load vehicles for selectors
+  const loadSelectors = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/vehicles');
+      const vehicleList = response.data?.data || [];
+      setVehicles(vehicleList);
+      setFormData(p => ({
+        ...p,
+        vehicle_id: vehicleList[0]?.id || 'veh-1000'
+      }));
+    } catch (e) {
+      console.error('Failed to load vehicles for maintenance selector', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSelectors();
+  }, [loadSelectors]);
 
   const filtered = useMemo(() => {
     if (activeFilter === 'all') return logs;
@@ -62,12 +83,37 @@ export default function MaintenancePage() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[Book Session] Submit button clicked');
+    console.log('[Book Session] Form Validation started');
+    if (!formData.scheduled_date || !formData.cost || !formData.type || !formData.vehicle_id) {
+      console.warn('[Book Session] Validation failed: missing date, cost, type, or vehicle');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[Book Session] Validation passed');
     setSubmitting(true);
     try {
-      await createLog(formData);
+      const selectedVehicle = vehicles.find(v => v.id === formData.vehicle_id);
+
+      const payload = {
+        ...formData,
+        vehicle_plate: selectedVehicle?.plate_number || 'MH-12-Q-4521'
+      };
+
+      console.log('[Book Session] API function called with payload:', payload);
+      const res = await createLog(payload);
+      console.log('[Book Session] Response received:', res);
+      console.log('[Book Session] Success handler finished');
+
       setIsCreateOpen(false);
-      setFormData(defaultForm);
-    } catch { alert('Failed to schedule maintenance'); }
+      setFormData({
+        ...defaultForm,
+        vehicle_id: vehicles[0]?.id || 'veh-1000'
+      });
+    } catch (err) {
+      console.error('[Book Session] Error handler triggered:', err);
+      alert('Failed to schedule maintenance');
+    }
     finally { setSubmitting(false); }
   };
 
@@ -128,7 +174,7 @@ export default function MaintenancePage() {
         title="Maintenance Logs"
         description="Schedule, track, and review vehicle diagnostic sessions and repairs"
         actions={
-          <button onClick={() => setIsCreateOpen(true)} className="btn btn-primary">
+          <button onClick={() => { console.log('[Book Session Button] Clicked to open modal'); setIsCreateOpen(true); }} className="btn btn-primary">
             <Plus size={14} /> Book Session
           </button>
         }
@@ -184,6 +230,18 @@ export default function MaintenancePage() {
         <form onSubmit={handleCreate} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
+              <label className="form-label">Available Vehicle</label>
+              <select name="vehicle_id" value={formData.vehicle_id} onChange={handleChange} required className="input-field">
+                {vehicles.length === 0 ? (
+                  <option value="">No vehicles available</option>
+                ) : (
+                  vehicles.map(v => (
+                    <option key={v.id} value={v.id}>{v.plate_number} ({v.make} {v.model})</option>
+                  ))
+                )}
+              </select>
+            </div>
+            <div className="form-group">
               <label className="form-label">Service Type</label>
               <select name="type" value={formData.type} onChange={handleChange} className="input-field">
                 <option value="Preventative Maintenance">Preventative Maintenance</option>
@@ -193,20 +251,20 @@ export default function MaintenancePage() {
                 <option value="Oil Change">Oil Change</option>
               </select>
             </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">Scheduled Date</label>
               <input name="scheduled_date" type="date" value={formData.scheduled_date} onChange={handleChange} required className="input-field" />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
             <div className="form-group">
               <label className="form-label">Service Center</label>
               <input name="service_center" value={formData.service_center} onChange={handleChange} required placeholder="Tata Authorized Station" className="input-field" />
             </div>
-            <div className="form-group">
-              <label className="form-label">Estimated Cost (₹)</label>
-              <input name="cost" type="number" value={formData.cost} onChange={handleChange} required placeholder="4500" className="input-field" />
-            </div>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Estimated Cost (₹)</label>
+            <input name="cost" type="number" value={formData.cost} onChange={handleChange} required placeholder="4500" className="input-field" />
           </div>
           <div className="form-group">
             <label className="form-label">Notes / Details</label>

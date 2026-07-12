@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   Truck, Compass, TrendingUp, AlertTriangle, UserCheck,
-  Plus, FileText, CheckCircle, MapPin, Activity, CloudRain, CloudSun, ChevronRight,
+  Plus, FileText, CheckCircle, MapPin, Activity, CloudRain, CloudSun, ChevronRight, RefreshCw
 } from 'lucide-react';
 import {
   AreaChart, Area, BarChart, Bar,
@@ -15,9 +15,11 @@ import StatCard  from '../../components/StatCard';
 import ChartCard from '../../components/ChartCard';
 import Modal     from '../../components/Modal';
 import FormFooter from '../../components/ui/FormFooter';
+import apiClient from '../../services/apiClient';
 
 import { useDashboard } from '../../modules/dashboard/hooks/useDashboard';
 import { driverService } from '../../modules/drivers/services/driverService';
+import { tripService } from '../../modules/trips/services/tripService';
 import { Driver } from '@transitops/types';
 
 const CHART_STYLE = {
@@ -27,7 +29,7 @@ const CHART_STYLE = {
   sz:      11,
 };
 
-const financialData = [
+const fallbackFinancialData = [
   { month: 'Jan', revenue: 4500000, expenses: 3100000 },
   { month: 'Feb', revenue: 5200000, expenses: 3400000 },
   { month: 'Mar', revenue: 6100000, expenses: 3800000 },
@@ -36,7 +38,7 @@ const financialData = [
   { month: 'Jun', revenue: 7500000, expenses: 4500000 },
 ];
 
-const fuelData = [
+const fallbackFuelData = [
   { day: 'Mon', liters: 4520 },
   { day: 'Tue', liters: 4890 },
   { day: 'Wed', liters: 5120 },
@@ -44,11 +46,6 @@ const fuelData = [
   { day: 'Fri', liters: 5280 },
   { day: 'Sat', liters: 3120 },
   { day: 'Sun', liters: 2450 },
-];
-
-const upcomingServices = [
-  { id: 'm1', vehicle: 'MH-12-Q-4521', type: 'Brake Disc Inspection', date: 'Jul 15', cost: '₹12,500' },
-  { id: 'm2', vehicle: 'DL-01-A-8962', type: 'Differential Oil Flush', date: 'Jul 18', cost: '₹8,400' },
 ];
 
 const corridorNodes = [
@@ -69,67 +66,159 @@ function getTimeAgo(dateStr: string) {
 }
 
 export default function DashboardPage() {
-  const { stats, isLoading, logActivity } = useDashboard();
+  const { stats, trends, fuelTrends, isLoading, refresh, logActivity } = useDashboard();
   const [isDispatchOpen,   setIsDispatchOpen]   = useState(false);
   const [availableDrivers, setAvailableDrivers] = useState<Driver[]>([]);
+  const [availableVehicles, setAvailableVehicles] = useState<any[]>([]);
   const [submitting,       setSubmitting]        = useState(false);
+  const [trendRange,       setTrendRange]        = useState<'daily' | 'weekly' | 'monthly'>('monthly');
+
   const [dispatchForm,     setDispatchForm]      = useState({
-    origin: 'Mumbai Depot', destination: 'Delhi Hub',
-    driver_id: '', vehicle_plate: 'MH-12-Q-4521', start_odometer: '125400',
+    origin: 'Mumbai Depot',
+    destination: 'Delhi Hub',
+    driver_id: '',
+    vehicle_id: '',
+    start_odometer: '0',
+    cargo: 'General Cargo',
+    customer: 'Standard Logistical Corp',
+    notes: 'Operational dispatch auto-generated'
   });
 
-  const loadDrivers = useCallback(async () => {
+  const loadResources = useCallback(async () => {
     try {
-      const res = await driverService.getAll({ availability: 'available', limit: 100 });
-      setAvailableDrivers(res.data);
-      if (res.data.length > 0) setDispatchForm((p) => ({ ...p, driver_id: res.data[0].id }));
-    } catch { /* silent */ }
+      const [driversRes, vehiclesRes] = await Promise.all([
+        driverService.getAll({ availability: 'available', limit: 100 }),
+        apiClient.get('/fleet/available')
+      ]);
+      
+      const drivers = driversRes.data || [];
+      const vehicles = vehiclesRes.data?.data || [];
+      
+      setAvailableDrivers(drivers);
+      setAvailableVehicles(vehicles);
+
+      setDispatchForm((p) => ({
+        ...p,
+        driver_id: drivers[0]?.id || '',
+        vehicle_id: vehicles[0]?.id || '',
+        start_odometer: String(vehicles[0]?.odometer || 0)
+      }));
+    } catch (e) {
+      console.error('Failed to load dispatch resources', e);
+    }
   }, []);
 
-  useEffect(() => { if (isDispatchOpen) loadDrivers(); }, [isDispatchOpen, loadDrivers]);
+  useEffect(() => {
+    if (isDispatchOpen) {
+      loadResources();
+    }
+  }, [isDispatchOpen, loadResources]);
 
   const handleDispatchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setDispatchForm((p) => ({ ...p, [name]: value }));
+    setDispatchForm((p) => {
+      const updated = { ...p, [name]: value };
+      if (name === 'vehicle_id') {
+        const matched = availableVehicles.find((v) => v.id === value);
+        if (matched) {
+          updated.start_odometer = String(matched.odometer || 0);
+        }
+      }
+      return updated;
+    });
   };
 
   const handleDispatch = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('[New Dispatch] Submit button clicked');
+    console.log('[New Dispatch] Form Validation started');
+    if (!dispatchForm.origin || !dispatchForm.destination || !dispatchForm.vehicle_id || !dispatchForm.driver_id) {
+      console.warn('[New Dispatch] Validation failed: missing origin, destination, vehicle, or driver');
+      alert('Please fill out all required fields');
+      return;
+    }
+    console.log('[New Dispatch] Validation passed');
     setSubmitting(true);
     try {
       const drv = availableDrivers.find((d) => d.id === dispatchForm.driver_id);
-      const name = drv ? `${drv.first_name} ${drv.last_name}` : 'Unknown';
-      await logActivity('TRIP_DISPATCHED', `Route: ${dispatchForm.origin} → ${dispatchForm.destination} | Vehicle: ${dispatchForm.vehicle_plate} | Driver: ${name}`);
+      const veh = availableVehicles.find((v) => v.id === dispatchForm.vehicle_id);
+
+      const payload = {
+        vehicle_id: dispatchForm.vehicle_id,
+        driver_id: dispatchForm.driver_id,
+        origin: dispatchForm.origin,
+        destination: dispatchForm.destination,
+        start_odometer: Number(dispatchForm.start_odometer),
+        cargo: dispatchForm.cargo,
+        customer: dispatchForm.customer,
+        notes: dispatchForm.notes,
+        start_time: new Date().toISOString()
+      };
+
+      console.log('[New Dispatch] API function called with payload:', payload);
+      const res = await tripService.create(payload);
+      console.log('[New Dispatch] Response received:', res);
+
+      const drvName = drv ? `${drv.first_name} ${drv.last_name}` : 'Unknown';
+      const vehPlate = veh ? veh.plate_number : 'Unknown';
+
+      console.log('[New Dispatch] Activity log started');
+      await logActivity(
+        'TRIP_DISPATCHED',
+        `Dispatched ${vehPlate} to ${dispatchForm.destination} with driver ${drvName}`
+      );
+      console.log('[New Dispatch] Success handler finished');
+      
       setIsDispatchOpen(false);
-    } catch { /* silent */ }
-    finally { setSubmitting(false); }
+      refresh();
+    } catch (err: any) {
+      console.error('[New Dispatch] Error handler triggered:', err);
+      alert(err?.response?.data?.message || 'Failed to dispatch trip');
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  // Process real chart data or fallback
+  const processedFinancialData = trends && trends.length > 0
+    ? trends.map((t: any) => ({
+        month: new Date(t.period).toLocaleDateString('en-US', { month: 'short' }),
+        revenue: (parseFloat(t.total_distance) || 0) * 45, // proxy revenue based on distance
+        expenses: (parseFloat(t.maintenance_cost) || 0) + (parseFloat(t.fuel_cost) || 0)
+      }))
+    : fallbackFinancialData;
+
+  const processedFuelData = fuelTrends && fuelTrends.length > 0
+    ? fuelTrends.map((t: any) => ({
+        day: new Date(t.month).toLocaleDateString('en-US', { month: 'short' }),
+        liters: parseFloat(t.quantity) || 0
+      }))
+    : fallbackFuelData;
 
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="section-header">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="page-title">Operations Control</h1>
-          <p className="page-subtitle">VRL Logistics India — Regional Dispatch Dashboard</p>
+          <p className="page-subtitle">TransitOps Regional Dispatch Dashboard</p>
         </div>
         <div className="flex items-center gap-2">
-          <button onClick={() => setIsDispatchOpen(true)} className="btn btn-primary btn-sm">
-            <Plus size={13} /> New Dispatch
+          <button onClick={() => { console.log('[Refresh Button] Clicked'); refresh(); }} className="btn btn-secondary btn-sm flex items-center gap-1">
+            <RefreshCw size={13} className={isLoading ? 'animate-spin' : ''} /> Refresh
           </button>
-          <button onClick={() => alert('Exporting logs…')} className="btn btn-secondary btn-sm">
-            <FileText size={13} /> Export Logs
+          <button onClick={() => { console.log('[New Dispatch Button] Clicked to open modal'); setIsDispatchOpen(true); }} className="btn btn-primary btn-sm flex items-center gap-1">
+            <Plus size={13} /> New Dispatch
           </button>
         </div>
       </div>
 
-      {/* Status widgets */}
+      {/* Weather / Gateways row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
           { icon: CloudRain, bg: 'bg-blue-500/10', color: 'text-accent-blue-soft',  label: 'MUMBAI TERMINAL', value: '31°C · Monsoon Rains', anim: true },
           { icon: CloudSun,  bg: 'bg-amber-500/10', color: 'text-accent-amber-soft', label: 'DELHI TRANSIT HUB', value: '38°C · Overcast haze', anim: false },
-          null, // colspan placeholder
-        ].filter(Boolean).map((w: any, i) => (
+        ].map((w: any, i) => (
           <div key={i} className="card p-4 flex items-center gap-3">
             <div className={`p-2.5 rounded-xl ${w.bg}`}>
               <w.icon size={18} className={`${w.color} ${w.anim ? 'animate-bounce-sm' : ''}`} />
@@ -146,18 +235,63 @@ export default function DashboardPage() {
           </div>
           <div>
             <p className="label-xs">SYSTEM STATUS</p>
-            <p className="text-xs font-semibold text-text-primary">All gateways operational · 0 latencies</p>
+            <p className="text-xs font-semibold text-text-primary">All gateways operational · 0 latency anomalies</p>
           </div>
         </div>
       </div>
 
-      {/* KPI row */}
+      {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <StatCard title="Active Vehicles" value={isLoading ? '…' : `${stats?.active_vehicles ?? 0} / ${stats?.total_vehicles ?? 0}`} change={`${stats?.total_vehicles ?? 0} registered`} changeType="positive" icon={Truck}     iconColor="text-accent-blue-soft"   iconBg="bg-blue-500/10"   sparklineData={[38,39,40,38,41,42,42]} />
-        <StatCard title="Trips Tracked"   value={isLoading ? '…' : String(stats?.total_trips ?? 0)}                                  change={`${stats?.active_trips ?? 0} active`}       changeType="neutral"  icon={Compass}   iconColor="text-accent-purple-soft" iconBg="bg-purple-500/10" sparklineData={[15,18,16,20,19,17,18]} />
-        <StatCard title="Total Users"     value={isLoading ? '…' : String(stats?.total_users ?? 0)}                                  change={`${stats?.total_roles ?? 0} roles`}          changeType="positive" icon={TrendingUp} iconColor="text-accent-green-soft"  iconBg="bg-green-500/10"  sparklineData={[80,81,83,82,83,84,84]} />
-        <StatCard title="Upcoming Service" value={isLoading ? '…' : String(stats?.upcoming_maintenance ?? 0)}                        change="Brakes & Oil"                                changeType="negative" icon={AlertTriangle} iconColor="text-accent-red-soft"  iconBg="bg-red-500/10"    sparklineData={[5,4,3,4,2,3,3]} />
-        <StatCard title="Drivers Available" value={isLoading ? '…' : `${stats?.available_drivers ?? 0} / ${stats?.total_drivers ?? 0}`} change={`${stats?.drivers_on_leave ?? 0} on leave`} changeType="neutral" icon={UserCheck} iconColor="text-accent-amber-soft"  iconBg="bg-amber-500/10"  sparklineData={[35,36,35,37,36,38,38]} />
+        <StatCard
+          title="Active Vehicles"
+          value={isLoading ? '…' : `${stats?.active_vehicles ?? 0} / ${stats?.total_vehicles ?? 0}`}
+          change={`${stats?.total_vehicles ?? 0} registered`}
+          changeType="positive"
+          icon={Truck}
+          iconColor="text-accent-blue-soft"
+          iconBg="bg-blue-500/10"
+          sparklineData={[38, 39, 40, 38, 41, 42, 42]}
+        />
+        <StatCard
+          title="Trips Tracked"
+          value={isLoading ? '…' : String(stats?.total_trips ?? 0)}
+          change={`${stats?.active_trips ?? 0} active`}
+          changeType="neutral"
+          icon={Compass}
+          iconColor="text-accent-purple-soft"
+          iconBg="bg-purple-500/10"
+          sparklineData={[15, 18, 16, 20, 19, 17, 18]}
+        />
+        <StatCard
+          title="Total Users"
+          value={isLoading ? '…' : String(stats?.total_users ?? 0)}
+          change={`${stats?.total_roles ?? 0} roles`}
+          changeType="positive"
+          icon={TrendingUp}
+          iconColor="text-accent-green-soft"
+          iconBg="bg-green-500/10"
+          sparklineData={[80, 81, 83, 82, 83, 84, 84]}
+        />
+        <StatCard
+          title="Upcoming Service"
+          value={isLoading ? '…' : String(stats?.upcoming_maintenance ?? 0)}
+          change="Brakes & Oil"
+          changeType="negative"
+          icon={AlertTriangle}
+          iconColor="text-accent-red-soft"
+          iconBg="bg-red-500/10"
+          sparklineData={[5, 4, 3, 4, 2, 3, 3]}
+        />
+        <StatCard
+          title="Drivers Available"
+          value={isLoading ? '…' : `${stats?.available_drivers ?? 0} / ${stats?.total_drivers ?? 0}`}
+          change={`${stats?.drivers_on_leave ?? 0} on leave`}
+          changeType="neutral"
+          icon={UserCheck}
+          iconColor="text-accent-amber-soft"
+          iconBg="bg-amber-500/10"
+          sparklineData={[35, 36, 35, 37, 36, 38, 38]}
+        />
       </div>
 
       {/* Map + Activity feed */}
@@ -174,16 +308,13 @@ export default function DashboardPage() {
             </span>
           </div>
           <div className="flex-1 rounded-xl border border-brand-border bg-[#070810] relative overflow-hidden">
-            {/* Dot grid */}
             <div className="absolute inset-0 opacity-[0.06] [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:18px_18px]" />
-            {/* SVG routes */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 300" fill="none" preserveAspectRatio="xMidYMid meet">
               <path d="M250,30 L180,155" stroke="#60A5FA" strokeWidth="1.5" className="route-animate" />
               <path d="M180,155 L210,228" stroke="#34D399" strokeWidth="1.5" className="route-animate" />
               <path d="M210,228 L320,102" stroke="#A78BFA" strokeWidth="1.5" className="route-animate" />
               <path d="M320,102 L250,30" stroke="#FCD34D" strokeWidth="1.5" className="route-animate" />
             </svg>
-            {/* Nodes */}
             {corridorNodes.map((node) => (
               <div key={node.label} className="absolute flex flex-col items-center" style={{ top: node.top, left: node.left, transform: 'translate(-50%,-50%)' }}>
                 <MapPin size={15} className={`${node.color} animate-bounce-sm`} />
@@ -242,7 +373,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         <ChartCard title="Revenue Operations" subtitle="Gross shipping vs operating costs (₹)" minHeight={240}>
           <ResponsiveContainer width="100%" height={240}>
-            <AreaChart data={financialData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
+            <AreaChart data={processedFinancialData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
               <defs>
                 <linearGradient id="dRev" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%"  stopColor="#A78BFA" stopOpacity={0.3} />
@@ -263,9 +394,9 @@ export default function DashboardPage() {
           </ResponsiveContainer>
         </ChartCard>
 
-        <ChartCard title="Fuel Consumption" subtitle="Volumetric litres refuelled (7-day)" minHeight={240}>
+        <ChartCard title="Fuel Consumption" subtitle="Volumetric litres refuelled (6-month)" minHeight={240}>
           <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={fuelData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
+            <BarChart data={processedFuelData} margin={{ top: 8, right: 8, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={CHART_STYLE.grid} vertical={false} />
               <XAxis dataKey="day" stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickLine={false} axisLine={false} />
               <YAxis stroke={CHART_STYLE.axis} fontSize={CHART_STYLE.sz} tickFormatter={(v) => `${v}L`} tickLine={false} axisLine={false} />
@@ -275,21 +406,26 @@ export default function DashboardPage() {
           </ResponsiveContainer>
         </ChartCard>
 
-        {/* Upcoming Service */}
-        <div className="card p-5 flex flex-col">
-          <h4 className="section-title mb-4">Upcoming Service</h4>
-          <div className="space-y-3 flex-1">
-            {upcomingServices.map((s) => (
-              <div key={s.id} className="flex items-center justify-between gap-3 p-3 card card-hover">
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold text-text-primary leading-tight">{s.type}</p>
-                  <p className="text-2xs text-text-muted mt-0.5">{s.vehicle} · {s.date}</p>
+        {/* Action Widgets */}
+        <div className="card p-5 flex flex-col justify-between">
+          <div>
+            <h4 className="section-title mb-4 font-bold">Upcoming Services</h4>
+            <div className="space-y-3">
+              {[
+                { vehicle: 'MH-12-Q-4521', type: 'Brake Disc Inspection', date: 'Jul 15', cost: '₹12,500' },
+                { vehicle: 'DL-01-A-8962', type: 'Differential Oil Flush', date: 'Jul 18', cost: '₹8,400' },
+              ].map((s, idx) => (
+                <div key={idx} className="flex items-center justify-between gap-3 p-3 card card-hover">
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-text-primary leading-tight">{s.type}</p>
+                    <p className="text-2xs text-text-muted mt-0.5">{s.vehicle} · {s.date}</p>
+                  </div>
+                  <span className="text-xs font-semibold text-accent-green-soft flex-shrink-0">{s.cost}</span>
                 </div>
-                <span className="text-xs font-semibold text-accent-green-soft flex-shrink-0">{s.cost}</span>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-          <button className="mt-4 w-full text-center text-xs text-accent-purple-mid hover:text-accent-purple-soft transition-colors flex items-center justify-center gap-1 pt-4 border-t border-brand-border">
+          <button onClick={() => alert('Accessing maintenance control...')} className="mt-4 w-full text-center text-xs text-accent-purple-mid hover:text-accent-purple-soft transition-colors flex items-center justify-center gap-1 pt-4 border-t border-brand-border">
             Schedule Service <ChevronRight size={13} />
           </button>
         </div>
@@ -320,13 +456,33 @@ export default function DashboardPage() {
               </select>
             </div>
             <div className="form-group">
-              <label className="form-label">Vehicle Plate</label>
-              <input name="vehicle_plate" value={dispatchForm.vehicle_plate} onChange={handleDispatchChange} required className="input-field font-mono" />
+              <label className="form-label">Available Vehicle</label>
+              <select name="vehicle_id" value={dispatchForm.vehicle_id} onChange={handleDispatchChange} required className="input-field">
+                {availableVehicles.length === 0
+                  ? <option value="" disabled>No available vehicles</option>
+                  : availableVehicles.map((v) => (
+                      <option key={v.id} value={v.id}>{v.plate_number} ({v.make} {v.model})</option>
+                    ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="form-group">
+              <label className="form-label">Starting Odometer (km)</label>
+              <input name="start_odometer" type="number" value={dispatchForm.start_odometer} onChange={handleDispatchChange} required className="input-field" />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Cargo Type</label>
+              <input name="cargo" value={dispatchForm.cargo} onChange={handleDispatchChange} required className="input-field" />
             </div>
           </div>
           <div className="form-group">
-            <label className="form-label">Starting Odometer (km)</label>
-            <input name="start_odometer" type="number" value={dispatchForm.start_odometer} onChange={handleDispatchChange} required className="input-field" />
+            <label className="form-label">Customer Name</label>
+            <input name="customer" value={dispatchForm.customer} onChange={handleDispatchChange} required className="input-field" />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Operational Notes</label>
+            <input name="notes" value={dispatchForm.notes} onChange={handleDispatchChange} className="input-field" />
           </div>
           <FormFooter onCancel={() => setIsDispatchOpen(false)} submitLabel="Confirm Dispatch" loading={submitting} />
         </form>

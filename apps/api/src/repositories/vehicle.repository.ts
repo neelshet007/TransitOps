@@ -19,6 +19,7 @@ export interface CreateVehicleDTO {
   year: number;
   vin: string;
   status?: string;
+  odometer?: number;
 }
 
 export interface UpdateVehicleDTO {
@@ -28,6 +29,7 @@ export interface UpdateVehicleDTO {
   year?: number;
   vin?: string;
   status?: string;
+  odometer?: number;
 }
 
 export class VehicleRepository {
@@ -78,9 +80,10 @@ export class VehicleRepository {
         model,
         year,
         vin,
-        status
+        status,
+        odometer
       )
-      VALUES ($1,$2,$3,$4,$5,$6)
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
       RETURNING *
     `;
 
@@ -91,6 +94,7 @@ export class VehicleRepository {
       data.year,
       data.vin,
       data.status ?? "active",
+      data.odometer ?? 0,
     ]);
 
     return result.rows[0];
