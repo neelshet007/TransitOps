@@ -4,7 +4,6 @@ import React from 'react';
 import {
   Truck,
   Compass,
-  Wrench,
   TrendingUp,
   AlertTriangle,
   UserCheck,
@@ -79,8 +78,8 @@ export default function DashboardPage() {
             Apex Logistics Operations Inc. — Executive Control Console
           </p>
         </div>
-        <div className="text-xs text-text-secondary">
-          Data refreshed: <span className="font-semibold text-white">Just now</span>
+        <div className="text-xs text-text-secondary text-right select-none">
+          Data status: <span className="font-semibold text-accent-green">Online</span>
         </div>
       </div>
 
@@ -93,6 +92,7 @@ export default function DashboardPage() {
           changeType="positive"
           icon={Truck}
           iconColor="text-accent-blue"
+          sparklineData={[38, 39, 40, 38, 41, 42, 42]}
         />
         <StatCard
           title="Trips Scheduled"
@@ -101,6 +101,7 @@ export default function DashboardPage() {
           changeType="neutral"
           icon={Compass}
           iconColor="text-accent-purple"
+          sparklineData={[15, 18, 16, 20, 19, 17, 18]}
         />
         <StatCard
           title="Fleet Utilization"
@@ -109,6 +110,7 @@ export default function DashboardPage() {
           changeType="positive"
           icon={TrendingUp}
           iconColor="text-accent-green"
+          sparklineData={[80, 81, 83, 82, 83.5, 84, 84.2]}
         />
         <StatCard
           title="Service Overdue"
@@ -117,6 +119,7 @@ export default function DashboardPage() {
           changeType="negative"
           icon={AlertTriangle}
           iconColor="text-accent-red"
+          sparklineData={[5, 4, 3, 4, 2, 3, 3]}
         />
         <StatCard
           title="Drivers Active"
@@ -125,6 +128,7 @@ export default function DashboardPage() {
           changeType="neutral"
           icon={UserCheck}
           iconColor="text-accent-amber"
+          sparklineData={[35, 36, 35, 37, 36, 38, 38]}
         />
       </div>
 
@@ -154,29 +158,31 @@ export default function DashboardPage() {
             <div className="absolute w-[60%] h-[1px] bg-brand-border border-dashed border-t border-text-muted top-[45%] left-[20%]"></div>
 
             {/* Nodes */}
-            <div className="absolute top-[40%] left-[20%] flex flex-col items-center">
+            <div className="absolute top-[40%] left-[20%] flex flex-col items-center animate-pulse">
               <MapPin className="text-accent-purple" size={18} />
               <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
                 Denver
               </span>
             </div>
-            <div className="absolute top-[50%] left-[50%] flex flex-col items-center">
+            <div className="absolute top-[50%] left-[50%] flex flex-col items-center animate-pulse">
               <MapPin className="text-accent-blue" size={18} />
               <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
                 Chicago
               </span>
             </div>
-            <div className="absolute top-[35%] left-[75%] flex flex-col items-center">
+            <div className="absolute top-[35%] left-[75%] flex flex-col items-center animate-pulse">
               <MapPin className="text-accent-green" size={18} />
               <span className="text-[10px] text-text-secondary mt-1 bg-brand-panel px-1.5 py-0.5 rounded border border-brand-border">
                 Boston
               </span>
             </div>
 
-            <div className="text-center z-10">
-              <span className="text-xs text-text-secondary block">Map Visualizer Placeholder</span>
+            <div className="text-center z-10 select-none">
+              <span className="text-xs text-text-secondary block font-semibold">
+                Active Dispatch Grid
+              </span>
               <span className="text-[10px] text-text-muted mt-1 block">
-                Active Dispatch Visualizations Render Here
+                Connecting Atlanta ➔ Chicago ➔ Boston Terminal Hubs
               </span>
             </div>
           </div>

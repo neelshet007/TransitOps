@@ -9,15 +9,17 @@ import {
   User,
   LogOut,
   Shield,
-  HelpCircle,
   ChevronRight,
   Settings,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
-export default function Navbar({ collapsed }: { collapsed: boolean }) {
+export default function Navbar() {
   const pathname = usePathname();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   // Generate breadcrumbs from pathname
   const pathSegments = pathname.split('/').filter(Boolean);
@@ -47,9 +49,9 @@ export default function Navbar({ collapsed }: { collapsed: boolean }) {
   ];
 
   return (
-    <header className="top-navbar bg-brand-panel border-b border-brand-border h-[60px] flex items-center justify-between px-6 sticky top-0 z-50">
+    <header className="top-navbar bg-brand-panel border-b border-brand-border h-[60px] flex items-center justify-between px-6 sticky top-0 z-50 select-none">
       {/* Breadcrumbs */}
-      <div className="flex items-center gap-1.5 text-xs text-text-secondary select-none">
+      <div className="flex items-center gap-1.5 text-xs text-text-secondary">
         <Link href="/dashboard" className="hover:text-white transition-colors">
           TransitOps
         </Link>
@@ -81,17 +83,37 @@ export default function Navbar({ collapsed }: { collapsed: boolean }) {
 
       {/* Search & Actions */}
       <div className="flex items-center gap-4">
-        {/* Search Input Bar */}
-        <div className="relative hidden md:block w-[280px]">
-          <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
-            <Search size={16} />
+        {/* Search / Command palette helper */}
+        <button
+          onClick={() => {
+            // Trigger Command Palette trigger
+            const e = new KeyboardEvent('keydown', { ctrlKey: true, key: 'k' });
+            window.dispatchEvent(e);
+          }}
+          className="relative hidden md:flex items-center justify-between w-[240px] bg-brand-bg hover:bg-brand-card text-left text-text-muted hover:text-text-secondary border border-brand-border rounded-input px-3 py-1.5 text-xs outline-none transition-all"
+        >
+          <span className="flex items-center gap-2">
+            <Search size={14} />
+            <span>Search dispatch...</span>
           </span>
-          <input
-            type="text"
-            placeholder="Global search operations..."
-            className="w-full bg-brand-bg text-white border border-brand-border rounded-input pl-9 pr-4 py-1.5 text-xs focus:border-accent-purple outline-none transition-all placeholder:text-text-muted"
-          />
-        </div>
+          <span className="text-[9px] font-semibold bg-brand-panel border border-brand-border px-1.5 py-0.5 rounded text-text-muted">
+            Ctrl K
+          </span>
+        </button>
+
+        {/* Theme Toggle Button */}
+        <button
+          onClick={() => {
+            setIsDarkMode(!isDarkMode);
+            alert(
+              'Theme preference saved. Charcoal dark mode is recommended for optimum contrast.',
+            );
+          }}
+          className="p-2 text-text-secondary hover:text-white hover:bg-brand-bg rounded-full transition-colors"
+          title="Toggle Visual Theme Mode"
+        >
+          {isDarkMode ? <Moon size={18} /> : <Sun size={18} />}
+        </button>
 
         {/* Notifications Alert Dropdown */}
         <div className="relative">

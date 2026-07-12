@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { BarChart3, LineChart, PieChart, TrendingUp } from 'lucide-react';
+import { BarChart3, LineChart } from 'lucide-react';
 import ChartCard from '../../components/ChartCard';
 
 export default function AnalyticsPage() {
