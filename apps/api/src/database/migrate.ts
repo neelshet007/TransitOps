@@ -34,6 +34,26 @@ async function migrate() {
     const viewsSql = fs.readFileSync(viewsPath, 'utf8');
     await client.query(viewsSql);
 
+    // Create migration tracking table if not exists
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS migration_history (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL,
+        applied_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL
+      );
+    `);
+
+    // Pre-populate migration_history for existing schemas to avoid rerun conflicts
+    await client.query(`
+      INSERT INTO migration_history (name)
+      VALUES ('001_initial_schema.sql'), ('002_drivers_extended.sql')
+      ON CONFLICT (name) DO NOTHING
+    `);
+
+    // Fetch applied migrations
+    const appliedResult = await client.query('SELECT name FROM migration_history');
+    const appliedMigrations = new Set(appliedResult.rows.map((r: { name: string }) => r.name));
+
     // Run incremental migration files in alphabetical order
     if (fs.existsSync(migrationsDir)) {
       const migrationFiles = fs
@@ -42,9 +62,17 @@ async function migrate() {
         .sort();
 
       for (const file of migrationFiles) {
+        if (appliedMigrations.has(file)) {
+          logger.info(`Migration already applied: ${file}`);
+          continue;
+        }
+
         logger.info(`Applying migration: ${file}`);
         const migrationSql = fs.readFileSync(path.join(migrationsDir, file), 'utf8');
         await client.query(migrationSql);
+        
+        // Record migration as applied
+        await client.query('INSERT INTO migration_history (name) VALUES ($1)', [file]);
       }
     }
 
